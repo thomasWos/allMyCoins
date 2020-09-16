@@ -1,0 +1,14 @@
+package com.allmycoins.json.elrond;
+
+import lombok.Getter;
+
+@Getter
+public final class ElrondBalanceRequestJson {
+
+	// {"data":{"balance":"5743955479452054794"},"error":"","code":"successful"}
+
+	public ElrondAddressBalanceJson data;
+	public String error;
+	public String code;
+
+}
