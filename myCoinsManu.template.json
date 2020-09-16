@@ -1,0 +1,4 @@
+[
+  { "asset": "ETH", "qty": 32, "src": "Defi" },
+  { "asset": "BTC", "qty": 1, "src": "Earn" }
+]
