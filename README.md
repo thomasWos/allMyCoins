@@ -1,0 +1,2 @@
+# AllMyCoins
+Crypto portfolio manager
