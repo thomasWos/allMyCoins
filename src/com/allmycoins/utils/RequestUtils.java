@@ -21,6 +21,10 @@ public final class RequestUtils {
 	private static final Logger LOGGER = Logger.getLogger(RequestUtils.class.getName());
 
 	private static final int TOO_MANY_REQUESTS = 429;
+	
+	public static final String CONTENT_TYPE = "Content-Type";
+	public static final String APP_JSON = "application/json";
+	public static final Map<String, String> DEFAULT_JSON_HEADER = Map.of(CONTENT_TYPE,APP_JSON);
 
 	public static String buildParameters(Map<String, String> parametersMap) {
 		return parametersMap.entrySet().stream().map(e -> e.getKey() + "=" + e.getValue())

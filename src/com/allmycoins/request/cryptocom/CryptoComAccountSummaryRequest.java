@@ -1,11 +1,14 @@
 package com.allmycoins.request.cryptocom;
 
+import static com.allmycoins.utils.RequestUtils.DEFAULT_JSON_HEADER;
+
 import java.util.Map;
 import java.util.Random;
 
 import com.allmycoins.json.cryptocom.CryptoComAccountSummaryJson;
 import com.allmycoins.request.PostRequest;
 import com.allmycoins.utils.JacksonUtils;
+import com.allmycoins.utils.RequestUtils;
 import com.allmycoins.utils.SignUtils;
 import com.allmycoins.utils.SignatureAlgo;
 
@@ -44,7 +47,7 @@ public final class CryptoComAccountSummaryRequest implements PostRequest<CryptoC
 
 	@Override
 	public Map<String, String> headers() {
-		return Map.of("Content-Type", "application/json");
+		return DEFAULT_JSON_HEADER;
 	}
 
 	@Override
