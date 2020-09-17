@@ -21,7 +21,6 @@ public final class CoingeckoMarketsRequest implements GetRequest<CoingeckoMarket
 
 	@Override
 	public Map<String, String> headers() {
-		// return Map.of("accept", "application/json");
 		return Collections.emptyMap();
 	}
 

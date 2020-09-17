@@ -4,7 +4,7 @@
   <artifactId>AllMyCoins</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   
-     <properties>
+    <properties>
         <jackson.version>2.11.0</jackson.version>
         <lombok.version>1.18.12</lombok.version>
     </properties>
