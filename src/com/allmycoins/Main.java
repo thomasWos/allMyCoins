@@ -59,10 +59,10 @@ public class Main {
 		List<BalanceJson> elrondBalance = new ElrondProvider().balances();
 
 		// OKEX
-		List<BalanceJson> okexSpotBalances = new OkexProvider().balances();
+		List<BalanceJson> okexBalances = new OkexProvider().balances();
 
 		// Swyftx
-		List<BalanceJson> swyftxSpotBalances = new SwyftxProvider().balances();
+		List<BalanceJson> swyftxBalances = new SwyftxProvider().balances();
 
 		List<BalanceJson> allMyCoins = new ArrayList<>();
 		allMyCoins.addAll(binanceBalances);
@@ -70,8 +70,8 @@ public class Main {
 		allMyCoins.addAll(coinspotBalances);
 		allMyCoins.addAll(cryptoComBalances);
 		allMyCoins.addAll(elrondBalance);
-		allMyCoins.addAll(okexSpotBalances);
-		allMyCoins.addAll(swyftxSpotBalances);
+		allMyCoins.addAll(okexBalances);
+		allMyCoins.addAll(swyftxBalances);
 
 		File file = new File("myCoinsManu.json");
 		if (file.exists()) {
