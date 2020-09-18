@@ -1,12 +1,12 @@
 #!/bin/bash
 
 DEPLOY_DIR=deployDir
-DEPLOYED_JAR=$DEPLOY_DIR/AllMyCoins.jar
-START_SCRIPT=AllMyCoins
+DEPLOYED_JAR=$DEPLOY_DIR/allmycoins.jar
+START_SCRIPT=allMyCoins
 DEPLOYED_START_SCRIPT=$DEPLOY_DIR/$START_SCRIPT
 
 # Setup
-mkdir deployDir
+mkdir $DEPLOY_DIR
 
 #Cleaning
 rm $DEPLOYED_JAR
@@ -16,5 +16,6 @@ rm $DEPLOYED_START_SCRIPT
 mvn clean install
 
 # Deploy
-cp target/AllMyCoins*.jar $DEPLOYED_JAR
+cp target/allMyCoins*.jar $DEPLOYED_JAR
 cp $START_SCRIPT $DEPLOYED_START_SCRIPT
+chmod a+x $DEPLOYED_START_SCRIPT
