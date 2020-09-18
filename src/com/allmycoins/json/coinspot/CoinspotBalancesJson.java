@@ -17,7 +17,7 @@ public final class CoinspotBalancesJson {
 //		  ]
 //		}
 
-	public String status;
-	public List<Map<String, CoinspotBalanceJson>> balances;
+	private String status;
+	private List<Map<String, CoinspotBalanceJson>> balances;
 
 }

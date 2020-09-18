@@ -7,8 +7,8 @@ import lombok.Getter;
 @Getter
 public final class EtherscanBalanceJson {
 
-	public int status;
-	public String message;
-	public BigDecimal result;
+	private int status;
+	private String message;
+	private BigDecimal result;
 
 }

@@ -68,30 +68,30 @@ public final class CoingeckoMarketJson {
 //	  },
 //    ....
 
-	public String id;
-	public String symbol;
-	public String name;
-	public String image;
-	public float current_price;
-	public long market_cap;
-	public int market_cap_rank;
-	public long fully_diluted_valuation;
-	public long total_volume;
-	public float high_24h;
-	public float low_24h;
-	public float price_change_24h;
-	public float price_change_percentage_24h;
-	public float market_cap_change_24h;
-	public float market_cap_change_percentage_24h;
-	public long circulating_supply;
-	public long total_supply;
-	public long max_supply;
-	public float ath;
-	public float ath_change_percentage;
-	public String ath_date;
-	public float atl;
-	public float atl_change_percentage;
-	public String atl_date;
-	public Object roi;
-	public String last_updated;
+	private String id;
+	private String symbol;
+	private String name;
+	private String image;
+	private float current_price;
+	private long market_cap;
+	private int market_cap_rank;
+	private long fully_diluted_valuation;
+	private long total_volume;
+	private float high_24h;
+	private float low_24h;
+	private float price_change_24h;
+	private float price_change_percentage_24h;
+	private float market_cap_change_24h;
+	private float market_cap_change_percentage_24h;
+	private long circulating_supply;
+	private long total_supply;
+	private long max_supply;
+	private float ath;
+	private float ath_change_percentage;
+	private String ath_date;
+	private float atl;
+	private float atl_change_percentage;
+	private String atl_date;
+	private Object roi;
+	private String last_updated;
 }

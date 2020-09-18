@@ -22,9 +22,9 @@ public final class CryptoComAccountSummaryJson {
 //	    }
 //	}
 
-	public long id;
-	public String method;
-	public int code;
-	public CryptoComResultJson result;
+	private long id;
+	private String method;
+	private int code;
+	private CryptoComResultJson result;
 
 }

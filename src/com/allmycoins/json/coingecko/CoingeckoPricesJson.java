@@ -10,7 +10,7 @@ import lombok.Getter;
 @Getter
 public final class CoingeckoPricesJson {
 
-	public Map<String, CoingeckoSimplePriceJson> prices = new HashMap<>();
+	private Map<String, CoingeckoSimplePriceJson> prices = new HashMap<>();
 
 	@JsonAnySetter
 	public void setPrice(String name, CoingeckoSimplePriceJson coingeckoSimplePriceJson) {

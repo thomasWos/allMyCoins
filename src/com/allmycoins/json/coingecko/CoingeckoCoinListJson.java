@@ -5,8 +5,8 @@ import lombok.Getter;
 @Getter
 public final class CoingeckoCoinListJson {
 
-	public String id;
-	public String symbol;
-	public String name;
+	private String id;
+	private String symbol;
+	private String name;
 
 }

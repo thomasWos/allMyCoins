@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 public final class ElrondDelegationJson {
 
-	public BigDecimal claimableRewards;
-	public BigDecimal userStake;
+	private BigDecimal claimableRewards;
+	private BigDecimal userStake;
 
 }

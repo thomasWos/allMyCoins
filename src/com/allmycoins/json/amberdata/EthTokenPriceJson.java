@@ -11,6 +11,6 @@ public final class EthTokenPriceJson {
 //  "total": "0.000000000000000000000000000000000000000000000"
 //  }
 
-	public EthTokenAmountJson amount;
+	private EthTokenAmountJson amount;
 
 }

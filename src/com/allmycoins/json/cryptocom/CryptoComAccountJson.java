@@ -11,10 +11,10 @@ public final class CryptoComAccountJson {
 //  "stake": 0,
 //  "currency": "CRO"
 
-	public float balance;
-	public float available;
-	public float order;
-	public float stake;
-	public String currency;
+	private float balance;
+	private float available;
+	private float order;
+	private float stake;
+	private String currency;
 
 }

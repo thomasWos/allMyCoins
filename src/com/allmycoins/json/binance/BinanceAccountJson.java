@@ -34,16 +34,16 @@ public final class BinanceAccountJson {
 //	  ]
 //	}
 
-	public int makerCommission;
-	public int takerCommission;
-	public int buyerCommission;
-	public int sellerCommission;
-	public boolean canTrade;
-	public boolean canWithdraw;
-	public boolean canDeposit;
-	public long updateTime;
-	public String accountType;
-	public List<BinanceBalanceJson> balances;
-	public List<String> permissions;
+	private int makerCommission;
+	private int takerCommission;
+	private int buyerCommission;
+	private int sellerCommission;
+	private boolean canTrade;
+	private boolean canWithdraw;
+	private boolean canDeposit;
+	private long updateTime;
+	private String accountType;
+	private List<BinanceBalanceJson> balances;
+	private List<String> permissions;
 
 }

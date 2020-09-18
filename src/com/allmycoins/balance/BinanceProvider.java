@@ -26,7 +26,6 @@ public final class BinanceProvider implements BalanceProvider {
 			BinanceAccountJson accountJson = RequestUtils
 					.sendRequest(new BinanceAccountRequest(binanceApiKey, binanceSecretKey));
 			return BuildBinanceBalances.build(accountJson);
-
 		}
 
 		return Collections.emptyList();

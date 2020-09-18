@@ -5,8 +5,8 @@ import lombok.Getter;
 @Getter
 public final class BalanceManuJson {
 
-	public String asset;
-	public float qty;
-	public String src;
+	private String asset;
+	private float qty;
+	private String src;
 
 }

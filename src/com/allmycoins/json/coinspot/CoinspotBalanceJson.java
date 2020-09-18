@@ -7,8 +7,8 @@ public final class CoinspotBalanceJson {
 
 	// { "balance": 15.74093531, "audbalance": 1086.76, "rate": 69.04 }
 
-	public float balance;
-	public float audbalance;
-	public float rate;
+	private float balance;
+	private float audbalance;
+	private float rate;
 
 }

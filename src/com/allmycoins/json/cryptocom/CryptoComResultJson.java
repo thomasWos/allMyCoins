@@ -17,6 +17,6 @@ public final class CryptoComResultJson {
 //    }
 //	]
 
-	public List<CryptoComAccountJson> accounts;
+	private List<CryptoComAccountJson> accounts;
 
 }

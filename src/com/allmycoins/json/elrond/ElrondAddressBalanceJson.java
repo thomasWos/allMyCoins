@@ -7,6 +7,6 @@ import lombok.Getter;
 @Getter
 public final class ElrondAddressBalanceJson {
 
-	public BigDecimal balance;
+	private BigDecimal balance;
 
 }

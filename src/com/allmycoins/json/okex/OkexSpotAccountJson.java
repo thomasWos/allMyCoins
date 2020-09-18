@@ -5,12 +5,12 @@ import lombok.Getter;
 @Getter
 public final class OkexSpotAccountJson {
 
-	public float frozen;
-	public float hold;
-	public String id;
-	public String currency;
-	public float balance;
-	public float available;
-	public float holds;
+	private float frozen;
+	private float hold;
+	private String id;
+	private String currency;
+	private float balance;
+	private float available;
+	private float holds;
 
 }

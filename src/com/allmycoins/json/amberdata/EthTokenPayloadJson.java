@@ -43,7 +43,7 @@ public final class EthTokenPayloadJson {
 //],
 //"totalRecords": "82"
 
-	public List<EthTokenRecordJson> records;
-	public int totalRecords;
+	private List<EthTokenRecordJson> records;
+	private int totalRecords;
 
 }

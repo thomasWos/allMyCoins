@@ -11,9 +11,9 @@ public final class BinanceBalanceJson {
 //    "locked": "0.00000000"
 //  }
 
-	public String asset;
-	public float free;
-	public float locked;
+	private String asset;
+	private float free;
+	private float locked;
 
 	public boolean isPositive() {
 		return free > 0;

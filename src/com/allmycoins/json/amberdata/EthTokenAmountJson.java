@@ -9,8 +9,8 @@ public final class EthTokenAmountJson {
 //  "quote": "233.901383764",
 //  "total": "0.000000000000000000000000000000000000000000000"
 
-	public String currency;
-	public float quote;
-	public float total;
+	private String currency;
+	private float quote;
+	private float total;
 
 }

@@ -28,19 +28,19 @@ public final class EthTokenRecordJson {
 //       }
 //  }
 
-	public String address;
-	public String holder;
-	public BigDecimal amount;
-	public int decimals;
-	public String name;
-	public String symbol;
-	public boolean isERC20;
-	public boolean isERC721;
-	public boolean isERC777;
-	public boolean isERC884;
-	public boolean isERC998;
+	private String address;
+	private String holder;
+	private BigDecimal amount;
+	private int decimals;
+	private String name;
+	private String symbol;
+	private Boolean isERC20;
+	private Boolean isERC721;
+	private Boolean isERC777;
+	private Boolean isERC884;
+	private Boolean isERC998;
 
 	// Can be null for some records
-	public EthTokenPriceJson price;
+	private EthTokenPriceJson price;
 
 }

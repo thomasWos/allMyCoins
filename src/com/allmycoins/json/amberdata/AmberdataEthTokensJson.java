@@ -48,9 +48,9 @@ public final class AmberdataEthTokensJson {
 //		  }
 //		}
 
-	public int status;
-	public String title;
-	public String description;
-	public EthTokenPayloadJson payload;
+	private int status;
+	private String title;
+	private String description;
+	private EthTokenPayloadJson payload;
 
 }
