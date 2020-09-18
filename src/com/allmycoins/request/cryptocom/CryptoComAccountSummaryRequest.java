@@ -8,7 +8,6 @@ import java.util.Random;
 import com.allmycoins.json.cryptocom.CryptoComAccountSummaryJson;
 import com.allmycoins.request.PostRequest;
 import com.allmycoins.utils.JacksonUtils;
-import com.allmycoins.utils.RequestUtils;
 import com.allmycoins.utils.SignUtils;
 import com.allmycoins.utils.SignatureAlgo;
 
