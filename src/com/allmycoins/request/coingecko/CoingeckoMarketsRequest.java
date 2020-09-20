@@ -9,6 +9,12 @@ import com.allmycoins.utils.RequestUtils;
 
 public final class CoingeckoMarketsRequest implements GetRequest<CoingeckoMarketJson[]> {
 
+	private final String currency;
+
+	public CoingeckoMarketsRequest(String pCurrency) {
+		currency = pCurrency.toLowerCase();
+	}
+
 	@Override
 	public String baseUrl() {
 		return CoingeckoConst.BASE_URL;
@@ -31,7 +37,7 @@ public final class CoingeckoMarketsRequest implements GetRequest<CoingeckoMarket
 
 	@Override
 	public String parameters() {
-		return RequestUtils.buildParameters(Map.of("vs_currency", "usd", "per_page", "250", "page", "1"));
+		return RequestUtils.buildParameters(Map.of("vs_currency", currency, "per_page", "250", "page", "1"));
 	}
 
 }

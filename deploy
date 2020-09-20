@@ -16,6 +16,6 @@ rm $DEPLOYED_START_SCRIPT
 mvn clean install
 
 # Deploy
-cp target/allMyCoins*.jar $DEPLOYED_JAR
+cp target/allMyCoins*-jar-with-dependencies.jar $DEPLOYED_JAR
 cp $START_SCRIPT $DEPLOYED_START_SCRIPT
 chmod a+x $DEPLOYED_START_SCRIPT

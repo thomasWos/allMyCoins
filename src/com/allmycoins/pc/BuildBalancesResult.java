@@ -19,9 +19,9 @@ public final class BuildBalancesResult {
 		List<Balance> balances = mergedBalancesJson.stream().map(bj -> toBalance(bj, pricesMap))
 				.collect(Collectors.toList());
 
-		float total = balances.stream().map(Balance::getUsd).reduce(0.0f, (a, b) -> a + b);
+		float total = balances.stream().map(Balance::getCurrencyValue).reduce(0.0f, (a, b) -> a + b);
 
-		return BalancesResult.builder().balances(balances).totalUsd(total).build();
+		return BalancesResult.builder().balances(balances).totalCurrency(total).build();
 	}
 
 	private static BalanceJson mergeBalances(BalanceJson b1, BalanceJson b2) {

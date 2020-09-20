@@ -37,9 +37,10 @@ public class Main {
 	public static void main(String[] args) {
 
 		PrivateConfig.loadConfiguration();
+		final String currency = PrivateConfig.get("CURRENCY").orElseGet(() -> "USD");
 
 		// Coingecko
-		CoingeckoMarketJson[] coingeckoMarketsJson = RequestUtils.sendRequest(new CoingeckoMarketsRequest());
+		CoingeckoMarketJson[] coingeckoMarketsJson = RequestUtils.sendRequest(new CoingeckoMarketsRequest(currency));
 		Map<String, Float> pricesMap = Arrays.stream(coingeckoMarketsJson)
 				.collect(toMap(cm -> cm.getSymbol().toUpperCase(), CoingeckoMarketJson::getCurrent_price));
 
@@ -108,6 +109,6 @@ public class Main {
 
 		BalancesResult balancesResult = BuildBalancesResult.build(allMyCoins, pricesMap);
 
-		Console.display(balancesResult);
+		Console.display(balancesResult, currency);
 	}
 }
