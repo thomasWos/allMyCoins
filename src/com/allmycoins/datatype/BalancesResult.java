@@ -10,6 +10,6 @@ import lombok.Getter;
 public final class BalancesResult {
 
 	private List<Balance> balances;
-	private float totalUsd;
+	private float totalCurrency;
 
 }

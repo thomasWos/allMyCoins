@@ -8,7 +8,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.Set;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import com.allmycoins.balance.BinanceProvider;
@@ -34,12 +36,22 @@ import com.allmycoins.utils.RequestUtils;
 
 public class Main {
 
+	private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
+
 	public static void main(String[] args) {
 
 		PrivateConfig.loadConfiguration();
 
+		final Optional<String> currencyOpt = PrivateConfig.get("CURRENCY");
+		if (currencyOpt.isEmpty()) {
+			LOGGER.warning("Invalid currency configuration");
+			return;
+		}
+
+		final String currency = currencyOpt.get();
+
 		// Coingecko
-		CoingeckoMarketJson[] coingeckoMarketsJson = RequestUtils.sendRequest(new CoingeckoMarketsRequest());
+		CoingeckoMarketJson[] coingeckoMarketsJson = RequestUtils.sendRequest(new CoingeckoMarketsRequest(currency));
 		Map<String, Float> pricesMap = Arrays.stream(coingeckoMarketsJson)
 				.collect(toMap(cm -> cm.getSymbol().toUpperCase(), CoingeckoMarketJson::getCurrent_price));
 
@@ -108,6 +120,6 @@ public class Main {
 
 		BalancesResult balancesResult = BuildBalancesResult.build(allMyCoins, pricesMap);
 
-		Console.display(balancesResult);
+		Console.display(balancesResult, currency);
 	}
 }

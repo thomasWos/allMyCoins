@@ -8,8 +8,8 @@ import lombok.Getter;
 public final class Balance {
 
 	private final String asset;
-	private final float qty;
-	private final float usd;
-	private final String src;
+	private final float quantity;
+	private final float currencyValue;
+	private final String source;
 
 }
