@@ -12,9 +12,11 @@ import com.allmycoins.utils.RequestUtils;
 public final class CoingeckoSimplePriceRequest implements GetRequest<CoingeckoPricesJson> {
 
 	private final Set<String> ids;
+	private final String currency;
 
-	public CoingeckoSimplePriceRequest(Set<String> pIds) {
+	public CoingeckoSimplePriceRequest(Set<String> pIds, String pCurrency) {
 		ids = pIds;
+		currency = pCurrency;
 	}
 
 	@Override
@@ -39,8 +41,8 @@ public final class CoingeckoSimplePriceRequest implements GetRequest<CoingeckoPr
 
 	@Override
 	public String parameters() {
-		return RequestUtils
-				.buildParameters(Map.of("ids", ids.stream().collect(Collectors.joining("%2")), "vs_currencies", "usd"));
+		return RequestUtils.buildParameters(
+				Map.of("ids", ids.stream().collect(Collectors.joining("%2C")), "vs_currencies", currency));
 	}
 
 }

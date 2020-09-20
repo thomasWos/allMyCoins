@@ -99,7 +99,7 @@ public class Main {
 					.collect(Collectors.toSet());
 
 			CoingeckoPricesJson coingeckoPricesJson = RequestUtils
-					.sendRequest(new CoingeckoSimplePriceRequest(missingIds));
+					.sendRequest(new CoingeckoSimplePriceRequest(missingIds, currency));
 
 			Map<String, Float> missingPrices = coingeckoPricesJson.getPrices().entrySet().stream()
 					.collect(Collectors.toMap(e -> idToSymbolMap.get(e.getKey()), e -> e.getValue().getUsd()));
