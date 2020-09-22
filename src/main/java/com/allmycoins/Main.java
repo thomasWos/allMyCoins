@@ -11,6 +11,12 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+
 import com.allmycoins.balance.BinanceProvider;
 import com.allmycoins.balance.CoinspotProvider;
 import com.allmycoins.balance.CryptocomProvider;
@@ -29,6 +35,7 @@ import com.allmycoins.presentation.Console;
 import com.allmycoins.request.coingecko.CoingeckoCoinsListRequest;
 import com.allmycoins.request.coingecko.CoingeckoMarketsRequest;
 import com.allmycoins.request.coingecko.CoingeckoSimplePriceRequest;
+import com.allmycoins.utils.CurrencyUtils;
 import com.allmycoins.utils.JacksonUtils;
 import com.allmycoins.utils.RequestUtils;
 
@@ -82,9 +89,10 @@ public class Main {
 			allMyCoins.addAll(balancesManuList);
 		}
 
-		Set<String> myAssets = allMyCoins.stream().map(BalanceJson::getAsset).collect(Collectors.toSet());
-		Set<String> missingCoins = myAssets.stream().filter(asset -> !pricesMap.containsKey(asset))
+		Set<String> myAssets = allMyCoins.stream().filter(b -> b.getQty() != 0.0).map(BalanceJson::getAsset)
 				.collect(Collectors.toSet());
+		Set<String> missingCoins = myAssets.stream().filter(asset -> !CurrencyUtils.CURRENCIES.contains(asset))
+				.filter(asset -> !pricesMap.containsKey(asset)).collect(Collectors.toSet());
 		if (!missingCoins.isEmpty()) {
 
 			CoingeckoCoinListJson[] coinslist = RequestUtils.sendRequest(new CoingeckoCoinsListRequest());
@@ -109,6 +117,32 @@ public class Main {
 
 		BalancesResult balancesResult = BuildBalancesResult.build(allMyCoins, pricesMap);
 
+		SessionFactory sessionFactory = null;
+
+		// Configures settings from hibernate.cfg.xml
+		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
+
+		try {
+			sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+		} catch (Exception e) {
+			// The registry would be destroyed by the SessionFactory, but we had trouble
+			// building the SessionFactory
+			// so destroy it manually.
+			StandardServiceRegistryBuilder.destroy(registry);
+		}
+
+		if (sessionFactory != null) {
+			Session session = sessionFactory.openSession();
+			session.beginTransaction();
+			balancesResult.getBalances().forEach(session::save);
+			session.getTransaction().commit();
+			session.close();
+		}
+
 		Console.display(balancesResult, currency);
+
+		if (sessionFactory != null) {
+			sessionFactory.close();
+		}
 	}
 }
