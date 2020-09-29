@@ -12,7 +12,7 @@ public final class Console {
 	public static void display(final BalancesResult balancesResult, final String currency) {
 
 		System.out.println();
-		System.out.println(String.format("%1$6s | %2$9s | %3$13s | %4$35s", "Asset", "Qty", "Balance", "From"));
+		System.out.println(String.format("%1$6s | %2$10s | %3$13s | %4$35s", "Asset", "Qty", "Balance", "From"));
 		System.out.println("-".repeat(72));
 
 		balancesResult.getBalances().stream().sorted(BALANCE_COMP).map(b -> displayBalanceLine(b, currency))
@@ -24,7 +24,7 @@ public final class Console {
 	}
 
 	private static String displayBalanceLine(final Balance balance, final String currency) {
-		return String.format("%1$6s | %2$ 9.2f | %3$ 9.2f %4$s | %5$35s", balance.getAsset(), balance.getQuantity(),
+		return String.format("%1$6s | %2$ 10.2f | %3$ 9.2f %4$s | %5$35s", balance.getAsset(), balance.getQuantity(),
 				balance.getCurrencyValue(), currency, balance.getSource());
 	}
 }
