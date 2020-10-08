@@ -21,7 +21,7 @@ public final class ElrondDelegationRequest implements GetRequest<ElrondDelegatio
 
 	@Override
 	public String endPoint() {
-		return "/delegations/" + elrondAddress;
+		return "/addresses/" + elrondAddress + "/delegation";
 	}
 
 	@Override
