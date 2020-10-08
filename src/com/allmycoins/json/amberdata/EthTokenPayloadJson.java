@@ -20,26 +20,6 @@ public final class EthTokenPayloadJson {
 //    "isERC884": false,
 //    "isERC998": false
 //  },
-//  {
-//    "address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
-//    "holder": "0x06012c8cf97bead5deae237070f9587f8e7a266d",
-//    "amount": "0",
-//    "decimals": "18",
-//    "name": "Wrapped Ether",
-//    "symbol": "WETH",
-//    "isERC20": true,
-//    "isERC721": false,
-//    "isERC777": false,
-//    "isERC884": false,
-//    "isERC998": false,
-//    "price": {
-//      "amount": {
-//        "currency": "usd",
-//        "quote": "233.901383764",
-//        "total": "0.000000000000000000000000000000000000000000000"
-//      }
-//    }
-//  },
 //],
 //"totalRecords": "82"
 

@@ -4,7 +4,6 @@ import java.util.Map;
 
 import com.allmycoins.json.amberdata.AmberdataEthTokensJson;
 import com.allmycoins.request.GetRequest;
-import com.allmycoins.utils.RequestUtils;
 
 public final class AmberdataEthTokensRequest implements GetRequest<AmberdataEthTokensJson> {
 
@@ -36,7 +35,7 @@ public final class AmberdataEthTokensRequest implements GetRequest<AmberdataEthT
 
 	@Override
 	public String parameters() {
-		return RequestUtils.buildParameters(Map.of("includePrice", "true"));
+		return "";
 	}
 
 }

@@ -19,13 +19,6 @@ public final class EthTokenRecordJson {
 //	    "isERC777": false,
 //	    "isERC884": false,
 //	    "isERC998": false
-//      "price": {
-//       "amount": {
-//         "currency": "usd",
-//         "quote": "233.901383764",
-//         "total": "0.000000000000000000000000000000000000000000000"
-//         }
-//       }
 //  }
 
 	private String address;
@@ -39,8 +32,5 @@ public final class EthTokenRecordJson {
 	private Boolean isERC777;
 	private Boolean isERC884;
 	private Boolean isERC998;
-
-	// Can be null for some records
-	private EthTokenPriceJson price;
 
 }

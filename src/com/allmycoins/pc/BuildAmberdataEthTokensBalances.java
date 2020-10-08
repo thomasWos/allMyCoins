@@ -2,7 +2,6 @@ package com.allmycoins.pc;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.allmycoins.json.BalanceJson;
@@ -12,8 +11,8 @@ import com.allmycoins.json.amberdata.EthTokenRecordJson;
 public class BuildAmberdataEthTokensBalances {
 
 	public static List<BalanceJson> build(AmberdataEthTokensJson ethTokensJson) {
-		return ethTokensJson.getPayload().getRecords().stream().filter(r -> Objects.nonNull(r.getPrice()))
-				.map(BuildAmberdataEthTokensBalances::balance).collect(Collectors.toList());
+		return ethTokensJson.getPayload().getRecords().stream().map(BuildAmberdataEthTokensBalances::balance).distinct()
+				.collect(Collectors.toList());
 	}
 
 	private static BalanceJson balance(EthTokenRecordJson ethTokenRecord) {
