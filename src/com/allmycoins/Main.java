@@ -19,6 +19,7 @@ import com.allmycoins.balance.EthProvider;
 import com.allmycoins.balance.OkexProvider;
 import com.allmycoins.balance.SwyftxProvider;
 import com.allmycoins.datatype.BalancesResult;
+import com.allmycoins.datatype.Currency;
 import com.allmycoins.json.BalanceJson;
 import com.allmycoins.json.coingecko.CoingeckoCoinListJson;
 import com.allmycoins.json.coingecko.CoingeckoMarketJson;
@@ -37,7 +38,7 @@ public class Main {
 	public static void main(String[] args) {
 
 		PrivateConfig.loadConfiguration();
-		final String currency = PrivateConfig.get("CURRENCY").orElseGet(() -> "USD");
+		final Currency currency = Currency.valueOf(PrivateConfig.get("CURRENCY").orElseGet(() -> "USD"));
 
 		// Coingecko
 		CoingeckoMarketJson[] coingeckoMarketsJson = RequestUtils.sendRequest(new CoingeckoMarketsRequest(currency));
@@ -101,14 +102,14 @@ public class Main {
 			CoingeckoPricesJson coingeckoPricesJson = RequestUtils
 					.sendRequest(new CoingeckoSimplePriceRequest(missingIds, currency));
 
-			Map<String, Float> missingPrices = coingeckoPricesJson.getPrices().entrySet().stream()
-					.collect(Collectors.toMap(e -> idToSymbolMap.get(e.getKey()), e -> e.getValue().getUsd()));
+			Map<String, Float> missingPrices = coingeckoPricesJson.getPrices().entrySet().stream().collect(
+					Collectors.toMap(e -> idToSymbolMap.get(e.getKey()), e -> e.getValue().getValue(currency)));
 
 			pricesMap.putAll(missingPrices);
 		}
 
 		BalancesResult balancesResult = BuildBalancesResult.build(allMyCoins, pricesMap);
 
-		Console.display(balancesResult, currency);
+		Console.display(balancesResult, currency.toString());
 	}
 }
