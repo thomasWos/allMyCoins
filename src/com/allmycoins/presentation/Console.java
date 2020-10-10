@@ -9,7 +9,8 @@ public final class Console {
 
 	private static final Comparator<Balance> BALANCE_COMP = Comparator.comparing(Balance::getCurrencyValue).reversed();
 
-	public static void display(final BalancesResult balancesResult, final String currency) {
+	public static void display(final BalancesResult balancesResult, final String pCurrency) {
+		String currency = pCurrency.toUpperCase();
 
 		System.out.println();
 		System.out.println(String.format("%1$6s | %2$10s | %3$13s | %4$35s", "Asset", "Qty", "Balance", "From"));

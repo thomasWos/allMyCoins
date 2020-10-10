@@ -37,7 +37,7 @@ public class Main {
 	public static void main(String[] args) {
 
 		PrivateConfig.loadConfiguration();
-		final String currency = PrivateConfig.get("CURRENCY").orElseGet(() -> "USD");
+		final String currency = PrivateConfig.get("CURRENCY").orElseGet(() -> "USD").toLowerCase();
 
 		// Coingecko
 		CoingeckoMarketJson[] coingeckoMarketsJson = RequestUtils.sendRequest(new CoingeckoMarketsRequest(currency));
@@ -101,8 +101,8 @@ public class Main {
 			CoingeckoPricesJson coingeckoPricesJson = RequestUtils
 					.sendRequest(new CoingeckoSimplePriceRequest(missingIds, currency));
 
-			Map<String, Float> missingPrices = coingeckoPricesJson.getPrices().entrySet().stream()
-					.collect(Collectors.toMap(e -> idToSymbolMap.get(e.getKey()), e -> e.getValue().getUsd()));
+			Map<String, Float> missingPrices = coingeckoPricesJson.getPrices().entrySet().stream().collect(
+					Collectors.toMap(e -> idToSymbolMap.get(e.getKey()), e -> e.getValue().getPrices().get(currency)));
 
 			pricesMap.putAll(missingPrices);
 		}
