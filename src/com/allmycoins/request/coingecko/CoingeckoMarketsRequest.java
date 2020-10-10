@@ -3,7 +3,6 @@ package com.allmycoins.request.coingecko;
 import java.util.Collections;
 import java.util.Map;
 
-import com.allmycoins.datatype.Currency;
 import com.allmycoins.json.coingecko.CoingeckoMarketJson;
 import com.allmycoins.request.GetRequest;
 import com.allmycoins.utils.RequestUtils;
@@ -12,8 +11,8 @@ public final class CoingeckoMarketsRequest implements GetRequest<CoingeckoMarket
 
 	private final String currency;
 
-	public CoingeckoMarketsRequest(final Currency pCurrency) {
-		currency = pCurrency.getSymbol();
+	public CoingeckoMarketsRequest(String pCurrency) {
+		currency = pCurrency.toLowerCase();
 	}
 
 	@Override
