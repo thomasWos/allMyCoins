@@ -3,12 +3,16 @@ package com.allmycoins;
 import static java.util.stream.Collectors.toMap;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import com.allmycoins.balance.BinanceProvider;
@@ -33,6 +37,16 @@ import com.allmycoins.utils.JacksonUtils;
 import com.allmycoins.utils.RequestUtils;
 
 public class Main {
+
+	static {
+		final InputStream inputStream = Main.class.getResourceAsStream("/logging.properties");
+		try {
+			LogManager.getLogManager().readConfiguration(inputStream);
+		} catch (final IOException e) {
+			Logger.getAnonymousLogger().severe("Could not load default logging.properties file");
+			Logger.getAnonymousLogger().severe(e.getMessage());
+		}
+	}
 
 	public static void main(String[] args) {
 

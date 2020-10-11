@@ -1,10 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>allMyCoins</groupId>
-  <artifactId>allMyCoins</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <groupId>com.allmycoins</groupId>
+  <artifactId>all-my-coins</artifactId>
+  <version>0.0.1</version>
 
   <properties>
+  	  <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <jackson.version>2.11.0</jackson.version>
       <lombok.version>1.18.12</lombok.version>
       <main.class>com.allmycoins.Main</main.class>
@@ -22,12 +23,13 @@
       <artifactId>lombok</artifactId>
       <version>${lombok.version}</version>
       <scope>provided</scope>
-    </dependency>	    
+    </dependency>
   </dependencies>
   
   <build>
-    <sourceDirectory>src</sourceDirectory>
+  
     <plugins>
+
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.1</version>
@@ -35,40 +37,31 @@
           <release>11</release>
         </configuration>
       </plugin>
+      
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>2.4</version>
-        <configuration>
-          <archive>
-            <manifest>
-	          <mainClass>${main.class}</mainClass>
-            </manifest>
-          </archive>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <configuration>
-          <archive>
+         <groupId>org.apache.maven.plugins</groupId>
+         <artifactId>maven-assembly-plugin</artifactId>
+         <version>3.3.0</version>
+         <configuration>
+             <descriptorRefs>
+                 <descriptorRef>jar-with-dependencies</descriptorRef>
+             </descriptorRefs>
+             <archive>
             <manifest>
               <mainClass>${main.class}</mainClass>
             </manifest>
           </archive>
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
-        </configuration>
-        <executions>
-          <execution>
-            <id>make-assembly</id> <!-- this is used for inheritance merges -->
-            <phase>package</phase> <!-- bind to the packaging phase -->
-            <goals>
-              <goal>single</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+         </configuration>
+         <executions>
+             <execution>
+                 <id>make-assembly</id>
+                 <phase>package</phase>
+                 <goals>
+                     <goal>single</goal>
+                 </goals>
+             </execution>
+         </executions>
+        </plugin>
     </plugins>
   </build>
 </project>
