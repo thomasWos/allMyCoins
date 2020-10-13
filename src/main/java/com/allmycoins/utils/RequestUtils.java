@@ -21,10 +21,10 @@ public final class RequestUtils {
 	private static final Logger LOGGER = Logger.getLogger(RequestUtils.class.getName());
 
 	private static final int TOO_MANY_REQUESTS = 429;
-	
+
 	public static final String CONTENT_TYPE = "Content-Type";
 	public static final String APP_JSON = "application/json";
-	public static final Map<String, String> DEFAULT_JSON_HEADER = Map.of(CONTENT_TYPE,APP_JSON);
+	public static final Map<String, String> DEFAULT_JSON_HEADER = Map.of(CONTENT_TYPE, APP_JSON);
 
 	public static String buildParameters(Map<String, String> parametersMap) {
 		return parametersMap.entrySet().stream().map(e -> e.getKey() + "=" + e.getValue())
@@ -46,7 +46,7 @@ public final class RequestUtils {
 		HttpResponse<String> response = httpRequest(requestBuilder);
 
 		int statusCode = response.statusCode();
-		LOGGER.info(() -> "Response code: " + statusCode);
+		LOGGER.info(() -> "Response code: " + statusCode + " - " + request.getClass().getSimpleName());
 		if (statusCode == TOO_MANY_REQUESTS) {
 			LOGGER.info(response::body);
 			// Try again
@@ -72,7 +72,7 @@ public final class RequestUtils {
 		HttpResponse<String> response = httpRequest(requestBuilder);
 
 		int statusCode = response.statusCode();
-		LOGGER.info(() -> "Response code: " + statusCode);
+		LOGGER.info(() -> "Response code: " + statusCode + " - " + postRequest.getClass().getSimpleName());
 		if (statusCode == TOO_MANY_REQUESTS) {
 			LOGGER.info(response::body);
 			// Try again

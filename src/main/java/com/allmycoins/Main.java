@@ -11,10 +11,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.concurrent.Future;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import com.allmycoins.balance.BalanceProvider;
 import com.allmycoins.balance.BinanceProvider;
 import com.allmycoins.balance.CoinspotProvider;
 import com.allmycoins.balance.CryptocomProvider;
@@ -33,6 +35,7 @@ import com.allmycoins.presentation.Console;
 import com.allmycoins.request.coingecko.CoingeckoCoinsListRequest;
 import com.allmycoins.request.coingecko.CoingeckoMarketsRequest;
 import com.allmycoins.request.coingecko.CoingeckoSimplePriceRequest;
+import com.allmycoins.utils.FutureUtils;
 import com.allmycoins.utils.JacksonUtils;
 import com.allmycoins.utils.RequestUtils;
 
@@ -53,40 +56,20 @@ public class Main {
 		PrivateConfig.loadConfiguration();
 		final String currency = PrivateConfig.get("CURRENCY").orElseGet(() -> "USD").toLowerCase();
 
+		List<BalanceProvider> balanceProviders = List.of(new EthProvider(), new BinanceProvider(),
+				new CoinspotProvider(), new CryptocomProvider(), new ElrondProvider(), new OkexProvider(),
+				new SwyftxProvider());
+
+		List<Future<List<BalanceJson>>> balanceFutures = FutureUtils.invokeAllCallables(balanceProviders);
+
 		// Coingecko
 		CoingeckoMarketJson[] coingeckoMarketsJson = RequestUtils.sendRequest(new CoingeckoMarketsRequest(currency));
 		Map<String, Float> pricesMap = Arrays.stream(coingeckoMarketsJson)
 				.collect(toMap(cm -> cm.getSymbol().toUpperCase(), CoingeckoMarketJson::getCurrent_price));
 
-		// Ethereum
-		List<BalanceJson> ethTokensBalances = new EthProvider().balances();
-
-		// Binance
-		List<BalanceJson> binanceBalances = new BinanceProvider().balances();
-
-		// Coinspot
-		List<BalanceJson> coinspotBalances = new CoinspotProvider().balances();
-
-		// crypto.com - Exchanger only
-		List<BalanceJson> cryptoComBalances = new CryptocomProvider().balances();
-
-		// Elrond
-		List<BalanceJson> elrondBalance = new ElrondProvider().balances();
-
-		// OKEX
-		List<BalanceJson> okexBalances = new OkexProvider().balances();
-
-		// Swyftx
-		List<BalanceJson> swyftxBalances = new SwyftxProvider().balances();
-
 		List<BalanceJson> allMyCoins = new ArrayList<>();
-		allMyCoins.addAll(binanceBalances);
-		allMyCoins.addAll(ethTokensBalances);
-		allMyCoins.addAll(coinspotBalances);
-		allMyCoins.addAll(cryptoComBalances);
-		allMyCoins.addAll(elrondBalance);
-		allMyCoins.addAll(okexBalances);
-		allMyCoins.addAll(swyftxBalances);
+
+		balanceFutures.forEach(f -> allMyCoins.addAll(FutureUtils.futureResult(f)));
 
 		File file = new File("myCoinsManu.json");
 		if (file.exists()) {
@@ -125,4 +108,5 @@ public class Main {
 
 		Console.display(balancesResult, currency);
 	}
+
 }
