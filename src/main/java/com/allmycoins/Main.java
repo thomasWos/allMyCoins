@@ -60,7 +60,7 @@ public class Main {
 				new CoinspotProvider(), new CryptocomProvider(), new ElrondProvider(), new OkexProvider(),
 				new SwyftxProvider());
 
-		List<Future<List<BalanceJson>>> balanceFutures = FutureUtils.invokeAllCallables(balanceProviders);
+		List<Future<List<BalanceJson>>> balanceFutures = FutureUtils.runnAllCallables(balanceProviders);
 
 		// Coingecko
 		CoingeckoMarketJson[] coingeckoMarketsJson = RequestUtils.sendRequest(new CoingeckoMarketsRequest(currency));
@@ -105,7 +105,6 @@ public class Main {
 		}
 
 		BalancesResult balancesResult = BuildBalancesResult.build(allMyCoins, pricesMap);
-
 		Console.display(balancesResult, currency);
 	}
 
