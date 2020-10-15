@@ -13,7 +13,8 @@ public final class BuildElrondBalance {
 			ElrondDelegationJson elrondDelegationJson) {
 
 		BigDecimal allElronds = elrondBalanceRequestJson.getData().getBalance()
-				.add(elrondDelegationJson.getClaimableRewards()).add(elrondDelegationJson.getUserStake());
+				.add(elrondDelegationJson.getClaimableRewards()).add(elrondDelegationJson.getUserActiveStake())
+				.add(elrondDelegationJson.getUserWaitingStake());
 		float qty = BigDecimalUtils.decimal18(allElronds);
 
 		return new BalanceJson("EGLD", qty, "ERD wallet");
