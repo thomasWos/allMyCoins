@@ -11,7 +11,7 @@ import com.allmycoins.exception.AllMyCoinsException;
 
 public final class FutureUtils {
 
-	public static <E> List<E> futureResult(Future<List<E>> pFuture) {
+	public static <E> E futureResult(Future<E> pFuture) {
 		try {
 			return pFuture.get();
 		} catch (InterruptedException | ExecutionException e) {
@@ -21,13 +21,15 @@ public final class FutureUtils {
 
 	public static <E> List<Future<E>> runAllCallables(List<? extends Callable<E>> pCallables) {
 		List<Future<E>> balanceFutures = new ArrayList<>();
-		pCallables.forEach(c -> {
-			FutureTask<E> futureTask = new FutureTask<>(c);
-			balanceFutures.add(futureTask);
-			Thread t = new Thread(futureTask);
-			t.start();
-		});
+		pCallables.forEach(c -> balanceFutures.add(runCallable(c)));
 		return balanceFutures;
+	}
+
+	public static <E> Future<E> runCallable(Callable<E> pCallable) {
+		FutureTask<E> futureTask = new FutureTask<>(pCallable);
+		Thread t = new Thread(futureTask);
+		t.start();
+		return futureTask;
 	}
 
 }

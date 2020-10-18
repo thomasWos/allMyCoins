@@ -3,6 +3,7 @@ package com.allmycoins.balance;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Future;
 
 import com.allmycoins.PrivateConfig;
 import com.allmycoins.json.BalanceJson;
@@ -12,6 +13,7 @@ import com.allmycoins.pc.BuildAmberdataEthTokensBalances;
 import com.allmycoins.pc.BuildEtherscanBalance;
 import com.allmycoins.request.amberdata.AmberdataEthTokensRequest;
 import com.allmycoins.request.etherscan.EtherscanBalanceRequest;
+import com.allmycoins.utils.FutureUtils;
 import com.allmycoins.utils.RequestUtils;
 
 public final class EthProvider implements BalanceProvider {
@@ -23,14 +25,15 @@ public final class EthProvider implements BalanceProvider {
 
 	private List<BalanceJson> balances(String ethAddress) {
 
-		// Etherscan
-		EtherscanBalanceJson etherBalanceJson = RequestUtils.sendRequest(new EtherscanBalanceRequest(ethAddress));
-		BalanceJson ethBalance = BuildEtherscanBalance.build(etherBalanceJson);
+		Future<EtherscanBalanceJson> futureEtherBalanceJson = FutureUtils
+				.runCallable(() -> RequestUtils.sendRequest(new EtherscanBalanceRequest(ethAddress)));
 
-		// Amberdata
-		AmberdataEthTokensJson amberdataEthTokensJson = RequestUtils
-				.sendRequest(new AmberdataEthTokensRequest(ethAddress));
-		List<BalanceJson> amberdataEthTokensBalances = BuildAmberdataEthTokensBalances.build(amberdataEthTokensJson);
+		Future<AmberdataEthTokensJson> futureAmberdataEthTokensJson = FutureUtils
+				.runCallable(() -> RequestUtils.sendRequest(new AmberdataEthTokensRequest(ethAddress)));
+
+		BalanceJson ethBalance = BuildEtherscanBalance.build(FutureUtils.futureResult(futureEtherBalanceJson));
+		List<BalanceJson> amberdataEthTokensBalances = BuildAmberdataEthTokensBalances
+				.build(FutureUtils.futureResult(futureAmberdataEthTokensJson));
 
 		List<BalanceJson> etherBalances = new ArrayList<>();
 		etherBalances.add(ethBalance);
