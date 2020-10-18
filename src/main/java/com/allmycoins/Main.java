@@ -22,6 +22,7 @@ import com.allmycoins.balance.CoinspotProvider;
 import com.allmycoins.balance.CryptocomProvider;
 import com.allmycoins.balance.ElrondProvider;
 import com.allmycoins.balance.EthProvider;
+import com.allmycoins.balance.HarmonyProvider;
 import com.allmycoins.balance.OkexProvider;
 import com.allmycoins.balance.SwyftxProvider;
 import com.allmycoins.datatype.BalancesResult;
@@ -52,15 +53,14 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-
 		PrivateConfig.loadConfiguration();
 		final String currency = PrivateConfig.get("CURRENCY").orElseGet(() -> "USD").toLowerCase();
 
 		List<BalanceProvider> balanceProviders = List.of(new EthProvider(), new BinanceProvider(),
 				new CoinspotProvider(), new CryptocomProvider(), new ElrondProvider(), new OkexProvider(),
-				new SwyftxProvider());
+				new SwyftxProvider(), new HarmonyProvider());
 
-		List<Future<List<BalanceJson>>> balanceFutures = FutureUtils.runnAllCallables(balanceProviders);
+		List<Future<List<BalanceJson>>> balanceFutures = FutureUtils.runAllCallables(balanceProviders);
 
 		// Coingecko
 		CoingeckoMarketJson[] coingeckoMarketsJson = RequestUtils.sendRequest(new CoingeckoMarketsRequest(currency));

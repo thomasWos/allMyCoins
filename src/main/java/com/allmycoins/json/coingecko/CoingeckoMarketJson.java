@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Getter;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class CoingeckoMarketJson {
 
 //	[
@@ -70,33 +70,6 @@ public final class CoingeckoMarketJson {
 //	    "last_updated": "2020-09-04T10:50:27.573Z"
 //	  },
 //    ....
-
-//	private String id;
-//	private String symbol;
-//	private String name;
-//	private String image;
-//	private float current_price;
-//	private long market_cap;
-//	private int market_cap_rank;
-//	private long fully_diluted_valuation;
-//	private long total_volume;
-//	private float high_24h;
-//	private float low_24h;
-//	private float price_change_24h;
-//	private float price_change_percentage_24h;
-//	private float market_cap_change_24h;
-//	private float market_cap_change_percentage_24h;
-//	private long circulating_supply;
-//	private long total_supply;
-//	private long max_supply;
-//	private float ath;
-//	private float ath_change_percentage;
-//	private String ath_date;
-//	private float atl;
-//	private float atl_change_percentage;
-//	private String atl_date;
-//	private Object roi;
-//	private String last_updated;
 
 	private String symbol;
 	private float current_price;

@@ -19,7 +19,7 @@ public final class FutureUtils {
 		}
 	}
 
-	public static <E> List<Future<E>> runnAllCallables(List<? extends Callable<E>> pCallables) {
+	public static <E> List<Future<E>> runAllCallables(List<? extends Callable<E>> pCallables) {
 		List<Future<E>> balanceFutures = new ArrayList<>();
 		pCallables.forEach(c -> {
 			FutureTask<E> futureTask = new FutureTask<>(c);
