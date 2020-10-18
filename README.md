@@ -16,11 +16,11 @@ All my coins is a simple crypto portfolio manager.
 
 ### Exchangers
 
-- Binance spot - binance.com
-- OKEx spot - okex.com
-- crypto.com/exchange
-- Coinspot - coinspot.com.au
-- Swyftx - swyftx.com.au
+- Binance spot - https://www.binance.com/
+- OKEx spot - https://www.okex.com/
+- https://crypto.com/exchange
+- Coinspot - https://coinspot.com.au
+- Swyftx - https://swyftx.com.au
 
 ### Blochain public addresses
 
