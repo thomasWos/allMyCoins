@@ -54,7 +54,15 @@ public class Main {
 
 	public static void main(String[] args) {
 		PrivateConfig.loadConfiguration();
+
+		// Coingecko
 		final String currency = PrivateConfig.get("CURRENCY").orElseGet(() -> "USD").toLowerCase();
+		Future<CoingeckoMarketJson[]> coingeckoMarketJsonF = RequestUtils
+				.sendRequestFuture(new CoingeckoMarketsRequest(currency));
+
+		// All coins list
+		Future<CoingeckoCoinListJson[]> coinslistJsonF = RequestUtils
+				.sendRequestFuture(new CoingeckoCoinsListRequest());
 
 		List<BalanceProvider> balanceProviders = List.of(new EthProvider(), new BinanceProvider(),
 				new CoinspotProvider(), new CryptocomProvider(), new ElrondProvider(), new OkexProvider(),
@@ -62,13 +70,7 @@ public class Main {
 
 		List<Future<List<BalanceJson>>> balanceFutures = FutureUtils.runAllCallables(balanceProviders);
 
-		// Coingecko
-		CoingeckoMarketJson[] coingeckoMarketsJson = RequestUtils.sendRequest(new CoingeckoMarketsRequest(currency));
-		Map<String, Float> pricesMap = Arrays.stream(coingeckoMarketsJson)
-				.collect(toMap(cm -> cm.getSymbol().toUpperCase(), CoingeckoMarketJson::getCurrent_price));
-
 		List<BalanceJson> allMyCoins = new ArrayList<>();
-
 		balanceFutures.forEach(f -> allMyCoins.addAll(FutureUtils.futureResult(f)));
 
 		File file = new File("myCoinsManu.json");
@@ -80,13 +82,17 @@ public class Main {
 		}
 
 		Set<String> myAssets = allMyCoins.stream().map(BalanceJson::getAsset).collect(Collectors.toSet());
+
+		CoingeckoMarketJson[] coingeckoMarketsJson = FutureUtils.futureResult(coingeckoMarketJsonF);
+		Map<String, Float> pricesMap = Arrays.stream(coingeckoMarketsJson)
+				.collect(toMap(cm -> cm.getSymbol().toUpperCase(), CoingeckoMarketJson::getCurrent_price));
+
 		Set<String> missingCoins = myAssets.stream().filter(asset -> !pricesMap.containsKey(asset))
 				.collect(Collectors.toSet());
 		if (!missingCoins.isEmpty()) {
 
-			CoingeckoCoinListJson[] coinslist = RequestUtils.sendRequest(new CoingeckoCoinsListRequest());
 			// Some coins have the same symbol, override with the last inserted.
-			Map<String, String> symbolToIdMap = Arrays.stream(coinslist)
+			Map<String, String> symbolToIdMap = Arrays.stream(FutureUtils.futureResult(coinslistJsonF))
 					.collect(toMap(c -> c.getSymbol().toUpperCase(), CoingeckoCoinListJson::getId, (s1, s2) -> s2));
 
 			Map<String, String> idToSymbolMap = symbolToIdMap.entrySet().stream()

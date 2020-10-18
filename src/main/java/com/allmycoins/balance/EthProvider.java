@@ -25,11 +25,11 @@ public final class EthProvider implements BalanceProvider {
 
 	private List<BalanceJson> balances(String ethAddress) {
 
-		Future<EtherscanBalanceJson> futureEtherBalanceJson = FutureUtils
-				.runCallable(() -> RequestUtils.sendRequest(new EtherscanBalanceRequest(ethAddress)));
+		Future<EtherscanBalanceJson> futureEtherBalanceJson = RequestUtils
+				.sendRequestFuture(new EtherscanBalanceRequest(ethAddress));
 
-		Future<AmberdataEthTokensJson> futureAmberdataEthTokensJson = FutureUtils
-				.runCallable(() -> RequestUtils.sendRequest(new AmberdataEthTokensRequest(ethAddress)));
+		Future<AmberdataEthTokensJson> futureAmberdataEthTokensJson = RequestUtils
+				.sendRequestFuture(new AmberdataEthTokensRequest(ethAddress));
 
 		BalanceJson ethBalance = BuildEtherscanBalance.build(FutureUtils.futureResult(futureEtherBalanceJson));
 		List<BalanceJson> amberdataEthTokensBalances = BuildAmberdataEthTokensBalances

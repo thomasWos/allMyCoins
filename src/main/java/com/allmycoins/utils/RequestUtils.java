@@ -9,6 +9,7 @@ import java.net.http.HttpRequest.Builder;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.util.Map;
+import java.util.concurrent.Future;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -79,6 +80,14 @@ public final class RequestUtils {
 			return sendRequest(postRequest);
 		}
 		return JacksonUtils.deserialize(response.body(), postRequest.jsonResponseClass());
+	}
+
+	public static <T> Future<T> sendRequestFuture(GetRequest<T> request) {
+		return FutureUtils.runCallable(() -> sendRequest(request));
+	}
+
+	public static <T> Future<T> sendRequestFuture(PostRequest<T> request) {
+		return FutureUtils.runCallable(() -> sendRequest(request));
 	}
 
 	private static URI buildUrl(String url) {

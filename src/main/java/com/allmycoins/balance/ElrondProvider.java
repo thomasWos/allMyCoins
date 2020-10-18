@@ -23,11 +23,11 @@ public class ElrondProvider implements BalanceProvider {
 
 	private List<BalanceJson> balances(String eldondAddress) {
 
-		Future<ElrondBalanceRequestJson> elrondBalanceRequestJsonF = FutureUtils
-				.runCallable(() -> RequestUtils.sendRequest(new ElrondAddressBalanceRequest(eldondAddress)));
+		Future<ElrondBalanceRequestJson> elrondBalanceRequestJsonF = RequestUtils
+				.sendRequestFuture(new ElrondAddressBalanceRequest(eldondAddress));
 
-		Future<ElrondDelegationJson> elrondDelegationJsonF = FutureUtils
-				.runCallable(() -> RequestUtils.sendRequest(new ElrondDelegationRequest(eldondAddress)));
+		Future<ElrondDelegationJson> elrondDelegationJsonF = RequestUtils
+				.sendRequestFuture(new ElrondDelegationRequest(eldondAddress));
 
 		ElrondBalanceRequestJson elrondBalanceRequestJson = FutureUtils.futureResult(elrondBalanceRequestJsonF);
 		ElrondDelegationJson elrondDelegationJson = FutureUtils.futureResult(elrondDelegationJsonF);
