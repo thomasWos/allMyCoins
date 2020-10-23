@@ -37,3 +37,4 @@ All my coins is a simple crypto portfolio manager.
 ## Prerequisites
 
 - Java - JDK 11 or higher
+- Maven
