@@ -8,6 +8,7 @@
   	  <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <jackson.version>2.11.0</jackson.version>
       <lombok.version>1.18.12</lombok.version>
+      <junit.version>5.7.0</junit.version>
       <main.class>com.allmycoins.Main</main.class>
   </properties>
 
@@ -24,6 +25,14 @@
       <version>${lombok.version}</version>
       <scope>provided</scope>
     </dependency>
+    
+	<dependency>
+	    <groupId>org.junit.jupiter</groupId>
+	    <artifactId>junit-jupiter-engine</artifactId>
+	    <version>${junit.version}</version>
+	    <scope>test</scope>
+	</dependency>
+    
   </dependencies>
   
   <build>
@@ -62,6 +71,13 @@
              </execution>
          </executions>
         </plugin>
+        
+		<plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.0.0-M5</version>
+        </plugin>
+        
     </plugins>
   </build>
 </project>

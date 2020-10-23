@@ -25,8 +25,10 @@ All my coins is a simple crypto portfolio manager.
 ### Blochain public addresses
 
 - Ethereum
+- Algorand address
 - Elrond address
 - Harmony address
+
 
 ## Display
 

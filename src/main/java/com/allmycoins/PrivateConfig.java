@@ -23,4 +23,12 @@ public final class PrivateConfig {
 		}
 	}
 
+	public static void loadConfigurationFromClassLoader() {
+		try {
+			PROP.load(PrivateConfig.class.getClassLoader().getResourceAsStream("privateConfig.properties"));
+		} catch (IOException ex) {
+			throw new AllMyCoinsException(ex.getMessage());
+		}
+	}
+
 }
