@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.allmycoins</groupId>
   <artifactId>all-my-coins</artifactId>
-  <version>0.0.1</version>
+  <version>0.1.0</version>
 
   <properties>
   	  <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

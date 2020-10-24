@@ -1,12 +1,21 @@
 #!/bin/bash
-
 DEPLOY_DIR=deployDir
-DEPLOYED_JAR=$DEPLOY_DIR/allmycoins.jar
+RELEASE_DIR=realeaseDir
+JAR_NAME=allmycoins.jar
+COINS_MANU_TEMPLATE=myCoinsManu.template.json
+PRIVATE_CONFIG_TEMPLATE=privateConfig.template.properties
+PRIVATE_CONFIG=privateConfig.properties
+
+NOW=$(date +"%Y-%m-%d")
+
+DEPLOYED_JAR=$DEPLOY_DIR/$JAR_NAME
 START_SCRIPT=allMyCoins
 DEPLOYED_START_SCRIPT=$DEPLOY_DIR/$START_SCRIPT
 
 # Setup
 mkdir $DEPLOY_DIR
+rm -rf $RELEASE_DIR
+mkdir $RELEASE_DIR
 
 #Cleaning
 rm $DEPLOYED_JAR
@@ -19,3 +28,12 @@ mvn clean package
 cp target/*-jar-with-dependencies.jar $DEPLOYED_JAR
 cp $START_SCRIPT $DEPLOYED_START_SCRIPT
 chmod a+x $DEPLOYED_START_SCRIPT
+
+# Realease Zip
+cp $DEPLOYED_JAR $RELEASE_DIR
+cp $DEPLOYED_START_SCRIPT $RELEASE_DIR
+cp $COINS_MANU_TEMPLATE $RELEASE_DIR
+cp $PRIVATE_CONFIG_TEMPLATE $RELEASE_DIR
+cd $RELEASE_DIR
+mv $PRIVATE_CONFIG_TEMPLATE $PRIVATE_CONFIG
+zip allMyCoins-$NOW.zip *

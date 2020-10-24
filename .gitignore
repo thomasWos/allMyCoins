@@ -26,5 +26,6 @@ hs_err_pid*
 /target/
 /bin/
 /deployDir/
+/releaseDir/
 /.settings/
 *.DS_Store
