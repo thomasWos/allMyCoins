@@ -1,6 +1,6 @@
 #!/bin/bash
 DEPLOY_DIR=deployDir
-RELEASE_DIR=realeaseDir
+RELEASE_DIR=releaseDir
 JAR_NAME=allmycoins.jar
 COINS_MANU_TEMPLATE=myCoinsManu.template.json
 PRIVATE_CONFIG_TEMPLATE=privateConfig.template.properties
