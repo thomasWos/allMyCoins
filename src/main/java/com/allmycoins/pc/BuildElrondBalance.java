@@ -17,7 +17,7 @@ public final class BuildElrondBalance {
 				.add(elrondDelegationJson.getUserWaitingStake());
 		float qty = BigDecimalUtils.decimal18(allElronds);
 
-		return new BalanceJson("EGLD", qty, "ERD wallet");
+		return new BalanceJson("EGLD", qty, "Elrond wallet");
 	}
 
 }
