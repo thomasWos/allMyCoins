@@ -11,8 +11,8 @@ import com.allmycoins.json.amberdata.EthTokenRecordJson;
 public class BuildAmberdataEthTokensBalances {
 
 	public static List<BalanceJson> build(AmberdataEthTokensJson ethTokensJson) {
-		return ethTokensJson.getPayload().getRecords().stream().map(BuildAmberdataEthTokensBalances::balance).distinct()
-				.collect(Collectors.toList());
+		return ethTokensJson.getPayload().getRecords().stream().filter(t -> t.getDecimals() > 0)
+				.map(BuildAmberdataEthTokensBalances::balance).distinct().collect(Collectors.toList());
 	}
 
 	private static BalanceJson balance(EthTokenRecordJson ethTokenRecord) {
