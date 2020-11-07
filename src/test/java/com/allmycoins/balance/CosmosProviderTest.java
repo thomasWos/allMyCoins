@@ -10,28 +10,30 @@ import org.junit.jupiter.api.Test;
 import com.allmycoins.PrivateConfig;
 import com.allmycoins.json.BalanceJson;
 
-final class AlgorandProviderTest {
+final class CosmosProviderTest {
 
 	@Test
 	void testBalances() {
 		PrivateConfig.loadConfigurationFromClassLoader();
 
-		AlgorandProvider algorandProvider = new AlgorandProvider();
-		List<BalanceJson> balance = algorandProvider.balances();
+		CosmosProvider cosmosProvider = new CosmosProvider();
+		List<BalanceJson> balance = cosmosProvider.balances();
 		assertEquals(1, balance.size());
-		BalanceJson algoBalanceJson = balance.get(0);
 
-		assertEquals("ALGO", algoBalanceJson.getAsset());
-		assertEquals("Algorand wallet", algoBalanceJson.getSrc());
-		assertTrue(algoBalanceJson.getQty() >= 0.0f);
+		BalanceJson cosmosBalance = balance.get(0);
+
+		assertEquals("ATOM", cosmosBalance.getAsset());
+		assertEquals("Cosmos wallet", cosmosBalance.getSrc());
+		assertTrue(cosmosBalance.getQty() >= 0.0f);
 	}
 
 	@Test
 	void testNoBalances() {
 		PrivateConfig.clearConfiguration();
 
-		AlgorandProvider algorandProvider = new AlgorandProvider();
-		List<BalanceJson> balance = algorandProvider.balances();
+		CosmosProvider cosmosProvider = new CosmosProvider();
+		List<BalanceJson> balance = cosmosProvider.balances();
 		assertTrue(balance.isEmpty());
 	}
+
 }

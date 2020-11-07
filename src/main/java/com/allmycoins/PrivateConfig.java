@@ -11,13 +11,17 @@ public final class PrivateConfig {
 
 	private static final Properties PROP = new Properties();
 
+	public static void clearConfiguration() {
+		PROP.clear();
+	}
+
 	public static Optional<String> get(String propKey) {
 		return Optional.ofNullable(PROP.getProperty(propKey));
 	}
 
 	public static void loadConfiguration() {
-		try {
-			PROP.load(new FileInputStream("privateConfig.properties"));
+		try (FileInputStream fileInputStream = new FileInputStream("privateConfig.properties")) {
+			PROP.load(fileInputStream);
 		} catch (IOException ex) {
 			throw new AllMyCoinsException(ex.getMessage());
 		}

@@ -1,14 +1,14 @@
 # AllMyCoins
 
-All my coins is a simple crypto portfolio manager.
+AllMyCoins is a simple crypto portfolio manager.
 
 - Ask your own API keys for exchangers (Read only is enough)
 - Provide your public addresses
-- Otherwise manually fill a list of tokens and the quantity
+- Otherwise manually provide a list of tokens with quantities
 
 ## Features
 
-- Automatically fetch your balances from exchangers
+- Automatically fetch your exchanger balances 
 - Automatically fetch your balances and stacking rewards from blockchain addresses
 - Support multiple currencies (USD, EUR, BTC, AUD...)
 
@@ -28,7 +28,7 @@ All my coins is a simple crypto portfolio manager.
 - Algorand address
 - Elrond address
 - Harmony address
-
+- Cosmos address
 
 ## Display
 

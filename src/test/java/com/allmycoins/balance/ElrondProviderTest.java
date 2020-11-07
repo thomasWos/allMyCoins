@@ -26,4 +26,13 @@ final class ElrondProviderTest {
 		assertTrue(elrondBalanceJson.getQty() >= 0.0f);
 	}
 
+	@Test
+	void testNoBalances() {
+		PrivateConfig.clearConfiguration();
+
+		ElrondProvider elrondProvider = new ElrondProvider();
+		List<BalanceJson> balance = elrondProvider.balances();
+		assertTrue(balance.isEmpty());
+	}
+
 }
