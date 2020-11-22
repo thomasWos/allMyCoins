@@ -1,6 +1,7 @@
 package com.allmycoins.presentation;
 
 import java.util.Comparator;
+import java.util.List;
 
 import com.allmycoins.datatype.Balance;
 import com.allmycoins.datatype.BalancesResult;
@@ -12,20 +13,17 @@ public final class Console {
 	public static void display(final BalancesResult balancesResult, final String pCurrency) {
 		String currency = pCurrency.toUpperCase();
 
-		System.out.println();
-		System.out.println(String.format("%1$6s | %2$10s | %3$13s | %4$35s", "Asset", "Qty", "Balance", "From"));
-		System.out.println("-".repeat(72));
+		TableConsole tableConsole = new TableConsole(List.of("Asset", "Qty", "Balance", "From"));
+		balancesResult.getBalances().stream().sorted(BALANCE_COMP).forEach(b -> addTableRow(b, currency, tableConsole));
 
-		balancesResult.getBalances().stream().sorted(BALANCE_COMP).map(b -> displayBalanceLine(b, currency))
-				.forEach(System.out::println);
+		System.out.println(tableConsole.toString());
 		System.out.println();
-
 		System.out.println("Total: " + String.format("%.2f", balancesResult.getTotalCurrency()) + " " + currency);
-
 	}
 
-	private static String displayBalanceLine(final Balance balance, final String currency) {
-		return String.format("%1$6s | %2$ 10.2f | %3$ 9.2f %4$s | %5$35s", balance.getAsset(), balance.getQuantity(),
-				balance.getCurrencyValue(), currency, balance.getSource());
+	private static void addTableRow(final Balance balance, final String currency, TableConsole tableConsole) {
+		String qty = String.format("%.2f", balance.getQuantity());
+		String balanceFormated = String.format("%1$.2f %2$s", balance.getCurrencyValue(), currency);
+		tableConsole.addRow(List.of(balance.getAsset(), qty, balanceFormated, balance.getSource()));
 	}
 }
