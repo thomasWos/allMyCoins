@@ -17,7 +17,6 @@ public final class Console {
 		balancesResult.getBalances().stream().sorted(BALANCE_COMP).forEach(b -> addTableRow(b, currency, tableConsole));
 
 		System.out.println(tableConsole.toString());
-		System.out.println();
 		System.out.println("Total: " + String.format("%.2f", balancesResult.getTotalCurrency()) + " " + currency);
 	}
 

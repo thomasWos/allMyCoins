@@ -20,12 +20,12 @@ public final class BuildBalancesResult {
 				.collect(Collectors.toList());
 
 		float total = balances.stream().map(Balance::getCurrencyValue).reduce(0.0f, (a, b) -> a + b);
-
 		return BalancesResult.builder().balances(balances).totalCurrency(total).build();
 	}
 
 	private static BalanceJson mergeBalances(BalanceJson b1, BalanceJson b2) {
-		return new BalanceJson(b1.getAsset(), b1.getQty() + b2.getQty(), b1.getSrc() + ", " + b2.getSrc());
+		String src = b1.getSrc().equals(b2.getSrc()) ? b1.getSrc() : b1.getSrc() + ", " + b2.getSrc();
+		return new BalanceJson(b1.getAsset(), b1.getQty() + b2.getQty(), src);
 	}
 
 	private static Balance toBalance(BalanceJson balanceJson, Map<String, Float> pricesMap) {
