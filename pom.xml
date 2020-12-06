@@ -6,8 +6,8 @@
 
   <properties>
   	  <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-      <jackson.version>2.11.0</jackson.version>
-      <lombok.version>1.18.12</lombok.version>
+      <jackson.version>2.12.0</jackson.version>
+      <lombok.version>1.18.16</lombok.version>
       <junit.version>5.7.0</junit.version>
       <main.class>com.allmycoins.Main</main.class>
   </properties>
