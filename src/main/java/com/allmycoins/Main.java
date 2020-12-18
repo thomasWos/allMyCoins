@@ -27,6 +27,7 @@ import com.allmycoins.balance.EthProvider;
 import com.allmycoins.balance.HarmonyProvider;
 import com.allmycoins.balance.OkexProvider;
 import com.allmycoins.balance.SwyftxProvider;
+import com.allmycoins.balance.TezosProvider;
 import com.allmycoins.datatype.BalancesResult;
 import com.allmycoins.json.BalanceJson;
 import com.allmycoins.json.coingecko.CoingeckoCoinListJson;
@@ -68,7 +69,8 @@ public class Main {
 
 		List<BalanceProvider> balanceProviders = List.of(new EthProvider(), new BinanceProvider(),
 				new CoinspotProvider(), new CryptocomProvider(), new ElrondProvider(), new OkexProvider(),
-				new SwyftxProvider(), new HarmonyProvider(), new AlgorandProvider(), new CosmosProvider());
+				new SwyftxProvider(), new HarmonyProvider(), new AlgorandProvider(), new CosmosProvider(),
+				new TezosProvider());
 
 		List<Future<List<BalanceJson>>> balanceFutures = FutureUtils.runAllCallables(balanceProviders);
 
@@ -92,7 +94,6 @@ public class Main {
 		Set<String> missingCoins = myAssets.stream().filter(asset -> !pricesMap.containsKey(asset))
 				.collect(Collectors.toSet());
 		if (!missingCoins.isEmpty()) {
-
 			// Some coins have the same symbol, override with the last inserted.
 			Map<String, String> symbolToIdMap = Arrays.stream(FutureUtils.futureResult(coinslistJsonF))
 					.collect(toMap(c -> c.getSymbol().toUpperCase(), CoingeckoCoinListJson::getId, (s1, s2) -> s2));

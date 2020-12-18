@@ -16,7 +16,7 @@ public final class PrivateConfig {
 	}
 
 	public static Optional<String> get(String propKey) {
-		return Optional.ofNullable(PROP.getProperty(propKey));
+		return Optional.ofNullable(PROP.getProperty(propKey)).map(String::trim);
 	}
 
 	public static void loadConfiguration() {

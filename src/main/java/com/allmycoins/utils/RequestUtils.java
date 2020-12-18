@@ -54,9 +54,7 @@ public final class RequestUtils {
 			return sendRequest(request);
 
 		}
-
 		LOGGER.fine(response::body);
-
 		return JacksonUtils.deserialize(response.body(), request.jsonResponseClass());
 	}
 
@@ -94,7 +92,7 @@ public final class RequestUtils {
 		try {
 			return new URI(url);
 		} catch (URISyntaxException e) {
-			throw new AllMyCoinsException("Error building url: " + url);
+			throw new AllMyCoinsException("Error building url: " + e);
 		}
 	}
 
@@ -104,7 +102,7 @@ public final class RequestUtils {
 			response = HttpClient.newBuilder().build().send(requestBuilder.build(), BodyHandlers.ofString());
 		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
-			throw new AllMyCoinsException("Error sending http request");
+			throw new AllMyCoinsException("Error sending http request: " + e);
 		}
 		return response;
 	}
