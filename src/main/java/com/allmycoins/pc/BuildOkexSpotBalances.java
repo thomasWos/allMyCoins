@@ -13,9 +13,11 @@ public class BuildOkexSpotBalances {
 	private static final Predicate<OkexSpotAccountJson> VALID_CURRENCY = s -> !s.getCurrency()
 			.equalsIgnoreCase("DOTOLD");
 
+	private static final Predicate<OkexSpotAccountJson> QTY_PREDICATE = s -> s.getBalance() > 0.001;
+
 	public static List<BalanceJson> build(OkexSpotAccountJson[] okexSpotAccountsJson) {
-		return Arrays.stream(okexSpotAccountsJson).filter(VALID_CURRENCY).map(BuildOkexSpotBalances::build)
-				.collect(Collectors.toList());
+		return Arrays.stream(okexSpotAccountsJson).filter(VALID_CURRENCY.and(QTY_PREDICATE))
+				.map(BuildOkexSpotBalances::build).collect(Collectors.toList());
 	}
 
 	private static BalanceJson build(OkexSpotAccountJson okexSpotAccountJson) {
