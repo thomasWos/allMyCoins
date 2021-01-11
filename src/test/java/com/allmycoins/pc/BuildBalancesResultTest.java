@@ -21,9 +21,9 @@ class BuildBalancesResultTest {
 		Map<String, Float> pricesMap = Map.of("LUNA", 0.36f);
 		BalancesResult balancesResult = BuildBalancesResult.build(balancesJson, pricesMap);
 
-		assertEquals(1, balancesResult.getBalances().size());
+		assertEquals(1, balancesResult.getAssets().size());
 
-		Balance balance = balancesResult.getBalances().get(0);
+		Balance balance = balancesResult.getAssets().get(0).getBalance();
 		assertEquals("LUNA", balance.getAsset());
 		assertEquals(10.26f, balance.getCurrencyValue());
 		assertEquals(28.5f, balance.getQuantity());
@@ -39,9 +39,9 @@ class BuildBalancesResultTest {
 		Map<String, Float> pricesMap = Map.of("XTZ", 2f);
 		BalancesResult balancesResult = BuildBalancesResult.build(balancesJson, pricesMap);
 
-		assertEquals(1, balancesResult.getBalances().size());
+		assertEquals(1, balancesResult.getAssets().size());
 
-		Balance balance = balancesResult.getBalances().get(0);
+		Balance balance = balancesResult.getAssets().get(0).getBalance();
 		assertEquals("XTZ", balance.getAsset());
 		assertEquals(50f, balance.getCurrencyValue());
 		assertEquals(25f, balance.getQuantity());

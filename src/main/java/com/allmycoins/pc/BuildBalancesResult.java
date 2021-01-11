@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.allmycoins.datatype.Asset;
 import com.allmycoins.datatype.Balance;
 import com.allmycoins.datatype.BalanceMerge;
 import com.allmycoins.datatype.BalancesResult;
@@ -22,13 +23,20 @@ public final class BuildBalancesResult {
 				.collect(Collectors.toList());
 
 		float total = balances.stream().map(Balance::getCurrencyValue).reduce(0.0f, (a, b) -> a + b);
-		return BalancesResult.builder().balances(balances).totalCurrency(total).build();
+
+		List<Asset> assets = balances.stream().map(b -> toAsset(b, total)).collect(Collectors.toList());
+		return BalancesResult.builder().assets(assets).totalCurrency(total).build();
 	}
 
 	private static BalanceMerge mergeBalances2(BalanceMerge b1, BalanceMerge b2) {
 		HashSet<String> srcMerged = new HashSet<>(b1.getSources());
 		srcMerged.addAll(b2.getSources());
 		return new BalanceMerge(b1.getAsset(), b1.getQty() + b2.getQty(), srcMerged);
+	}
+
+	private static Asset toAsset(Balance balance, float total) {
+		float ratio = balance.getCurrencyValue() / total;
+		return new Asset(balance, ratio);
 	}
 
 	private static Balance toBalance(BalanceMerge balanceJson, Map<String, Float> pricesMap) {

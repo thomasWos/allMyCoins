@@ -9,7 +9,7 @@ import lombok.Getter;
 @Getter
 public final class BalancesResult {
 
-	private List<Balance> balances;
+	private List<Asset> assets;
 	private float totalCurrency;
 
 }
