@@ -15,7 +15,7 @@ public interface PublicAddressBalanceProvider extends BalanceProvider {
 	default List<BalanceJson> balances() {
 		List<String> addList = PrivateConfig.get(privateConfigKey()).map(s -> List.of(s.split(",")))
 				.orElseGet(Collections::emptyList);
-		return addList.stream().map(a -> balance(a.trim())).collect(Collectors.toList());
+		return addList.parallelStream().map(a -> balance(a.trim())).collect(Collectors.toList());
 	}
 
 	String privateConfigKey();
