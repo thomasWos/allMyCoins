@@ -8,12 +8,13 @@ import com.allmycoins.json.BalanceJson;
 import com.allmycoins.json.amberdata.AmberdataEthTokensJson;
 import com.allmycoins.json.amberdata.EthTokenRecordJson;
 
-public class BuildAmberdataEthTokensBalances {
+public final class BuildAmberdataEthTokensBalances {
 
 	public static List<BalanceJson> build(AmberdataEthTokensJson ethTokensJson) {
 		return ethTokensJson.getPayload().getRecords().stream()
 				.filter(t -> t.getDecimals() > 0 && t.getAmount().floatValue() > 0.0f)
-				.map(BuildAmberdataEthTokensBalances::balance).distinct().collect(Collectors.toList());
+				.filter(BuildAmberdataEthTokensBalances::specialPredicate).map(BuildAmberdataEthTokensBalances::balance)
+				.distinct().collect(Collectors.toList());
 	}
 
 	private static BalanceJson balance(EthTokenRecordJson ethTokenRecord) {
@@ -21,4 +22,12 @@ public class BuildAmberdataEthTokensBalances {
 				.floatValue();
 		return new BalanceJson(ethTokenRecord.getSymbol(), qty, "ETH wallet");
 	}
+
+	private static boolean specialPredicate(EthTokenRecordJson tokenRecordJson) {
+		if (tokenRecordJson.getSymbol().equals("SNX")) {
+			return tokenRecordJson.getAddress().equals("0xc011a73ee8576fb46f5e1c5751ca3b9fe0af2a6f");
+		}
+		return true;
+	}
+
 }

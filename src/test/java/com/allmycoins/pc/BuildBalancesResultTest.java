@@ -40,7 +40,6 @@ class BuildBalancesResultTest {
 		BalancesResult balancesResult = BuildBalancesResult.build(balancesJson, pricesMap);
 
 		assertEquals(1, balancesResult.getAssets().size());
-
 		Balance balance = balancesResult.getAssets().get(0).getBalance();
 		assertEquals("XTZ", balance.getAsset());
 		assertEquals(50f, balance.getCurrencyValue());

@@ -15,7 +15,7 @@ public final class FutureUtils {
 		try {
 			return pFuture.get();
 		} catch (InterruptedException | ExecutionException e) {
-			throw new AllMyCoinsException("Error getting future result: " + e.getMessage());
+			throw new AllMyCoinsException("Error getting future result: " + e);
 		}
 	}
 

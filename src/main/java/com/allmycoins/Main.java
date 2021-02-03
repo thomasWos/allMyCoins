@@ -89,8 +89,8 @@ public class Main {
 		Set<String> myAssets = allMyCoins.stream().map(BalanceJson::getAsset).collect(Collectors.toSet());
 
 		CoingeckoMarketJson[] coingeckoMarketsJson = FutureUtils.futureResult(coingeckoMarketJsonF);
-		Map<String, Float> pricesMap = Arrays.stream(coingeckoMarketsJson)
-				.collect(toMap(cm -> cm.getSymbol().toUpperCase(), CoingeckoMarketJson::getCurrent_price));
+		Map<String, Float> pricesMap = Arrays.stream(coingeckoMarketsJson).collect(
+				toMap(cm -> cm.getSymbol().toUpperCase(), CoingeckoMarketJson::getCurrent_price, (e1, e2) -> e1));
 
 		Set<String> missingCoins = myAssets.stream().filter(asset -> !pricesMap.containsKey(asset))
 				.collect(Collectors.toSet());
