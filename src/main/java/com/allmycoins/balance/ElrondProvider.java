@@ -11,10 +11,15 @@ import com.allmycoins.request.elrond.ElrondDelegationRequest;
 import com.allmycoins.utils.FutureUtils;
 import com.allmycoins.utils.RequestUtils;
 
-public final class ElrondProvider implements PublicAddressBalanceProvider {
+public final class ElrondProvider implements PublicAddressSingleBalanceProvider {
 
 	@Override
-	public BalanceJson balance(String publicAddress) {
+	public String privateConfigKey() {
+		return "ELROND_ADDRESS";
+	}
+
+	@Override
+	public BalanceJson singleBalance(String publicAddress) {
 		Future<ElrondBalanceRequestJson> elrondBalanceRequestJsonF = RequestUtils
 				.sendRequestFuture(new ElrondAddressBalanceRequest(publicAddress));
 
@@ -25,11 +30,6 @@ public final class ElrondProvider implements PublicAddressBalanceProvider {
 		ElrondDelegationJson elrondDelegationJson = FutureUtils.futureResult(elrondDelegationJsonF);
 
 		return BuildElrondBalance.build(elrondBalanceRequestJson, elrondDelegationJson);
-	}
-
-	@Override
-	public String privateConfigKey() {
-		return "ELROND_ADDRESS";
 	}
 
 }

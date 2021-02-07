@@ -1,11 +1,9 @@
 package com.allmycoins.balance;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Future;
 
-import com.allmycoins.PrivateConfig;
 import com.allmycoins.json.BalanceJson;
 import com.allmycoins.json.amberdata.AmberdataEthTokensJson;
 import com.allmycoins.json.etherscan.EtherscanBalanceJson;
@@ -16,20 +14,15 @@ import com.allmycoins.request.etherscan.EtherscanBalanceRequest;
 import com.allmycoins.utils.FutureUtils;
 import com.allmycoins.utils.RequestUtils;
 
-public final class EthProvider implements BalanceProvider {
+public final class EthProvider implements PublicAddressBalanceProvider {
 
 	@Override
-	public List<BalanceJson> balances() {
-		return PrivateConfig.get("ETH_ADDRESS").map(this::balances).orElseGet(Collections::emptyList);
-	}
-
-	private List<BalanceJson> balances(String ethAddress) {
-
+	public List<BalanceJson> balance(String publicAddress) {
 		Future<EtherscanBalanceJson> futureEtherBalanceJson = RequestUtils
-				.sendRequestFuture(new EtherscanBalanceRequest(ethAddress));
+				.sendRequestFuture(new EtherscanBalanceRequest(publicAddress));
 
 		Future<AmberdataEthTokensJson> futureAmberdataEthTokensJson = RequestUtils
-				.sendRequestFuture(new AmberdataEthTokensRequest(ethAddress));
+				.sendRequestFuture(new AmberdataEthTokensRequest(publicAddress));
 
 		BalanceJson ethBalance = BuildEtherscanBalance.build(FutureUtils.futureResult(futureEtherBalanceJson));
 		List<BalanceJson> amberdataEthTokensBalances = BuildAmberdataEthTokensBalances
@@ -40,6 +33,11 @@ public final class EthProvider implements BalanceProvider {
 		etherBalances.addAll(amberdataEthTokensBalances);
 
 		return etherBalances;
+	}
+
+	@Override
+	public String privateConfigKey() {
+		return "ETH_ADDRESS";
 	}
 
 }

@@ -11,10 +11,15 @@ import com.allmycoins.request.harmony.HarmonyDelegationsRequest;
 import com.allmycoins.utils.FutureUtils;
 import com.allmycoins.utils.RequestUtils;
 
-public final class HarmonyProvider implements PublicAddressBalanceProvider {
+public final class HarmonyProvider implements PublicAddressSingleBalanceProvider {
 
 	@Override
-	public BalanceJson balance(String publicAddress) {
+	public String privateConfigKey() {
+		return "HARMONY_ADDRESS";
+	}
+
+	@Override
+	public BalanceJson singleBalance(String publicAddress) {
 		Future<HarmonyBalanceJson> balanceJsonF = RequestUtils
 				.sendRequestFuture(new HarmonyBalanceRequest(publicAddress));
 		Future<HarmonyDelegationsJson> delegationsJsonF = RequestUtils
@@ -22,11 +27,6 @@ public final class HarmonyProvider implements PublicAddressBalanceProvider {
 
 		return BuildHarmonyBalance.build(FutureUtils.futureResult(balanceJsonF),
 				FutureUtils.futureResult(delegationsJsonF));
-	}
-
-	@Override
-	public String privateConfigKey() {
-		return "HARMONY_ADDRESS";
 	}
 
 }
