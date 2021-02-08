@@ -27,6 +27,7 @@ import com.allmycoins.balance.ElrondProvider;
 import com.allmycoins.balance.EthProvider;
 import com.allmycoins.balance.HarmonyProvider;
 import com.allmycoins.balance.OkexProvider;
+import com.allmycoins.balance.SolanaProvider;
 import com.allmycoins.balance.SwyftxProvider;
 import com.allmycoins.balance.TezosProvider;
 import com.allmycoins.datatype.BalancesResult;
@@ -71,7 +72,7 @@ public class Main {
 		List<BalanceProvider> balanceProviders = List.of(new EthProvider(), new BinanceProvider(),
 				new CoinspotProvider(), new CryptocomProvider(), new ElrondProvider(), new OkexProvider(),
 				new SwyftxProvider(), new HarmonyProvider(), new AlgorandProvider(), new CosmosProvider(),
-				new TezosProvider(), new BitcoinProvider());
+				new TezosProvider(), new BitcoinProvider(), new SolanaProvider());
 
 		List<Future<List<BalanceJson>>> balanceFutures = FutureUtils.runAllCallables(balanceProviders);
 
