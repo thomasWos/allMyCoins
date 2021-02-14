@@ -4,7 +4,6 @@ import java.util.Map;
 
 import com.allmycoins.json.solana.SolanaBalanceJson;
 import com.allmycoins.request.PostRequest;
-import com.allmycoins.request.harmony.HarmonyBodyRequest;
 import com.allmycoins.utils.JacksonUtils;
 import com.allmycoins.utils.RequestUtils;
 
@@ -13,7 +12,7 @@ public final class SolanaBalanceRequest implements PostRequest<SolanaBalanceJson
 	private final String bodyStr;
 
 	public SolanaBalanceRequest(String pSolanaAddress) {
-		HarmonyBodyRequest body = new HarmonyBodyRequest("getBalance", new String[] { pSolanaAddress });
+		SolanaBalanceBody body = new SolanaBalanceBody("getBalance", new String[] { pSolanaAddress });
 		bodyStr = JacksonUtils.serializeToJson(body);
 	}
 
