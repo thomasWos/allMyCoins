@@ -16,7 +16,7 @@ public final class JacksonUtils {
 		try {
 			return new ObjectMapper().readValue(file, valueType);
 		} catch (IOException e) {
-			throw new AllMyCoinsException("Error deserializing: " + file);
+			throw new AllMyCoinsException(valueType + " - Error deserializing: " + file);
 		}
 	}
 
@@ -27,7 +27,7 @@ public final class JacksonUtils {
 		try {
 			return new ObjectMapper().readValue(content, valueType);
 		} catch (JsonProcessingException e) {
-			throw new AllMyCoinsException("Error deserializing: " + content);
+			throw new AllMyCoinsException(valueType + " - Error deserializing: " + content);
 		}
 	}
 
