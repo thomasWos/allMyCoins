@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -79,13 +80,11 @@ public class Main {
 		List<BalanceJson> allMyCoins = new ArrayList<>();
 		balanceFutures.forEach(f -> allMyCoins.addAll(FutureUtils.futureResult(f)));
 
-		File file = new File("myCoinsManu.json");
-		if (file.exists()) {
-			BalanceManuJson[] balancesManuTab = JacksonUtils.deserialize(file, BalanceManuJson[].class);
-			List<BalanceJson> balancesManuList = Arrays.stream(balancesManuTab)
-					.map(b -> new BalanceJson(b.getAsset(), b.getQty(), b.getSrc())).collect(Collectors.toList());
-			allMyCoins.addAll(balancesManuList);
-		}
+		allMyCoins.addAll(coinsFromFile("myCoinsManu.json"));
+
+		Set<String> toIgnore = coinsFromFile("myCoinsIgnore.json").stream().map(b -> b.getAsset() + b.getSrc())
+				.collect(Collectors.toSet());
+		allMyCoins.removeIf(b -> toIgnore.contains(b.getAsset() + b.getSrc()));
 
 		Set<String> myAssets = allMyCoins.stream().map(BalanceJson::getAsset).collect(Collectors.toSet());
 
@@ -119,4 +118,15 @@ public class Main {
 		Console.display(balancesResult, currency);
 	}
 
+	private static List<BalanceJson> coinsFromFile(String fileName) {
+		List<BalanceJson> balanceJsonList = Collections.emptyList();
+		File file = new File(fileName);
+		if (file.exists()) {
+			BalanceManuJson[] balancesManuTab = JacksonUtils.deserialize(file, BalanceManuJson[].class);
+			balanceJsonList = Arrays.stream(balancesManuTab)
+					.map(b -> new BalanceJson(b.getAsset(), b.getQty(), b.getSrc())).collect(Collectors.toList());
+
+		}
+		return balanceJsonList;
+	}
 }

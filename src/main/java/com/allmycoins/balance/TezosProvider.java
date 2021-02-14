@@ -6,17 +6,17 @@ import com.allmycoins.pc.BuildTezosBalance;
 import com.allmycoins.request.tezos.TezosBalanceRequest;
 import com.allmycoins.utils.RequestUtils;
 
-public final class TezosProvider implements PublicAddressBalanceProvider {
-
-	@Override
-	public BalanceJson balance(String publicAddress) {
-		TezosBalanceJson tezosBalanceJson = RequestUtils.sendRequest(new TezosBalanceRequest(publicAddress));
-		return BuildTezosBalance.build(tezosBalanceJson);
-	}
+public final class TezosProvider implements PublicAddressSingleBalanceProvider {
 
 	@Override
 	public String privateConfigKey() {
 		return "TEZOS_ADDRESS";
+	}
+
+	@Override
+	public BalanceJson singleBalance(String publicAddress) {
+		TezosBalanceJson tezosBalanceJson = RequestUtils.sendRequest(new TezosBalanceRequest(publicAddress));
+		return BuildTezosBalance.build(tezosBalanceJson);
 	}
 
 }

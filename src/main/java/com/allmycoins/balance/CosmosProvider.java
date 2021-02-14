@@ -6,17 +6,17 @@ import com.allmycoins.pc.BuildCosmosBalance;
 import com.allmycoins.request.cosmos.CosmosBalanceRequest;
 import com.allmycoins.utils.RequestUtils;
 
-public final class CosmosProvider implements PublicAddressBalanceProvider {
-
-	@Override
-	public BalanceJson balance(String publicAddress) {
-		CosmosBalanceJson algoBalanceJson = RequestUtils.sendRequest(new CosmosBalanceRequest(publicAddress));
-		return BuildCosmosBalance.build(algoBalanceJson);
-	}
+public final class CosmosProvider implements PublicAddressSingleBalanceProvider {
 
 	@Override
 	public String privateConfigKey() {
 		return "COSMOS_ADDRESS";
+	}
+
+	@Override
+	public BalanceJson singleBalance(String publicAddress) {
+		CosmosBalanceJson algoBalanceJson = RequestUtils.sendRequest(new CosmosBalanceRequest(publicAddress));
+		return BuildCosmosBalance.build(algoBalanceJson);
 	}
 
 }
