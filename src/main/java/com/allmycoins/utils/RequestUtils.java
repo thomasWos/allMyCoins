@@ -54,7 +54,7 @@ public final class RequestUtils {
 			return sendRequest(request);
 
 		}
-		LOGGER.info(response::body);
+		LOGGER.fine(response::body);
 		return JacksonUtils.deserialize(response.body(), request.jsonResponseClass());
 	}
 

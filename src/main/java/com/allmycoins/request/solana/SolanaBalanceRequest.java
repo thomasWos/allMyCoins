@@ -1,42 +1,45 @@
 package com.allmycoins.request.solana;
 
-import java.util.Collections;
 import java.util.Map;
 
 import com.allmycoins.json.solana.SolanaBalanceJson;
-import com.allmycoins.request.GetRequest;
+import com.allmycoins.request.PostRequest;
+import com.allmycoins.request.harmony.HarmonyBodyRequest;
+import com.allmycoins.utils.JacksonUtils;
+import com.allmycoins.utils.RequestUtils;
 
-public final class SolanaBalanceRequest implements GetRequest<SolanaBalanceJson> {
+public final class SolanaBalanceRequest implements PostRequest<SolanaBalanceJson> {
 
-	private final String solanaAddress;
+	private final String bodyStr;
 
 	public SolanaBalanceRequest(String pSolanaAddress) {
-		solanaAddress = pSolanaAddress;
+		HarmonyBodyRequest body = new HarmonyBodyRequest("getBalance", new String[] { pSolanaAddress });
+		bodyStr = JacksonUtils.serializeToJson(body);
 	}
 
 	@Override
 	public String baseUrl() {
-		return "https://explorer.solana.com";
+		return "https://api.mainnet-beta.solana.com";
+	}
+
+	@Override
+	public String body() {
+		return bodyStr;
 	}
 
 	@Override
 	public String endPoint() {
-		return "/address/" + solanaAddress;
+		return "";
 	}
 
 	@Override
 	public Map<String, String> headers() {
-		return Collections.emptyMap();
+		return RequestUtils.DEFAULT_JSON_HEADER;
 	}
 
 	@Override
 	public Class<SolanaBalanceJson> jsonResponseClass() {
 		return SolanaBalanceJson.class;
-	}
-
-	@Override
-	public String parameters() {
-		return "";
 	}
 
 }
