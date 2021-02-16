@@ -50,7 +50,8 @@ public final class RequestUtils {
 		LOGGER.info(() -> "Response code: " + statusCode + " - " + request.getClass().getSimpleName());
 		if (statusCode == TOO_MANY_REQUESTS) {
 			LOGGER.info(response::body);
-			// Try again
+			// Wait and try again
+			SleepUtils.sleep(1000);
 			return sendRequest(request);
 
 		}
