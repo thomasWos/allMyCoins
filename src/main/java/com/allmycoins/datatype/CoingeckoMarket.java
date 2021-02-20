@@ -5,8 +5,10 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public final class Asset {
-	private final Balance balance;
-	private final float ratio;
+public final class CoingeckoMarket {
+
+	private final String symbol;
+	private final float currentPrice;
 	private final int marketCapRank;
+
 }

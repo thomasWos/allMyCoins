@@ -1,6 +1,8 @@
 package com.allmycoins;
 
+import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
+import static java.util.stream.Collectors.toSet;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +15,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.Future;
+import java.util.function.Function;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -32,6 +35,7 @@ import com.allmycoins.balance.SolanaProvider;
 import com.allmycoins.balance.SwyftxProvider;
 import com.allmycoins.balance.TezosProvider;
 import com.allmycoins.datatype.BalancesResult;
+import com.allmycoins.datatype.CoingeckoMarket;
 import com.allmycoins.json.BalanceJson;
 import com.allmycoins.json.coingecko.CoingeckoCoinListJson;
 import com.allmycoins.json.coingecko.CoingeckoMarketJson;
@@ -61,7 +65,7 @@ public class Main {
 	public static void main(String[] args) {
 		PrivateConfig.loadConfiguration();
 
-		// Coingecko
+		// Coingecko - Top 250 coins
 		final String currency = PrivateConfig.get("CURRENCY").orElseGet(() -> "USD").toLowerCase();
 		Future<CoingeckoMarketJson[]> coingeckoMarketJsonF = RequestUtils
 				.sendRequestFuture(new CoingeckoMarketsRequest(currency));
@@ -83,38 +87,43 @@ public class Main {
 		allMyCoins.addAll(coinsFromFile("myCoinsManu.json"));
 
 		Set<String> toIgnore = coinsFromFile("myCoinsIgnore.json").stream().map(b -> b.getAsset() + b.getSrc())
-				.collect(Collectors.toSet());
+				.collect(toSet());
 		allMyCoins.removeIf(b -> toIgnore.contains(b.getAsset() + b.getSrc()));
 
 		Set<String> myAssets = allMyCoins.stream().map(BalanceJson::getAsset).collect(Collectors.toSet());
 
 		CoingeckoMarketJson[] coingeckoMarketsJson = FutureUtils.futureResult(coingeckoMarketJsonF);
-		Map<String, Float> pricesMap = Arrays.stream(coingeckoMarketsJson).collect(
-				toMap(cm -> cm.getSymbol().toUpperCase(), CoingeckoMarketJson::getCurrent_price, (e1, e2) -> e1));
 
-		Set<String> missingCoins = myAssets.stream().filter(asset -> !pricesMap.containsKey(asset))
-				.collect(Collectors.toSet());
+		List<CoingeckoMarket> marketList = Arrays.stream(coingeckoMarketsJson)
+				.map(e -> new CoingeckoMarket(e.getSymbol(), e.getCurrent_price(), e.getMarket_cap_rank()))
+				.collect(toList());
+
+		Map<String, CoingeckoMarket> marketMap = marketList.stream()
+				.collect(toMap(e -> e.getSymbol().toUpperCase(), Function.identity(), (e1, e2) -> e1));
+
+		Set<String> missingCoins = myAssets.stream().filter(asset -> !marketMap.containsKey(asset)).collect(toSet());
 		if (!missingCoins.isEmpty()) {
 			// Some coins have the same symbol, override with the last inserted.
 			Map<String, String> symbolToIdMap = Arrays.stream(FutureUtils.futureResult(coinslistJsonF))
 					.collect(toMap(c -> c.getSymbol().toUpperCase(), CoingeckoCoinListJson::getId, (s1, s2) -> s2));
 
 			Map<String, String> idToSymbolMap = symbolToIdMap.entrySet().stream()
-					.collect(Collectors.toMap(Entry::getValue, Entry::getKey));
+					.collect(toMap(Entry::getValue, Entry::getKey));
 
 			Set<String> missingIds = missingCoins.stream().filter(symbolToIdMap::containsKey).map(symbolToIdMap::get)
-					.collect(Collectors.toSet());
+					.collect(toSet());
 
 			CoingeckoPricesJson coingeckoPricesJson = RequestUtils
 					.sendRequest(new CoingeckoSimplePriceRequest(missingIds, currency));
 
-			Map<String, Float> missingPrices = coingeckoPricesJson.getPrices().entrySet().stream().collect(
-					Collectors.toMap(e -> idToSymbolMap.get(e.getKey()), e -> e.getValue().getPrices().get(currency)));
+			Map<String, CoingeckoMarket> missingMarkets = coingeckoPricesJson.getPrices().entrySet().stream().collect(
+					toMap(e -> idToSymbolMap.get(e.getKey()), e -> new CoingeckoMarket(idToSymbolMap.get(e.getKey()),
+							e.getValue().getPrices().get(currency), -1)));
 
-			pricesMap.putAll(missingPrices);
+			marketMap.putAll(missingMarkets);
 		}
 
-		BalancesResult balancesResult = BuildBalancesResult.build(allMyCoins, pricesMap);
+		BalancesResult balancesResult = BuildBalancesResult.build(allMyCoins, marketMap);
 		Console.display(balancesResult, currency);
 	}
 

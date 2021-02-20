@@ -17,7 +17,7 @@ public final class Console {
 	public static void display(final BalancesResult balancesResult, final String pCurrency) {
 		String currency = pCurrency.toUpperCase();
 
-		TableConsole tableConsole = new TableConsole(List.of("Asset", "Qty", "Balance", "%", "From"));
+		TableConsole tableConsole = new TableConsole(List.of("Asset", "Qty", "Balance", "%", "Rank", "From"));
 		balancesResult.getAssets().stream().sorted(ASSET_COMP).forEach(b -> addTableRow(b, currency, tableConsole));
 
 		System.out.println(tableConsole.toString());
@@ -29,6 +29,8 @@ public final class Console {
 		String qty = String.format("%.2f", balance.getQuantity());
 		String balanceFormated = String.format("%1$.2f %2$s", balance.getCurrencyValue(), currency);
 		String ratio = String.format("%.2f", asset.getRatio() * 100);
-		tableConsole.addRow(List.of(balance.getAsset(), qty, balanceFormated, ratio, balance.getSource()));
+		String marketCapRank = asset.getMarketCapRank() > 0 ? String.valueOf(asset.getMarketCapRank()) : "-";
+		tableConsole
+				.addRow(List.of(balance.getAsset(), qty, balanceFormated, ratio, marketCapRank, balance.getSource()));
 	}
 }
