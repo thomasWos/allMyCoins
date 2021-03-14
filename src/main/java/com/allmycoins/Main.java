@@ -36,6 +36,7 @@ import com.allmycoins.balance.SwyftxProvider;
 import com.allmycoins.balance.TezosProvider;
 import com.allmycoins.datatype.BalancesResult;
 import com.allmycoins.datatype.CoingeckoMarket;
+import com.allmycoins.exception.AllMyCoinsException;
 import com.allmycoins.json.BalanceJson;
 import com.allmycoins.json.coingecko.CoingeckoCoinListJson;
 import com.allmycoins.json.coingecko.CoingeckoMarketJson;
@@ -79,10 +80,10 @@ public class Main {
 				new SwyftxProvider(), new HarmonyProvider(), new AlgorandProvider(), new CosmosProvider(),
 				new TezosProvider(), new BitcoinProvider(), new SolanaProvider());
 
-		List<Future<List<BalanceJson>>> balanceFutures = FutureUtils.runAllCallables(balanceProviders);
-
 		List<BalanceJson> allMyCoins = new ArrayList<>();
-		balanceFutures.forEach(f -> allMyCoins.addAll(FutureUtils.futureResult(f)));
+		List<AllMyCoinsException> errors = new ArrayList<>();
+
+		handleProviderRequests(balanceProviders, allMyCoins, errors);
 
 		allMyCoins.addAll(coinsFromFile("myCoinsManu.json"));
 
@@ -125,6 +126,8 @@ public class Main {
 
 		BalancesResult balancesResult = BuildBalancesResult.build(allMyCoins, marketMap);
 		Console.display(balancesResult, currency);
+
+		errors.forEach(e -> System.out.println(e.getMessage()));
 	}
 
 	private static List<BalanceJson> coinsFromFile(String fileName) {
@@ -137,5 +140,19 @@ public class Main {
 
 		}
 		return balanceJsonList;
+	}
+
+	private static void handleProviderRequests(List<BalanceProvider> balanceProviders, List<BalanceJson> allMyCoins,
+			List<AllMyCoinsException> errProviders) {
+
+		List<Future<List<BalanceJson>>> balanceFutures = FutureUtils.runAllCallables(balanceProviders);
+		balanceFutures.forEach(f -> {
+			try {
+				List<BalanceJson> futureResult = FutureUtils.futureResult(f);
+				allMyCoins.addAll(futureResult);
+			} catch (AllMyCoinsException e) {
+				errProviders.add(e);
+			}
+		});
 	}
 }
