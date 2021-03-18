@@ -16,7 +16,7 @@ public final class BuildBinanceBalances {
 	}
 
 	private static BalanceJson buildBalance(BinanceBalanceJson balanceJson) {
-		return new BalanceJson(balanceJson.getAsset(), balanceJson.getFree(), "Binance");
+		return new BalanceJson(balanceJson.getAsset(), balanceJson.getFree() + balanceJson.getLocked(), "Binance");
 	}
 
 }
