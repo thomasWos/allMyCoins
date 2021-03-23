@@ -24,6 +24,7 @@ import com.allmycoins.balance.AlgorandProvider;
 import com.allmycoins.balance.BalanceProvider;
 import com.allmycoins.balance.BinanceProvider;
 import com.allmycoins.balance.BitcoinProvider;
+import com.allmycoins.balance.BscProvider;
 import com.allmycoins.balance.CoinspotProvider;
 import com.allmycoins.balance.CosmosProvider;
 import com.allmycoins.balance.CryptocomProvider;
@@ -78,7 +79,7 @@ public class Main {
 		List<BalanceProvider> balanceProviders = List.of(new EthProvider(), new BinanceProvider(),
 				new CoinspotProvider(), new CryptocomProvider(), new ElrondProvider(), new OkexProvider(),
 				new SwyftxProvider(), new HarmonyProvider(), new AlgorandProvider(), new CosmosProvider(),
-				new TezosProvider(), new BitcoinProvider(), new SolanaProvider());
+				new TezosProvider(), new BitcoinProvider(), new SolanaProvider(), new BscProvider());
 
 		List<BalanceJson> allMyCoins = new ArrayList<>();
 		List<AllMyCoinsException> errors = new ArrayList<>();
