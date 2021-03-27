@@ -1,3 +1,5 @@
 #!/bin/bash
+
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-java -Djava.util.logging.config=logging.properties -jar $CURRENT_DIR/allMyCoins.jar
+cd $CURRENT_DIR
+java -jar allMyCoins.jar
