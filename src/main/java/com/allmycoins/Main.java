@@ -105,9 +105,9 @@ public class Main {
 
 		Set<String> missingCoins = myAssets.stream().filter(asset -> !marketMap.containsKey(asset)).collect(toSet());
 		if (!missingCoins.isEmpty()) {
-			// Some coins have the same symbol, override with the last inserted.
+			// Some coins have the same symbol...
 			Map<String, String> symbolToIdMap = Arrays.stream(FutureUtils.futureResult(coinslistJsonF))
-					.collect(toMap(c -> c.getSymbol().toUpperCase(), CoingeckoCoinListJson::getId, (s1, s2) -> s2));
+					.collect(toMap(c -> c.getSymbol().toUpperCase(), CoingeckoCoinListJson::getId, (s1, s2) -> s1));
 
 			Map<String, String> idToSymbolMap = symbolToIdMap.entrySet().stream()
 					.collect(toMap(Entry::getValue, Entry::getKey));
