@@ -12,4 +12,7 @@ public final class BigDecimalUtils {
 		return decimal(bigDecimal, 18);
 	}
 
+	private BigDecimalUtils() {
+	}
+
 }
