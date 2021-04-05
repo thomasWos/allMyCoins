@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
+import com.allmycoins.business.BuildBalancesResult;
 import com.allmycoins.datatype.Balance;
 import com.allmycoins.datatype.BalancesResult;
 import com.allmycoins.datatype.CoingeckoMarket;

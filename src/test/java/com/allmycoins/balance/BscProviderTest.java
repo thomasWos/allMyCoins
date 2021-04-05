@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import com.allmycoins.PrivateConfig;
+import com.allmycoins.balance.bsc.BscProvider;
 import com.allmycoins.json.BalanceJson;
 
 class BscProviderTest {
