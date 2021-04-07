@@ -26,6 +26,7 @@ AllMyCoins is a simple crypto portfolio manager.
 - <img src="https://assets.coingecko.com/coins/images/279/thumb_2x/ethereum.png" alt="ETH" width="15"/> Ethereum
 - <img src="https://assets.coingecko.com/coins/images/279/thumb_2x/ethereum.png" alt="ETH" width="15"/> Ethereum2.0 validator
 - <img src="https://assets.coingecko.com/coins/images/825/small/binance-coin-logo.png" alt="BNB" width="15"/> Binance Smart Chain
+- <img src="https://assets.coingecko.com/coins/images/12171/small/aJGBjJFU_400x400.jpg" alt="DOT" width="15"/> Polkadot
 - <img src="https://assets.coingecko.com/coins/images/975/small/cardano.png" alt="ADA" width="15"/> Cardano
 - <img src="https://assets.coingecko.com/coins/images/2/small/litecoin.png?1547033580" alt="LTC" width="15"/> Litecoin
 - <img src="https://assets.coingecko.com/coins/images/976/thumb_2x/Tezos-logo.png" alt="XTZ" width="15"/> Tezos
