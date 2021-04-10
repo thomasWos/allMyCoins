@@ -20,7 +20,7 @@ AllMyCoins is a simple crypto portfolio manager.
 - Coinspot - https://coinspot.com.au
 - Swyftx - https://swyftx.com.au
 
-### Blochain public addresses
+### Blockchain public addresses
 
 - <img src="https://assets.coingecko.com/coins/images/1/thumb_2x/bitcoin.png" alt="BTC" width="15"/> Bitcoin
 - <img src="https://assets.coingecko.com/coins/images/279/thumb_2x/ethereum.png" alt="ETH" width="15"/> Ethereum
@@ -36,12 +36,16 @@ AllMyCoins is a simple crypto portfolio manager.
 - <img src="https://assets.coingecko.com/coins/images/4380/thumb_2x/download.png" alt="ALGO" width="15"/> Algorand
 - <img src="https://assets.coingecko.com/coins/images/4344/thumb_2x/Y88JAze.png" alt="ONE" width="15"/> Harmony
 
-
 ## Display
 
 <img src="doc/img/allMyCoinsWindow.png" alt="AllMyCoins Window" width="300"/>
 
+## Use it
+
+Download the latest [Release](https://github.com/thomasWos/AllMyCoins/releases).
+
 ## Prerequisites
 
-- Java - JDK 11 or higher
-- Maven
+- Java 11 or higher
+
+
