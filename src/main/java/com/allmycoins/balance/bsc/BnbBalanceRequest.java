@@ -36,7 +36,8 @@ public final class BnbBalanceRequest implements GetRequest<BnbBalanceJson> {
 
 	@Override
 	public String parameters() {
-		return RequestUtils.buildParameters(Map.of("module", "account", "action", "balance", "address", bscAddress));
+		return RequestUtils.buildParameters(Map.of("module", "account", "action", "balance", "address", bscAddress,
+				"apikey", "GTE25RTNXNTJM3EAVQTN5JUZS4FXTZXX24"));
 	}
 
 }

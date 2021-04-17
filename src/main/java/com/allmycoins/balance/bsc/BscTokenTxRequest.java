@@ -36,7 +36,8 @@ public final class BscTokenTxRequest implements GetRequest<BscTokenTxResultJson>
 
 	@Override
 	public String parameters() {
-		return RequestUtils.buildParameters(Map.of("module", "account", "action", "tokentx", "address", bscAddress));
+		return RequestUtils.buildParameters(Map.of("module", "account", "action", "tokentx", "address", bscAddress,
+				"apikey", "GTE25RTNXNTJM3EAVQTN5JUZS4FXTZXX24"));
 	}
 
 }
