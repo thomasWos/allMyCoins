@@ -26,7 +26,7 @@ public final class Console {
 
 	private static void addTableRow(final Asset asset, final String currency, TableConsole tableConsole) {
 		Balance balance = asset.getBalance();
-		String qty = String.format("%.2f", balance.getQuantity());
+		String qty = String.format("%.3f", balance.getQuantity());
 		String balanceFormated = String.format("%1$.2f %2$s", balance.getCurrencyValue(), currency);
 		String ratio = String.format("%.2f", asset.getRatio() * 100);
 		String marketCapRank = asset.getMarketCapRank() > 0 ? String.valueOf(asset.getMarketCapRank()) : "-";
