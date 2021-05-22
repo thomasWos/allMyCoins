@@ -15,7 +15,7 @@ AllMyCoins is a simple crypto portfolio manager.
 ### Exchangers
 
 - <img src="https://assets.coingecko.com/markets/images/52/small/binance.jpg" alt="Binance" width="15"/> Binance spot - https://www.binance.com/
-- <img src="https://assets.coingecko.com/markets/images/96/small/okEX.jpg" alt="OKEx" width="15"/> OKEx spot - https://www.okex.com/
+- <img src="https://assets.coingecko.com/markets/images/96/small/okEX.jpg" alt="OKEx" width="15"/> OKEx Unified - https://www.okex.com/
 - <img src="https://assets.coingecko.com/markets/images/589/small/crypto_com.jpg" alt="crypto.com" width="15"/> https://crypto.com/exchange
 - Coinspot - https://coinspot.com.au
 - Swyftx - https://swyftx.com.au

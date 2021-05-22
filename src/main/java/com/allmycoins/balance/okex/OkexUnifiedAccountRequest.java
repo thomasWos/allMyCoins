@@ -8,19 +8,17 @@ import com.allmycoins.request.GetRequest;
 import com.allmycoins.utils.SignUtils;
 import com.allmycoins.utils.SignatureAlgo;
 
-public final class OkexSpotAccountRequest implements GetRequest<OkexSpotAccountJson[]> {
+public final class OkexUnifiedAccountRequest implements GetRequest<OkexResponseJson> {
 
 	private final String apiKey;
 	private final String secretKey;
 	private final String passphrase;
 
-	public OkexSpotAccountRequest(String pApiKey, String pSecretKey, String pPassphrase) {
+	public OkexUnifiedAccountRequest(String pApiKey, String pSecretKey, String pPassphrase) {
 		apiKey = pApiKey;
 		secretKey = pSecretKey;
 		passphrase = pPassphrase;
 	}
-
-	// GET/api/spot/v3/accounts
 
 	@Override
 	public String baseUrl() {
@@ -29,7 +27,7 @@ public final class OkexSpotAccountRequest implements GetRequest<OkexSpotAccountJ
 
 	@Override
 	public String endPoint() {
-		return "/api/spot/v3/accounts";
+		return "/api/v5/account/balance";
 	}
 
 	@Override
@@ -44,8 +42,8 @@ public final class OkexSpotAccountRequest implements GetRequest<OkexSpotAccountJ
 	}
 
 	@Override
-	public Class<OkexSpotAccountJson[]> jsonResponseClass() {
-		return OkexSpotAccountJson[].class;
+	public Class<OkexResponseJson> jsonResponseClass() {
+		return OkexResponseJson.class;
 	}
 
 	@Override
