@@ -2,21 +2,14 @@ package com.allmycoins.balance.binance;
 
 import java.util.List;
 
-import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@Getter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class BinanceAccountJson {
 
-	private int makerCommission;
-	private int takerCommission;
-	private int buyerCommission;
-	private int sellerCommission;
-	private boolean canTrade;
-	private boolean canWithdraw;
-	private boolean canDeposit;
-	private long updateTime;
-	private String accountType;
 	private List<BinanceBalanceJson> balances;
-	private List<String> permissions;
 
+	public List<BinanceBalanceJson> getBalances() {
+		return balances;
+	}
 }

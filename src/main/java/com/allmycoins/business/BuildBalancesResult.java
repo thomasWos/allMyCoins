@@ -28,7 +28,7 @@ public final class BuildBalancesResult {
 		float total = balances.stream().map(Balance::getCurrencyValue).reduce(0.0f, (a, b) -> a + b);
 
 		List<Asset> assets = balances.stream().map(b -> toAsset(b, total, marketMap)).collect(toList());
-		return BalancesResult.builder().assets(assets).totalCurrency(total).build();
+		return new BalancesResult(assets, total);
 	}
 
 	private static BalanceMerge mergeBalances(BalanceMerge b1, BalanceMerge b2) {

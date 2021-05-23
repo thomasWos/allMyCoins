@@ -22,8 +22,7 @@ public final class CryptoComAccountSummaryRequest implements PostRequest<CryptoC
 		String sigPayload = method + id + pApiKey + nonce;
 		String sig = SignUtils.signHex(SignatureAlgo.HMAC_SHA256, pSecretKey, sigPayload);
 
-		AccountSummaryBody accountSummaryBody = AccountSummaryBody.builder().id(id).method(method).nonce(nonce).sig(sig)
-				.api_key(pApiKey).build();
+		AccountSummaryBody accountSummaryBody = new AccountSummaryBody(id, method, pApiKey, sig, nonce);
 
 		bodyStr = JacksonUtils.serializeToJson(accountSummaryBody);
 	}

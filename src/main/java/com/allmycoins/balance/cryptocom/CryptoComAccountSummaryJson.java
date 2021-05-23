@@ -1,30 +1,14 @@
 package com.allmycoins.balance.cryptocom;
 
-import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@Getter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class CryptoComAccountSummaryJson {
 
-//	{
-//	    "id": 11,
-//	    "method": "private/get-account-summary",
-//	    "code": 0,
-//	    "result": {
-//	        "accounts": [
-//	            {
-//	                "balance": 99999999.905000000000000000,
-//	                "available": 99999996.905000000000000000,
-//	                "order": 3.000000000000000000,
-//	                "stake": 0,
-//	                "currency": "CRO"
-//	            }
-//	        ]
-//	    }
-//	}
-
-	private long id;
-	private String method;
-	private int code;
 	private CryptoComResultJson result;
+
+	public CryptoComResultJson getResult() {
+		return result;
+	}
 
 }

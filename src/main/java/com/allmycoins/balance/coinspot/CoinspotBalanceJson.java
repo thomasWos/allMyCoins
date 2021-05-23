@@ -1,12 +1,19 @@
 package com.allmycoins.balance.coinspot;
 
-import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@Getter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class CoinspotBalanceJson {
 
 	private float balance;
 	private float audbalance;
-	private float rate;
+
+	public float getAudbalance() {
+		return audbalance;
+	}
+
+	public float getBalance() {
+		return balance;
+	}
 
 }

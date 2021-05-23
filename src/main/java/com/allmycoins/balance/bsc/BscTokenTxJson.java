@@ -4,9 +4,6 @@ import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import lombok.Getter;
-
-@Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BscTokenTxJson {
 
@@ -16,4 +13,27 @@ public class BscTokenTxJson {
 	private int tokenDecimal;
 	private String tokenSymbol;
 
+	public String getFrom() {
+		return from;
+	}
+
+	public String getTo() {
+		return to;
+	}
+
+	public int getTokenDecimal() {
+		return tokenDecimal;
+	}
+
+	public String getTokenSymbol() {
+		return tokenSymbol;
+	}
+
+	public BigDecimal getValue() {
+		return value;
+	}
+
+	public void setTokenDecimal(int tokenDecimal) {
+		this.tokenDecimal = tokenDecimal;
+	}
 }

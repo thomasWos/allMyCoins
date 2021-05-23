@@ -1,12 +1,13 @@
 package com.allmycoins.balance.elrond;
 
-import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@Getter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class ElrondBalanceRequestJson {
 
 	private ElrondAddressBalanceJson data;
-	private String error;
-	private String code;
 
+	public ElrondAddressBalanceJson getData() {
+		return data;
+	}
 }

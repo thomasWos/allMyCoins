@@ -4,12 +4,13 @@ import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 
-import lombok.Getter;
-
-@Getter
 public final class LitecoinBalanceDataJson {
 
 	private BigDecimal balance;
+
+	public BigDecimal getBalance() {
+		return balance;
+	}
 
 	@JsonAnySetter
 	public void set(String date, BigDecimal pBalance) {

@@ -17,7 +17,7 @@ public final class CoinspotBalancesRequest implements PostRequest<CoinspotBalanc
 		apiKey = pApiKey;
 		secretKey = pSecretKey;
 
-		CoinspotBalancesBody body = CoinspotBalancesBody.builder().nonce(System.currentTimeMillis()).build();
+		CoinspotBalancesBody body = new CoinspotBalancesBody(System.currentTimeMillis());
 		bodyStr = JacksonUtils.serializeToJson(body);
 	}
 

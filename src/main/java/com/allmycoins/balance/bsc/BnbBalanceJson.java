@@ -2,13 +2,13 @@ package com.allmycoins.balance.bsc;
 
 import java.math.BigDecimal;
 
-import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@Getter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class BnbBalanceJson {
-
-	private int status;
-	private String message;
 	private BigDecimal result;
 
+	public BigDecimal getResult() {
+		return result;
+	}
 }

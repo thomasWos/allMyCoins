@@ -2,21 +2,14 @@ package com.allmycoins.balance.cryptocom;
 
 import java.util.List;
 
-import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@Getter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class CryptoComResultJson {
-
-//    "accounts": [
-//    {
-//        "balance": 99999999.905000000000000000,
-//        "available": 99999996.905000000000000000,
-//        "order": 3.000000000000000000,
-//        "stake": 0,
-//        "currency": "CRO"
-//    }
-//	]
 
 	private List<CryptoComAccountJson> accounts;
 
+	public List<CryptoComAccountJson> getAccounts() {
+		return accounts;
+	}
 }

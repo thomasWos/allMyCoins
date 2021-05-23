@@ -1,12 +1,15 @@
 package com.allmycoins.balance.swyftx;
 
-import lombok.Builder;
-import lombok.Getter;
-
-@Builder
-@Getter
 public final class SwyftxRefreshBody {
 
 	private final String apiKey;
+
+	public SwyftxRefreshBody(String apiKey) {
+		this.apiKey = apiKey;
+	}
+
+	public String getApiKey() {
+		return apiKey;
+	}
 
 }

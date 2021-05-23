@@ -1,13 +1,13 @@
 package com.allmycoins.balance.ethereum;
 
-import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@Getter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class AmberdataEthTokensJson {
 
-	private int status;
-	private String title;
-	private String description;
 	private EthTokenPayloadJson payload;
 
+	public EthTokenPayloadJson getPayload() {
+		return payload;
+	}
 }

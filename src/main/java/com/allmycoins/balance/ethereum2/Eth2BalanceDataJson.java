@@ -4,12 +4,12 @@ import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import lombok.Getter;
-
-@Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public final class Eth2BalanceDataJson {
 
 	private BigDecimal balance;
 
+	public BigDecimal getBalance() {
+		return balance;
+	}
 }

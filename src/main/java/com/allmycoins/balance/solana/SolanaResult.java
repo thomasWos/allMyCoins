@@ -4,12 +4,13 @@ import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import lombok.Getter;
-
-@Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SolanaResult {
+public final class SolanaResult {
 
 	private BigDecimal value;
+
+	public BigDecimal getValue() {
+		return value;
+	}
 
 }

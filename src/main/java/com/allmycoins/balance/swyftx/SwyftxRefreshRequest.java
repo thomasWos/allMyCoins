@@ -21,6 +21,12 @@ public final class SwyftxRefreshRequest implements PostRequest<SwyftxAccessToken
 	}
 
 	@Override
+	public String body() {
+		SwyftxRefreshBody body = new SwyftxRefreshBody(apiKey);
+		return JacksonUtils.serializeToJson(body);
+	}
+
+	@Override
 	public String endPoint() {
 		return "/auth/refresh/";
 	}
@@ -33,11 +39,5 @@ public final class SwyftxRefreshRequest implements PostRequest<SwyftxAccessToken
 	@Override
 	public Class<SwyftxAccessTokenJson> jsonResponseClass() {
 		return SwyftxAccessTokenJson.class;
-	}
-
-	@Override
-	public String body() {
-		SwyftxRefreshBody body = SwyftxRefreshBody.builder().apiKey(apiKey).build();
-		return JacksonUtils.serializeToJson(body);
 	}
 }

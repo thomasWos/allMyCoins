@@ -2,13 +2,14 @@ package com.allmycoins.balance.ethereum;
 
 import java.math.BigDecimal;
 
-import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@Getter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class EtherscanBalanceJson {
 
-	private int status;
-	private String message;
 	private BigDecimal result;
 
+	public BigDecimal getResult() {
+		return result;
+	}
 }
