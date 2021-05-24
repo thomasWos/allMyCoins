@@ -7,11 +7,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public final class ElrondDelegationJson {
 
-	private String address;
-	private String contract;
 	private BigDecimal userUnBondable;
 	private BigDecimal userActiveStake;
 	private BigDecimal claimableRewards;
+	private UserUndelegatedJson[] userUndelegatedList;
 
 	public BigDecimal getClaimableRewards() {
 		return claimableRewards;
@@ -20,4 +19,13 @@ public final class ElrondDelegationJson {
 	public BigDecimal getUserActiveStake() {
 		return userActiveStake;
 	}
+
+	public BigDecimal getUserUnBondable() {
+		return userUnBondable;
+	}
+
+	public UserUndelegatedJson[] getUserUndelegatedList() {
+		return userUndelegatedList;
+	}
+
 }

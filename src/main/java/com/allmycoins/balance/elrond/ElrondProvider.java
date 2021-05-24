@@ -1,5 +1,6 @@
 package com.allmycoins.balance.elrond;
 
+import static com.allmycoins.utils.BigDecimalUtils.BIG_DECIMAL_SUM;
 import static java.math.BigDecimal.ZERO;
 
 import java.math.BigDecimal;
@@ -30,11 +31,19 @@ public final class ElrondProvider implements PublicAddressSingleBalanceProvider 
 		ElrondBalanceRequestJson elrondBalanceRequestJson = FutureUtils.futureResult(elrondBalanceRequestJsonF);
 		ElrondDelegationJson[] elrondDelegationsJson = FutureUtils.futureResult(elrondDelegationsJsonF);
 
-		BigDecimal delegation = Arrays.stream(elrondDelegationsJson)
-				.map(d -> d.getUserActiveStake().add(d.getClaimableRewards())).reduce(ZERO, (d1, d2) -> d1.add(d2));
+		BigDecimal delegation = Arrays.stream(elrondDelegationsJson).map(this::sumBalances).reduce(ZERO,
+				BIG_DECIMAL_SUM);
 
 		BigDecimal allElronds = elrondBalanceRequestJson.getData().getBalance().add(delegation);
 		float qty = BigDecimalUtils.decimal18(allElronds);
 		return new BalanceJson("EGLD", qty, "Elrond wallet");
 	}
+
+	private BigDecimal sumBalances(ElrondDelegationJson delegation) {
+		BigDecimal undelegated = Arrays.stream(delegation.getUserUndelegatedList()).map(UserUndelegatedJson::getAmount)
+				.reduce(ZERO, BIG_DECIMAL_SUM);
+		return delegation.getUserActiveStake().add(delegation.getClaimableRewards()).add(undelegated)
+				.add(delegation.getUserUnBondable());
+	}
+
 }
