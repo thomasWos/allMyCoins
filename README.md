@@ -14,8 +14,8 @@ AllMyCoins is a simple crypto portfolio manager.
 
 ### Exchangers
 
-- <img src="https://assets.coingecko.com/markets/images/52/small/binance.jpg" alt="Binance" width="15"/> Binance spot - https://www.binance.com/
-- <img src="https://assets.coingecko.com/markets/images/96/small/okEX.jpg" alt="OKEx" width="15"/> OKEx Unified - https://www.okex.com/
+- <img src="https://assets.coingecko.com/markets/images/52/small/binance.jpg" alt="Binance" width="15"/> Binance spot - https://www.binance.com
+- <img src="https://assets.coingecko.com/markets/images/96/small/okEX.jpg" alt="OKEx" width="15"/> OKEx Unified - https://www.okex.com
 - <img src="https://assets.coingecko.com/markets/images/589/small/crypto_com.jpg" alt="crypto.com" width="15"/> https://crypto.com/exchange
 - Coinspot - https://coinspot.com.au
 - Swyftx - https://swyftx.com.au
@@ -35,6 +35,7 @@ AllMyCoins is a simple crypto portfolio manager.
 - <img src="https://assets.coingecko.com/coins/images/4128/thumb_2x/RPU3hzmh_400x400.jpg" alt="Solana" width="15"/> Solana
 - <img src="https://assets.coingecko.com/coins/images/4380/thumb_2x/download.png" alt="ALGO" width="15"/> Algorand
 - <img src="https://assets.coingecko.com/coins/images/4344/thumb_2x/Y88JAze.png" alt="ONE" width="15"/> Harmony
+- <img src="https://assets.coingecko.com/coins/images/16724/small/osmosis.jpeg?1624849879" alt="OSMO" width="15"/> Osmosis
 
 ## Display
 

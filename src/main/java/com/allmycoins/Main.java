@@ -35,6 +35,7 @@ import com.allmycoins.balance.ethereum2.Eth2Provider;
 import com.allmycoins.balance.harmony.HarmonyProvider;
 import com.allmycoins.balance.litecoin.LitecoinProvider;
 import com.allmycoins.balance.okex.OkexProvider;
+import com.allmycoins.balance.osmosis.OsmosisProvider;
 import com.allmycoins.balance.polkadot.PolkadotProvider;
 import com.allmycoins.balance.solana.SolanaProvider;
 import com.allmycoins.balance.swyftx.SwyftxProvider;
@@ -84,7 +85,8 @@ public class Main {
 				new CoinspotProvider(), new CryptocomProvider(), new ElrondProvider(), new OkexProvider(),
 				new SwyftxProvider(), new HarmonyProvider(), new AlgorandProvider(), new CosmosProvider(),
 				new TezosProvider(), new BitcoinProvider(), new SolanaProvider(), new BscProvider(),
-				new CardanoProvider(), new LitecoinProvider(), new Eth2Provider(), new PolkadotProvider());
+				new CardanoProvider(), new LitecoinProvider(), new Eth2Provider(), new PolkadotProvider(),
+				new OsmosisProvider());
 
 		List<BalanceJson> allMyCoins = new ArrayList<>();
 		List<AllMyCoinsException> errors = new ArrayList<>();
