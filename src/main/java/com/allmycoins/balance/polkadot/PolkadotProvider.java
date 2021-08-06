@@ -14,7 +14,7 @@ public final class PolkadotProvider implements PublicAddressSingleBalanceProvide
 
 	@Override
 	public BalanceJson singleBalance(String publicAddress) {
-		PolkadotAccountJson polkadotAccountJson = RequestUtils.sendRequest(new PolkadotAccountRequest(publicAddress));
+		var polkadotAccountJson = RequestUtils.sendRequest(new PolkadotAccountRequest(publicAddress));
 		float qty = BigDecimalUtils.decimal(polkadotAccountJson.getData().getAttributes().getBalance_total(), 10);
 		return new BalanceJson("DOT", qty, "Polkadot wallet");
 	}

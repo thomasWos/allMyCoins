@@ -41,13 +41,11 @@ import com.allmycoins.balance.solana.SolanaProvider;
 import com.allmycoins.balance.swyftx.SwyftxProvider;
 import com.allmycoins.balance.tezos.TezosProvider;
 import com.allmycoins.business.BuildBalancesResult;
-import com.allmycoins.datatype.BalancesResult;
 import com.allmycoins.datatype.CoingeckoMarket;
 import com.allmycoins.exception.AllMyCoinsException;
 import com.allmycoins.json.BalanceJson;
 import com.allmycoins.json.coingecko.CoingeckoCoinListJson;
 import com.allmycoins.json.coingecko.CoingeckoMarketJson;
-import com.allmycoins.json.coingecko.CoingeckoPricesJson;
 import com.allmycoins.json.manu.BalanceManuJson;
 import com.allmycoins.presentation.Console;
 import com.allmycoins.request.coingecko.CoingeckoCoinsListRequest;
@@ -122,17 +120,16 @@ public class Main {
 			Set<String> missingIds = missingCoins.stream().filter(symbolToIdMap::containsKey).map(symbolToIdMap::get)
 					.collect(toSet());
 
-			CoingeckoPricesJson coingeckoPricesJson = RequestUtils
-					.sendRequest(new CoingeckoSimplePriceRequest(missingIds, currency));
+			var coingeckoPricesJson = RequestUtils.sendRequest(new CoingeckoSimplePriceRequest(missingIds, currency));
 
 			Map<String, CoingeckoMarket> missingMarkets = coingeckoPricesJson.getPrices().entrySet().stream().collect(
 					toMap(e -> idToSymbolMap.get(e.getKey()), e -> new CoingeckoMarket(idToSymbolMap.get(e.getKey()),
-							e.getValue().getPrices().get(currency), -1)));
+							e.getValue().getPrices().getOrDefault(currency, 0f), -1)));
 
 			marketMap.putAll(missingMarkets);
 		}
 
-		BalancesResult balancesResult = BuildBalancesResult.build(allMyCoins, marketMap);
+		var balancesResult = BuildBalancesResult.build(allMyCoins, marketMap);
 		Console.display(balancesResult, currency);
 
 		errors.forEach(e -> System.out.println(e.getMessage()));
@@ -140,7 +137,7 @@ public class Main {
 
 	private static List<BalanceJson> coinsFromFile(String fileName) {
 		List<BalanceJson> balanceJsonList = Collections.emptyList();
-		File file = new File(fileName);
+		var file = new File(fileName);
 		if (file.exists()) {
 			BalanceManuJson[] balancesManuTab = JacksonUtils.deserialize(file, BalanceManuJson[].class);
 			balanceJsonList = Arrays.stream(balancesManuTab)
