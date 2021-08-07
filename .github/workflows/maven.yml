@@ -13,10 +13,9 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '11'
-          - name: Deploy script
+      - name: Deploy script
         run: ./deploy
-
-      - name: 'Upload Artifact'
+      - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
           name: allMyCoins
