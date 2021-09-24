@@ -28,7 +28,7 @@ public final class ElrondProvider implements PublicAddressSingleBalanceProvider 
 		Future<ElrondDelegationJson[]> elrondDelegationsJsonF = RequestUtils
 				.sendRequestFuture(new ElrondDelegationsRequest(publicAddress));
 
-		ElrondBalanceRequestJson elrondBalanceRequestJson = FutureUtils.futureResult(elrondBalanceRequestJsonF);
+		var elrondBalanceRequestJson = FutureUtils.futureResult(elrondBalanceRequestJsonF);
 		ElrondDelegationJson[] elrondDelegationsJson = FutureUtils.futureResult(elrondDelegationsJsonF);
 
 		BigDecimal delegation = Arrays.stream(elrondDelegationsJson).map(this::sumBalances).reduce(ZERO,
@@ -42,8 +42,6 @@ public final class ElrondProvider implements PublicAddressSingleBalanceProvider 
 	private BigDecimal sumBalances(ElrondDelegationJson delegation) {
 		BigDecimal undelegated = Arrays.stream(delegation.getUserUndelegatedList()).map(UserUndelegatedJson::getAmount)
 				.reduce(ZERO, BIG_DECIMAL_SUM);
-		return delegation.getUserActiveStake().add(delegation.getClaimableRewards()).add(undelegated)
-				.add(delegation.getUserUnBondable());
+		return delegation.getUserActiveStake().add(delegation.getClaimableRewards()).add(undelegated);
 	}
-
 }
