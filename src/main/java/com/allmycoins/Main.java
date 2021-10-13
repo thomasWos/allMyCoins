@@ -28,6 +28,7 @@ import com.allmycoins.balance.bsc.BscProvider;
 import com.allmycoins.balance.cardano.CardanoProvider;
 import com.allmycoins.balance.coinspot.CoinspotProvider;
 import com.allmycoins.balance.cosmos.CosmosProvider;
+import com.allmycoins.balance.cosmosjs.CosmosJsProviders;
 import com.allmycoins.balance.cryptocom.CryptocomProvider;
 import com.allmycoins.balance.elrond.ElrondProvider;
 import com.allmycoins.balance.ethereum.EthProvider;
@@ -35,7 +36,6 @@ import com.allmycoins.balance.ethereum2.Eth2Provider;
 import com.allmycoins.balance.harmony.HarmonyProvider;
 import com.allmycoins.balance.litecoin.LitecoinProvider;
 import com.allmycoins.balance.okex.OkexProvider;
-import com.allmycoins.balance.osmosis.OsmosisProvider;
 import com.allmycoins.balance.polkadot.PolkadotProvider;
 import com.allmycoins.balance.solana.SolanaProvider;
 import com.allmycoins.balance.swyftx.SwyftxProvider;
@@ -79,12 +79,16 @@ public class Main {
 		Future<CoingeckoCoinListJson[]> coinslistJsonF = RequestUtils
 				.sendRequestFuture(new CoingeckoCoinsListRequest());
 
-		List<BalanceProvider> balanceProviders = List.of(new EthProvider(), new BinanceProvider(),
+		List<BalanceProvider> balanceProviders = new ArrayList<>();
+
+		List<BalanceProvider> staticProviders = List.of(new EthProvider(), new BinanceProvider(),
 				new CoinspotProvider(), new CryptocomProvider(), new ElrondProvider(), new OkexProvider(),
 				new SwyftxProvider(), new HarmonyProvider(), new AlgorandProvider(), new CosmosProvider(),
 				new TezosProvider(), new BitcoinProvider(), new SolanaProvider(), new BscProvider(),
-				new CardanoProvider(), new LitecoinProvider(), new Eth2Provider(), new PolkadotProvider(),
-				new OsmosisProvider());
+				new CardanoProvider(), new LitecoinProvider(), new Eth2Provider(), new PolkadotProvider());
+
+		balanceProviders.addAll(staticProviders);
+		balanceProviders.addAll(CosmosJsProviders.providers());
 
 		List<BalanceJson> allMyCoins = new ArrayList<>();
 		List<AllMyCoinsException> errors = new ArrayList<>();

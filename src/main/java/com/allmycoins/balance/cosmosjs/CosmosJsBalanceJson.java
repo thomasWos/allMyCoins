@@ -1,8 +1,8 @@
-package com.allmycoins.balance.osmosis;
+package com.allmycoins.balance.cosmosjs;
 
 import java.math.BigDecimal;
 
-public final class OsmosisBalanceJson {
+public final class CosmosJsBalanceJson {
 
 	private String denom;
 	private BigDecimal amount;
