@@ -1,21 +1,23 @@
-package com.allmycoins.balance.osmosis;
+package com.allmycoins.balance.cosmosjs;
 
 import java.util.Collections;
 import java.util.Map;
 
 import com.allmycoins.request.GetRequest;
 
-final class OsmosisRewardRequest implements GetRequest<OsmosisRewardJson> {
+final class CosmosJsRewardRequest implements GetRequest<CosmosJsRewardJson> {
 
+	private final String network;
 	private final String address;
 
-	OsmosisRewardRequest(String pAddress) {
+	CosmosJsRewardRequest(String pNetwork, String pAddress) {
+		network = pNetwork;
 		address = pAddress;
 	}
 
 	@Override
 	public String baseUrl() {
-		return "https://lcd-osmosis.cosmostation.io";
+		return "https://lcd-" + network + ".cosmostation.io";
 	}
 
 	@Override
@@ -29,8 +31,8 @@ final class OsmosisRewardRequest implements GetRequest<OsmosisRewardJson> {
 	}
 
 	@Override
-	public Class<OsmosisRewardJson> jsonResponseClass() {
-		return OsmosisRewardJson.class;
+	public Class<CosmosJsRewardJson> jsonResponseClass() {
+		return CosmosJsRewardJson.class;
 	}
 
 	@Override
