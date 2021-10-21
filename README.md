@@ -30,12 +30,18 @@ AllMyCoins is a simple crypto portfolio manager.
 - <img src="https://assets.coingecko.com/coins/images/975/small/cardano.png" alt="ADA" width="15"/> Cardano
 - <img src="https://assets.coingecko.com/coins/images/2/small/litecoin.png?1547033580" alt="LTC" width="15"/> Litecoin
 - <img src="https://assets.coingecko.com/coins/images/976/thumb_2x/Tezos-logo.png" alt="XTZ" width="15"/> Tezos
-- <img src="https://assets.coingecko.com/coins/images/1481/thumb_2x/cosmos_hub.png" alt="ATOM" width="15"/> Cosmos
 - <img src="https://assets.coingecko.com/coins/images/12335/thumb_2x/Elrond.png" alt="Elrond" width="15"/> Elrond
 - <img src="https://assets.coingecko.com/coins/images/4128/thumb_2x/RPU3hzmh_400x400.jpg" alt="Solana" width="15"/> Solana
 - <img src="https://assets.coingecko.com/coins/images/4380/thumb_2x/download.png" alt="ALGO" width="15"/> Algorand
 - <img src="https://assets.coingecko.com/coins/images/4344/thumb_2x/Y88JAze.png" alt="ONE" width="15"/> Harmony
+
+##### Cosmos ecosystem
+- <img src="https://assets.coingecko.com/coins/images/1481/thumb_2x/cosmos_hub.png" alt="ATOM" width="15"/> Cosmos
 - <img src="https://assets.coingecko.com/coins/images/16724/small/osmosis.jpeg?1624849879" alt="OSMO" width="15"/> Osmosis
+- <img src="https://assets.coingecko.com/coins/images/12785/small/akash-logo.png" alt="AKASH" width="15"/> Akash
+- <img src="https://assets.coingecko.com/coins/images/5135/small/IRIS.png" alt="Iris" width="15"/> IRISnet
+- <img src="https://assets.coingecko.com/coins/images/19249/small/2021-10-21_11.23.17.jpg" alt="Juno" width="15"/> Juno
+
 
 ## Display
 
