@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 
 import com.allmycoins.balance.BalanceProvider;
 import com.allmycoins.balance.algorand.AlgorandProvider;
+import com.allmycoins.balance.avalanche.AvalancheProvider;
 import com.allmycoins.balance.binance.BinanceProvider;
 import com.allmycoins.balance.bitcoin.BitcoinProvider;
 import com.allmycoins.balance.bsc.BscProvider;
@@ -85,7 +86,8 @@ public class Main {
 				new CoinspotProvider(), new CryptocomProvider(), new ElrondProvider(), new OkexProvider(),
 				new SwyftxProvider(), new HarmonyProvider(), new AlgorandProvider(), new CosmosProvider(),
 				new TezosProvider(), new BitcoinProvider(), new SolanaProvider(), new BscProvider(),
-				new CardanoProvider(), new LitecoinProvider(), new Eth2Provider(), new PolkadotProvider());
+				new CardanoProvider(), new LitecoinProvider(), new Eth2Provider(), new PolkadotProvider(),
+				new AvalancheProvider());
 
 		balanceProviders.addAll(staticProviders);
 		balanceProviders.addAll(CosmosJsProviders.providers());
