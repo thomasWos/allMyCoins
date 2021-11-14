@@ -1,10 +1,10 @@
 [
     {
         "asset": "mUSD",
-        "src": "ETH wallet"
+        "src": "ETH"
     },
     {
         "asset": "ERD",
-        "src": "ETH wallet"
+        "src": "ETH"
     }
 ]

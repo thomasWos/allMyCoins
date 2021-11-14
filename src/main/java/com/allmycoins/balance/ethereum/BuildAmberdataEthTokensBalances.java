@@ -18,7 +18,7 @@ public final class BuildAmberdataEthTokensBalances {
 	private static BalanceJson balance(EthTokenRecordJson ethTokenRecord) {
 		float qty = ethTokenRecord.getAmount().divide(BigDecimal.valueOf(10).pow(ethTokenRecord.getDecimals()))
 				.floatValue();
-		return new BalanceJson(ethTokenRecord.getSymbol(), qty, "ETH wallet");
+		return new BalanceJson(ethTokenRecord.getSymbol(), qty, "ETH");
 	}
 
 	private static boolean specialPredicate(EthTokenRecordJson tokenRecordJson) {
