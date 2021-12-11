@@ -15,7 +15,7 @@ public final class ElrondDelegationsRequest implements GetRequest<ElrondDelegati
 
 	@Override
 	public String baseUrl() {
-		return "https://internal-delegation-api.elrond.com";
+		return "https://delegation-api.elrond.com";
 	}
 
 	@Override
