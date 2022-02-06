@@ -41,7 +41,13 @@ AllMyCoins is a simple crypto portfolio manager.
 - <img src="https://assets.coingecko.com/coins/images/12785/small/akash-logo.png" alt="AKASH" width="15"/> Akash
 - <img src="https://assets.coingecko.com/coins/images/5135/small/IRIS.png" alt="Iris" width="15"/> IRISnet
 - <img src="https://assets.coingecko.com/coins/images/19249/small/2021-10-21_11.23.17.jpg" alt="Juno" width="15"/> Juno
-
+- <img src="https://assets.coingecko.com/coins/images/21540/small/_ooQky6B_400x400.jpg?1639447618" alt="Comdex" width="15"/> Comdex
+- <img src="https://assets.coingecko.com/coins/images/22485/small/logo_transparent_notext.png?1641901839" alt="Chihuahua" width="15"/> Chihuahua
+- <img src="https://assets.coingecko.com/coins/images/22363/small/stargaze.png?1641571154" alt="Stargaze" width="15"/> Stargaze
+- <img src="https://assets.coingecko.com/coins/images/16733/small/REGEN.png?1624861317" alt="Regen" width="15"/> Regen
+- <img src="https://assets.coingecko.com/coins/images/13722/small/logo-200x200.jpg?1626095888" alt="E-Money" width="15"/> E-Money
+- <img src="https://assets.coingecko.com/coins/images/22009/small/lum.png?1640590072" alt="Lum" width="15"/> Lum
+- <img src="https://assets.coingecko.com/coins/images/22610/small/dsm.png?1643192656" alt="Desmos" width="15"/> Desmos
 
 ## Display
 
