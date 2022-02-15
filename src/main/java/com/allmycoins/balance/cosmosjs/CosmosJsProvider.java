@@ -21,7 +21,7 @@ public final class CosmosJsProvider implements PublicAddressSingleBalanceProvide
 	private final String denom;
 	private final String token;
 
-	CosmosJsProvider(String pPrivateConfigKey, String pNetwork, String pDenom, String pToken) {
+	public CosmosJsProvider(String pPrivateConfigKey, String pNetwork, String pDenom, String pToken) {
 		privateConfigKey = pPrivateConfigKey;
 		network = pNetwork;
 		denom = pDenom;

@@ -28,7 +28,6 @@ import com.allmycoins.balance.bitcoin.BitcoinProvider;
 import com.allmycoins.balance.bsc.BscProvider;
 import com.allmycoins.balance.cardano.CardanoProvider;
 import com.allmycoins.balance.coinspot.CoinspotProvider;
-import com.allmycoins.balance.cosmos.CosmosProvider;
 import com.allmycoins.balance.cosmosjs.CosmosJsProviders;
 import com.allmycoins.balance.cryptocom.CryptocomProvider;
 import com.allmycoins.balance.elrond.ElrondProvider;
@@ -84,10 +83,9 @@ public class Main {
 
 		List<BalanceProvider> staticProviders = List.of(new EthProvider(), new BinanceProvider(),
 				new CoinspotProvider(), new CryptocomProvider(), new ElrondProvider(), new OkexProvider(),
-				new SwyftxProvider(), new HarmonyProvider(), new AlgorandProvider(), new CosmosProvider(),
-				new TezosProvider(), new BitcoinProvider(), new SolanaProvider(), new BscProvider(),
-				new CardanoProvider(), new LitecoinProvider(), new Eth2Provider(), new PolkadotProvider(),
-				new AvalancheProvider());
+				new SwyftxProvider(), new HarmonyProvider(), new AlgorandProvider(), new TezosProvider(),
+				new BitcoinProvider(), new SolanaProvider(), new BscProvider(), new CardanoProvider(),
+				new LitecoinProvider(), new Eth2Provider(), new PolkadotProvider(), new AvalancheProvider());
 
 		balanceProviders.addAll(staticProviders);
 		balanceProviders.addAll(CosmosJsProviders.providers());

@@ -5,6 +5,7 @@ import java.util.List;
 public final class CosmosJsProviders {
 
 	private static final List<CosmosJsProvider> PROVIDERS = List.of(
+			new CosmosJsProvider("COSMOS_ADDRESS", "cosmos", "uatom", "ATOM"),
 			new CosmosJsProvider("OSMOSIS_ADDRESS", "osmosis", "uosmo", "OSMO"),
 			new CosmosJsProvider("AKASH_ADDRESS", "akash", "uakt", "AKT"),
 			new CosmosJsProvider("IRISNET_ADDRESS", "iris", "uiris", "IRIS"),
