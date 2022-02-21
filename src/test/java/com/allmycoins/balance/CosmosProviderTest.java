@@ -8,7 +8,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import com.allmycoins.PrivateConfig;
-import com.allmycoins.balance.cosmos.CosmosProvider;
+import com.allmycoins.balance.cosmosjs.CosmosJsProvider;
 import com.allmycoins.json.BalanceJson;
 
 final class CosmosProviderTest {
@@ -17,7 +17,7 @@ final class CosmosProviderTest {
 	void testBalances() {
 		PrivateConfig.loadConfigurationFromClassLoader();
 
-		CosmosProvider cosmosProvider = new CosmosProvider();
+		CosmosJsProvider cosmosProvider = new CosmosJsProvider("COSMOS_ADDRESS", "cosmos", "uatom", "ATOM");
 		List<BalanceJson> balance = cosmosProvider.balances();
 		assertEquals(1, balance.size());
 
@@ -32,9 +32,8 @@ final class CosmosProviderTest {
 	void testNoBalances() {
 		PrivateConfig.clearConfiguration();
 
-		CosmosProvider cosmosProvider = new CosmosProvider();
+		CosmosJsProvider cosmosProvider = new CosmosJsProvider("COSMOS_ADDRESS", "cosmos", "uatom", "ATOM");
 		List<BalanceJson> balance = cosmosProvider.balances();
 		assertTrue(balance.isEmpty());
 	}
-
 }
