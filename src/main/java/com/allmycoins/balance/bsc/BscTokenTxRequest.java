@@ -3,10 +3,11 @@ package com.allmycoins.balance.bsc;
 import java.util.Collections;
 import java.util.Map;
 
+import com.allmycoins.balance.etherscan.TokenTxResultJson;
 import com.allmycoins.request.GetRequest;
 import com.allmycoins.utils.RequestUtils;
 
-public final class BscTokenTxRequest implements GetRequest<BscTokenTxResultJson> {
+public final class BscTokenTxRequest implements GetRequest<TokenTxResultJson> {
 
 	private final String bscAddress;
 
@@ -30,8 +31,8 @@ public final class BscTokenTxRequest implements GetRequest<BscTokenTxResultJson>
 	}
 
 	@Override
-	public Class<BscTokenTxResultJson> jsonResponseClass() {
-		return BscTokenTxResultJson.class;
+	public Class<TokenTxResultJson> jsonResponseClass() {
+		return TokenTxResultJson.class;
 	}
 
 	@Override

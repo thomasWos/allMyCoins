@@ -3,10 +3,11 @@ package com.allmycoins.balance.bsc;
 import java.util.Collections;
 import java.util.Map;
 
+import com.allmycoins.balance.etherscan.SingleBalanceJson;
 import com.allmycoins.request.GetRequest;
 import com.allmycoins.utils.RequestUtils;
 
-public final class BnbBalanceRequest implements GetRequest<BnbBalanceJson> {
+public final class BnbBalanceRequest implements GetRequest<SingleBalanceJson> {
 
 	private final String bscAddress;
 
@@ -30,8 +31,8 @@ public final class BnbBalanceRequest implements GetRequest<BnbBalanceJson> {
 	}
 
 	@Override
-	public Class<BnbBalanceJson> jsonResponseClass() {
-		return BnbBalanceJson.class;
+	public Class<SingleBalanceJson> jsonResponseClass() {
+		return SingleBalanceJson.class;
 	}
 
 	@Override

@@ -3,15 +3,15 @@ package com.allmycoins.balance.avalanche;
 import java.util.Collections;
 import java.util.Map;
 
-import com.allmycoins.balance.etherscan.SingleBalanceJson;
+import com.allmycoins.balance.etherscan.TokenTxResultJson;
 import com.allmycoins.request.GetRequest;
 import com.allmycoins.utils.RequestUtils;
 
-public final class AvalancheBalanceRequest implements GetRequest<SingleBalanceJson> {
+public final class AvalancheTokenTxRequest implements GetRequest<TokenTxResultJson> {
 
 	private final String address;
 
-	public AvalancheBalanceRequest(String pAddress) {
+	public AvalancheTokenTxRequest(String pAddress) {
 		address = pAddress;
 	}
 
@@ -31,13 +31,13 @@ public final class AvalancheBalanceRequest implements GetRequest<SingleBalanceJs
 	}
 
 	@Override
-	public Class<SingleBalanceJson> jsonResponseClass() {
-		return SingleBalanceJson.class;
+	public Class<TokenTxResultJson> jsonResponseClass() {
+		return TokenTxResultJson.class;
 	}
 
 	@Override
 	public String parameters() {
-		return RequestUtils.buildParameters(Map.of("module", "account", "action", "balance", "address", address));
+		return RequestUtils.buildParameters(Map.of("module", "account", "action", "tokentx", "address", address));
 	}
 
 }

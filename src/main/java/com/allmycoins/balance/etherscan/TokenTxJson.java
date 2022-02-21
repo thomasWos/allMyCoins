@@ -1,11 +1,11 @@
-package com.allmycoins.balance.bsc;
+package com.allmycoins.balance.etherscan;
 
 import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BscTokenTxJson {
+public final class TokenTxJson {
 
 	private String from;
 	private String to;
@@ -31,9 +31,5 @@ public class BscTokenTxJson {
 
 	public BigDecimal getValue() {
 		return value;
-	}
-
-	public void setTokenDecimal(int tokenDecimal) {
-		this.tokenDecimal = tokenDecimal;
 	}
 }

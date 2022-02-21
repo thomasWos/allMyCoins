@@ -1,4 +1,4 @@
-package com.allmycoins.balance.bsc;
+package com.allmycoins.balance.etherscan;
 
 import java.util.List;
 import java.util.Map;
@@ -8,26 +8,24 @@ import java.util.stream.Collectors;
 import com.allmycoins.json.BalanceJson;
 import com.allmycoins.utils.BigDecimalUtils;
 
-public final class BuildBscBalance {
+public final class TxToBalances {
 
-	public static BalanceJson build(BnbBalanceJson bnbBalanceJson) {
-		float qty = BigDecimalUtils.decimal18(bnbBalanceJson.getResult());
-		return new BalanceJson("BNB", qty, "BSC wallet");
-	}
+	public static final List<BalanceJson> txToBalances(TokenTxResultJson tokenTxResultJson, String address,
+			String networkSrc) {
+		List<TokenTxJson> toTx = tokenTxResultJson.getResult().stream().filter(t -> address.equalsIgnoreCase(t.getTo()))
+				.collect(Collectors.toList());
 
-	public static List<BalanceJson> build(BscTokenTxResultJson tokenTxResultJson, String address) {
+		Function<TokenTxJson, BalanceJson> toBalanceJson = tx -> new BalanceJson(tx.getTokenSymbol(),
+				BigDecimalUtils.decimal(tx.getValue(), tx.getTokenDecimal()), networkSrc);
 
-		List<BscTokenTxJson> toTx = tokenTxResultJson.getResult().stream()
-				.filter(t -> address.equalsIgnoreCase(t.getTo())).collect(Collectors.toList());
-
-		Map<String, BalanceJson> toTxMap = toTx.stream().map(BuildBscBalance::toBalanceJson)
+		Map<String, BalanceJson> toTxMap = toTx.stream().map(toBalanceJson)
 				.collect(Collectors.toMap(BalanceJson::getAsset, Function.identity(),
 						(b1, b2) -> new BalanceJson(b1.getAsset(), b1.getQty() + b2.getQty(), b1.getSrc())));
 
-		List<BscTokenTxJson> fromTx = tokenTxResultJson.getResult().stream()
+		List<TokenTxJson> fromTx = tokenTxResultJson.getResult().stream()
 				.filter(t -> address.equalsIgnoreCase(t.getFrom())).collect(Collectors.toList());
 
-		Map<String, BalanceJson> fromTxMap = fromTx.stream().map(BuildBscBalance::toBalanceJson)
+		Map<String, BalanceJson> fromTxMap = fromTx.stream().map(toBalanceJson)
 				.collect(Collectors.toMap(BalanceJson::getAsset, Function.identity(),
 						(b1, b2) -> new BalanceJson(b1.getAsset(), b1.getQty() + b2.getQty(), b1.getSrc())));
 
@@ -38,11 +36,6 @@ public final class BuildBscBalance {
 		});
 
 		return toTxMap.values().stream().filter(b -> b.getQty() > 0.0f).collect(Collectors.toList());
-	}
-
-	private static BalanceJson toBalanceJson(BscTokenTxJson tx) {
-		return new BalanceJson(tx.getTokenSymbol(), BigDecimalUtils.decimal(tx.getValue(), tx.getTokenDecimal()),
-				"BSC wallet");
 	}
 
 }
