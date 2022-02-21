@@ -12,10 +12,10 @@ import com.allmycoins.PrivateConfig;
 import com.allmycoins.balance.cosmosjs.CosmosJsProvider;
 import com.allmycoins.json.BalanceJson;
 
-final class CosmosProviderTest {
+final class IrisnetProviderTest {
 
-	private static final Supplier<CosmosJsProvider> GET_PROVIDER = () -> new CosmosJsProvider("COSMOS_ADDRESS",
-			"cosmos", "uatom", "ATOM");
+	private static final Supplier<CosmosJsProvider> GET_PROVIDER = () -> new CosmosJsProvider("IRISNET_ADDRESS", "iris",
+			"uiris", "IRIS");
 
 	@Test
 	void testBalances() {
@@ -27,8 +27,8 @@ final class CosmosProviderTest {
 
 		BalanceJson balance = balances.get(0);
 
-		assertEquals("ATOM", balance.getAsset());
-		assertEquals("cosmos wallet", balance.getSrc());
+		assertEquals("IRIS", balance.getAsset());
+		assertEquals("iris wallet", balance.getSrc());
 		assertTrue(balance.getQty() >= 0.0f);
 	}
 
