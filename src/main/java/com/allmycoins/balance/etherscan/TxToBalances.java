@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import com.allmycoins.exception.AllMyCoinsException;
 import com.allmycoins.json.BalanceJson;
 import com.allmycoins.utils.BigDecimalUtils;
 
@@ -12,7 +13,13 @@ public final class TxToBalances {
 
 	public static final List<BalanceJson> txToBalances(TokenTxResultJson tokenTxResultJson, String address,
 			String networkSrc) {
-		List<TokenTxJson> toTx = tokenTxResultJson.getResult().stream().filter(t -> address.equalsIgnoreCase(t.getTo()))
+		List<TokenTxJson> result = tokenTxResultJson.getResult();
+
+		if (result == null) {
+			throw new AllMyCoinsException("Token balances retrieval failed.");
+		}
+
+		List<TokenTxJson> toTx = result.stream().filter(t -> address.equalsIgnoreCase(t.getTo()))
 				.collect(Collectors.toList());
 
 		Function<TokenTxJson, BalanceJson> toBalanceJson = tx -> new BalanceJson(tx.getTokenSymbol(),
@@ -22,8 +29,8 @@ public final class TxToBalances {
 				.collect(Collectors.toMap(BalanceJson::getAsset, Function.identity(),
 						(b1, b2) -> new BalanceJson(b1.getAsset(), b1.getQty() + b2.getQty(), b1.getSrc())));
 
-		List<TokenTxJson> fromTx = tokenTxResultJson.getResult().stream()
-				.filter(t -> address.equalsIgnoreCase(t.getFrom())).collect(Collectors.toList());
+		List<TokenTxJson> fromTx = result.stream().filter(t -> address.equalsIgnoreCase(t.getFrom()))
+				.collect(Collectors.toList());
 
 		Map<String, BalanceJson> fromTxMap = fromTx.stream().map(toBalanceJson)
 				.collect(Collectors.toMap(BalanceJson::getAsset, Function.identity(),
@@ -31,8 +38,11 @@ public final class TxToBalances {
 
 		fromTxMap.forEach((asset, fromBalance) -> {
 			BalanceJson balance = toTxMap.get(asset);
-			BalanceJson newBalance = new BalanceJson(asset, balance.getQty() - fromBalance.getQty(), balance.getSrc());
-			toTxMap.put(asset, newBalance);
+			if (balance != null) {
+				BalanceJson newBalance = new BalanceJson(asset, balance.getQty() - fromBalance.getQty(),
+						balance.getSrc());
+				toTxMap.put(asset, newBalance);
+			}
 		});
 
 		return toTxMap.values().stream().filter(b -> b.getQty() > 0.0f).collect(Collectors.toList());

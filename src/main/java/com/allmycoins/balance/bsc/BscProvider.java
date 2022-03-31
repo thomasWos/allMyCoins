@@ -28,8 +28,8 @@ public final class BscProvider implements PublicAddressBalanceProvider {
 		TokenTxResultJson tokenTxResultJson = FutureUtils.futureResult(futuretokenTxResultJson);
 
 		BalanceJson singleBalance = new BalanceJson("BNB", BigDecimalUtils.decimal18(bnbBalanceJson.getResult()),
-				"BSC");
-		List<BalanceJson> tokenBalances = TxToBalances.txToBalances(tokenTxResultJson, publicAddress, "BSC");
+				"BSC wallet");
+		List<BalanceJson> tokenBalances = TxToBalances.txToBalances(tokenTxResultJson, publicAddress, "BSC wallet");
 
 		List<BalanceJson> balances = new ArrayList<>();
 		balances.add(singleBalance);
