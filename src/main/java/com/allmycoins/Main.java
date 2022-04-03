@@ -36,6 +36,7 @@ import com.allmycoins.balance.ethereum2.Eth2Provider;
 import com.allmycoins.balance.harmony.HarmonyProvider;
 import com.allmycoins.balance.litecoin.LitecoinProvider;
 import com.allmycoins.balance.okex.OkexProvider;
+import com.allmycoins.balance.osmosis.OsmosisProvider;
 import com.allmycoins.balance.polkadot.PolkadotProvider;
 import com.allmycoins.balance.solana.SolanaProvider;
 import com.allmycoins.balance.swyftx.SwyftxProvider;
@@ -91,6 +92,7 @@ public class Main {
 
 		balanceProviders.addAll(staticProviders);
 		balanceProviders.addAll(CosmosJsProviders.providers());
+		balanceProviders.add(new OsmosisProvider());
 
 		List<BalanceJson> allMyCoins = new ArrayList<>();
 		List<AllMyCoinsException> errors = new ArrayList<>();
