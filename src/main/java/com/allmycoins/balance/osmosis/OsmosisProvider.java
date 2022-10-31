@@ -5,21 +5,28 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import com.allmycoins.balance.PublicAddressBalanceProvider;
 import com.allmycoins.balance.cosmosjs.CosmosJsBalanceJson;
 import com.allmycoins.balance.cosmosjs.CosmosJsProvider;
 import com.allmycoins.json.BalanceJson;
+import com.allmycoins.utils.RequestUtils;
 
 public final class OsmosisProvider implements PublicAddressBalanceProvider {
 
 	private static final String TOKEN = "OSMO";
+
+	/* From https://docs.osmosis.zone/osmosis-core/asset-info/. */
 	private static final Map<String, String> IBC_DENOM_TO_SYMBOL_MAP = new HashMap<>();
 
 	static {
+		IBC_DENOM_TO_SYMBOL_MAP.put("uosmo", "OSMO");
 		IBC_DENOM_TO_SYMBOL_MAP.put("ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2", "ATOM");
-		IBC_DENOM_TO_SYMBOL_MAP.put("ibc/0EF15DF2F02480ADE0BB6E85D9EBB5DAEA2836D3860E9F97F9AADE4F57A31AA0", "LUNA");
+		IBC_DENOM_TO_SYMBOL_MAP.put("ibc/0EF15DF2F02480ADE0BB6E85D9EBB5DAEA2836D3860E9F97F9AADE4F57A31AA0", "LUNC");
 		IBC_DENOM_TO_SYMBOL_MAP.put("ibc/E6931F78057F7CC5DA0FD6CEF82FF39373A6E0452BF1FD76910B93292CF356C1", "CRO");
 		IBC_DENOM_TO_SYMBOL_MAP.put("ibc/BE1BB42D4BE3C30D50B68D7C41DB4DFCE9678E8EF8C539F6E6A9345048894FCC", "UST");
 		IBC_DENOM_TO_SYMBOL_MAP.put("ibc/0954E1C28EB7AF5B72D24F3BC2B47BBB2FDF91BDDFD57B74B99E133AED40972A", "SCRT");
@@ -41,13 +48,24 @@ public final class OsmosisProvider implements PublicAddressBalanceProvider {
 		IBC_DENOM_TO_SYMBOL_MAP.put("ibc/B547DC9B897E7C3AA5B824696110B8E3D2C31E3ED3F02FF363DCBAD82457E07E", "XKI");
 		IBC_DENOM_TO_SYMBOL_MAP.put("ibc/3BCCC93AD5DF58D11A6F8A05FA8BC801CBA0BA61A981F57E91B8B598BF8061CB", "MED");
 		IBC_DENOM_TO_SYMBOL_MAP.put("ibc/E6931F78057F7CC5DA0FD6CEF82FF39373A6E0452BF1FD76910B93292CF356C1", "BOOT");
-		IBC_DENOM_TO_SYMBOL_MAP.put("ibc/FE2CD1E6828EC0FAB8AF39BAC45BC25B965BA67CCBC50C13A14BD610B0D1E2C4", "CMDX");
+		IBC_DENOM_TO_SYMBOL_MAP.put("ibc/EA3E1640F9B1532AB129A571203A0B9F789A7F14BB66E350DCBFA18E1A1931F0", "CMDX");
 		IBC_DENOM_TO_SYMBOL_MAP.put("ibc/7A08C6F11EF0F59EB841B9F788A87EC9F2361C7D9703157EC13D940DC53031FA", "CHEQ");
 		IBC_DENOM_TO_SYMBOL_MAP.put("ibc/987C17B11ABC2B20019178ACE62929FE9840202CE79498E29FE8E5CB02B7C0A4", "STARS");
 		IBC_DENOM_TO_SYMBOL_MAP.put("ibc/B9E0A1A524E98BB407D3CED8720EFEFD186002F90C1B1B7964811DD0CCC12228", "HUAHUA");
 	}
 
 	private static final String PRIVATE_CONFIG_KEY = "OSMOSIS_ADDRESS";
+
+	/*
+	 * Tokens representing share in a LP pool are named gamm/pool/X where X is the
+	 * pool index.
+	 */
+	private static final String POOL_LP_DENOM = "gamm/pool/";
+
+	private static final Predicate<CosmosJsBalanceJson> LP_TOKEN_PREDICATE = b -> b.getDenom().contains(POOL_LP_DENOM);
+
+	private static final Function<CosmosJsBalanceJson, Integer> TO_POOL_INDEX = b -> Integer
+			.valueOf(b.getDenom().substring(POOL_LP_DENOM.length()));
 
 	@Override
 	public final List<BalanceJson> balance(String publicAddress) {
@@ -60,7 +78,7 @@ public final class OsmosisProvider implements PublicAddressBalanceProvider {
 
 		/*
 		 * Contains the full answer from the balances request - also contains all the
-		 * other coins held on that OSMO address.
+		 * other coins held on that OSMO address - either simple coins, or LP coins.
 		 */
 		CosmosJsBalanceJson[] cosmosJsBalances = osmosisBalanceProvider.getCosmosJsBalances();
 
@@ -73,8 +91,24 @@ public final class OsmosisProvider implements PublicAddressBalanceProvider {
 				.map(e -> new BalanceJson(IBC_DENOM_TO_SYMBOL_MAP.get(e.getKey()), CosmosJsProvider.toQty(e.getValue()),
 						TOKEN + " wallet"))
 				.collect(Collectors.toList());
-
 		balances.addAll(otherCoinsBalances);
+
+		/* Map containing the liquid LP tokens of the account, per pool index. */
+		Map<Integer, BigDecimal> poolIndexToLpAmountMap = Arrays.stream(cosmosJsBalances).filter(LP_TOKEN_PREDICATE)
+				.collect(Collectors.toMap(TO_POOL_INDEX, CosmosJsBalanceJson::getAmount));
+
+		Map<Integer, BigDecimal> poolIndexToLockedLpAmountMap = requestLockedCoins(publicAddress);
+
+		poolIndexToLockedLpAmountMap.forEach((index, amount) -> {
+			if (poolIndexToLpAmountMap.containsKey(index)) {
+				poolIndexToLpAmountMap.merge(index, amount, BigDecimal::add);
+			} else {
+				poolIndexToLpAmountMap.put(index, amount);
+			}
+		});
+
+		poolIndexToLpAmountMap.entrySet().forEach(e -> balances.addAll(requestPoolInfo(e)));
+
 		return balances;
 	}
 
@@ -83,4 +117,26 @@ public final class OsmosisProvider implements PublicAddressBalanceProvider {
 		return PRIVATE_CONFIG_KEY;
 	}
 
+	private Map<Integer, BigDecimal> requestLockedCoins(String publicAddress) {
+		var lockedCoinsJson = RequestUtils.sendRequest(new OsmosisLockedCoinsRequest(publicAddress));
+		return Arrays.stream(lockedCoinsJson.getCoins())
+				.collect(Collectors.toMap(TO_POOL_INDEX, CosmosJsBalanceJson::getAmount));
+	}
+
+	private List<BalanceJson> requestPoolInfo(Entry<Integer, BigDecimal> pool) {
+		Float poolAmount = CosmosJsProvider.toQty(pool.getValue());
+
+		OsmosisPoolInfoJson poolInfoJson = RequestUtils
+				.sendRequest(new OsmosisPoolInfoRequest(Integer.toString(pool.getKey())));
+
+		Float poolTotalAmount = CosmosJsProvider.toQty(poolInfoJson.getPool().getTotalShares().getAmount());
+
+		Float poolShare = poolAmount / poolTotalAmount;
+		return Arrays.asList(poolInfoJson.getPool().getPoolAssets()).stream().map(PoolAssetJson::getToken)
+				.map(poolAsset -> {
+					String coinSymbol = IBC_DENOM_TO_SYMBOL_MAP.get(poolAsset.getDenom());
+					Float coinAmount = CosmosJsProvider.toQty(poolAsset.getAmount()) * poolShare;
+					return new BalanceJson(coinSymbol, coinAmount, "OSMO LP");
+				}).collect(Collectors.toList());
+	}
 }
