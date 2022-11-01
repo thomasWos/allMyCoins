@@ -46,7 +46,7 @@ public final class CosmosJsProvider implements PublicAddressSingleBalanceProvide
 		float delegationQty = requestDelegation(publicAddress);
 		float rewardQty = requestReward(publicAddress);
 
-		return new BalanceJson(token, qty + delegationQty + rewardQty, token + " wallet");
+		return new BalanceJson(token, qty + delegationQty + rewardQty, network + " wallet");
 	}
 
 	public final CosmosJsBalanceJson[] getCosmosJsBalances() {
