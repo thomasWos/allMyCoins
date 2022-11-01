@@ -1,13 +1,14 @@
 package com.allmycoins.balance.algorand;
 
+import java.math.BigDecimal;
+
 import com.allmycoins.json.BalanceJson;
 import com.allmycoins.utils.BigDecimalUtils;
 
-public final class BuildAlgorandBalance {
+final class BuildAlgorandBalance {
 
-	public static BalanceJson build(AlgorandBalanceJson algorandBalanceJson) {
-		float qty = BigDecimalUtils.decimal(algorandBalanceJson.getBalance(), 6);
+	static final BalanceJson build(AlgorandBalanceJson algorandBalanceJson) {
+		float qty = BigDecimalUtils.decimal(BigDecimal.valueOf(algorandBalanceJson.getAmount()), 6);
 		return new BalanceJson("ALGO", qty, "Algorand wallet");
 	}
-
 }

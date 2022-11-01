@@ -1,16 +1,14 @@
 package com.allmycoins.balance.algorand;
 
-import java.math.BigDecimal;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public final class AlgorandBalanceJson {
 
-	private BigDecimal balance;
+	private int amount;
 
-	public BigDecimal getBalance() {
-		return balance;
+	public int getAmount() {
+		return amount;
 	}
 
 }
