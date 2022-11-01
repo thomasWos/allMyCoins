@@ -10,12 +10,12 @@ import org.junit.jupiter.api.Test;
 
 import com.allmycoins.PrivateConfig;
 import com.allmycoins.balance.cosmosjs.CosmosJsProvider;
+import com.allmycoins.balance.cosmosjs.CosmosJsProviders;
 import com.allmycoins.json.BalanceJson;
 
 final class JunoProviderTest {
 
-	private static final Supplier<CosmosJsProvider> GET_PROVIDER = () -> new CosmosJsProvider("JUNO_ADDRESS", "juno",
-			"ujuno", "JUNO");
+	private static final Supplier<CosmosJsProvider> GET_PROVIDER = () -> CosmosJsProviders.JUNO_PROVIDER;
 
 	@Test
 	void testBalances() {
@@ -28,7 +28,7 @@ final class JunoProviderTest {
 		BalanceJson balance = balances.get(0);
 
 		assertEquals("JUNO", balance.getAsset());
-		assertEquals("juno wallet", balance.getSrc());
+		assertEquals("Juno wallet", balance.getSrc());
 		assertTrue(balance.getQty() >= 0.0f);
 	}
 

@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 import com.allmycoins.balance.PublicAddressBalanceProvider;
 import com.allmycoins.balance.cosmosjs.CosmosJsBalanceJson;
 import com.allmycoins.balance.cosmosjs.CosmosJsProvider;
+import com.allmycoins.balance.cosmosjs.CosmosJsProviders;
 import com.allmycoins.json.BalanceJson;
 import com.allmycoins.utils.RequestUtils;
 
@@ -73,7 +74,8 @@ public final class OsmosisProvider implements PublicAddressBalanceProvider {
 		 * The CosmosJs provider retrieves OSMO balance on the account, as well as the
 		 * delegation and rewards.
 		 */
-		CosmosJsProvider osmosisBalanceProvider = new CosmosJsProvider(PRIVATE_CONFIG_KEY, "osmosis", "uosmo", TOKEN);
+		CosmosJsProvider osmosisBalanceProvider = new CosmosJsProvider(PRIVATE_CONFIG_KEY, "Osmosis", "uosmo", TOKEN,
+				CosmosJsProviders.LCD_COSMOSSTATION_BUILDER);
 		List<BalanceJson> balances = osmosisBalanceProvider.balances();
 
 		/*
