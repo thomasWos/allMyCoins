@@ -36,11 +36,13 @@ import com.allmycoins.balance.ethereum2.Eth2Provider;
 import com.allmycoins.balance.harmony.HarmonyProvider;
 import com.allmycoins.balance.litecoin.LitecoinProvider;
 import com.allmycoins.balance.okex.OkexProvider;
+import com.allmycoins.balance.osmosis.OsmosisProvider;
 import com.allmycoins.balance.polkadot.PolkadotProvider;
 import com.allmycoins.balance.solana.SolanaProvider;
 import com.allmycoins.balance.swyftx.SwyftxProvider;
 import com.allmycoins.balance.tezos.TezosProvider;
 import com.allmycoins.business.BuildBalancesResult;
+import com.allmycoins.datatype.Asset;
 import com.allmycoins.datatype.CoingeckoMarket;
 import com.allmycoins.exception.AllMyCoinsException;
 import com.allmycoins.json.BalanceJson;
@@ -51,6 +53,7 @@ import com.allmycoins.presentation.Console;
 import com.allmycoins.request.coingecko.CoingeckoCoinsListRequest;
 import com.allmycoins.request.coingecko.CoingeckoMarketsRequest;
 import com.allmycoins.request.coingecko.CoingeckoSimplePriceRequest;
+import com.allmycoins.utils.ExportUtils;
 import com.allmycoins.utils.FutureUtils;
 import com.allmycoins.utils.JacksonUtils;
 import com.allmycoins.utils.RequestUtils;
@@ -89,6 +92,7 @@ public class Main {
 
 		balanceProviders.addAll(staticProviders);
 		balanceProviders.addAll(CosmosJsProviders.providers());
+		balanceProviders.add(new OsmosisProvider());
 
 		List<BalanceJson> allMyCoins = new ArrayList<>();
 		List<AllMyCoinsException> errors = new ArrayList<>();
@@ -135,6 +139,9 @@ public class Main {
 
 		var balancesResult = BuildBalancesResult.build(allMyCoins, marketMap);
 		Console.display(balancesResult, currency);
+
+		ExportUtils.exportCsv(balancesResult.getAssets().stream().sorted(Asset.ASSET_COMP)
+				.filter(Asset.ASSET_NOT_WORTH_ZERO).map(Asset::getBalance).collect(Collectors.toList()));
 
 		errors.forEach(e -> System.out.println(e.getMessage()));
 	}
