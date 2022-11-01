@@ -35,5 +35,4 @@ final class ElrondProviderTest {
 		List<BalanceJson> balance = elrondProvider.balances();
 		assertTrue(balance.isEmpty());
 	}
-
 }
