@@ -1,7 +1,5 @@
 package com.allmycoins.balance.cardano;
 
-import java.math.BigDecimal;
-
 import com.allmycoins.balance.PublicAddressSingleBalanceProvider;
 import com.allmycoins.json.BalanceJson;
 import com.allmycoins.utils.BigDecimalUtils;
@@ -17,9 +15,7 @@ public final class CardanoProvider implements PublicAddressSingleBalanceProvider
 	@Override
 	public BalanceJson singleBalance(String stakeKey) {
 		CardanoBalanceJson balanceJson = RequestUtils.sendRequest(new CardanoAccountRequest(stakeKey));
-		String balance = balanceJson.getInfo()[2];
-		BigDecimal balanceDecimal = new BigDecimal(balance);
-		float qty = BigDecimalUtils.decimal(balanceDecimal, 6);
+		float qty = BigDecimalUtils.decimal(balanceJson.getControlled_amount(), 6);
 		return new BalanceJson("ADA", qty, "Cardano wallet");
 	}
 

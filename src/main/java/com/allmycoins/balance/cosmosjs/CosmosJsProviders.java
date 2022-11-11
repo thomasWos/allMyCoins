@@ -17,8 +17,10 @@ public final class CosmosJsProviders {
 	public static final CosmosJsProvider IRISNET_PROVIDER = new CosmosJsProvider("IRISNET_ADDRESS", "Iris", "uiris",
 			"IRIS", LCD_COSMOSSTATION_BUILDER);
 
-	public static final CosmosJsProvider JUNO_PROVIDER = new CosmosJsProvider("JUNO_ADDRESS", "Juno", "ujuno", "JUNO",
-			LCD_COSMOSSTATION_BUILDER);
+	// Temporarily disabled
+//	public static final CosmosJsProvider JUNO_PROVIDER = new CosmosJsProvider("JUNO_ADDRESS", "Juno", "ujuno", "JUNO",
+//			LCD_COSMOSSTATION_BUILDER);
+
 	public static final CosmosJsProvider COMDEX_PROVIDER = new CosmosJsProvider("COMDEX_ADDRESS", "Comdex", "ucmdx",
 			"CMDX", LCD_COSMOSSTATION_BUILDER);
 
@@ -41,8 +43,8 @@ public final class CosmosJsProviders {
 			"DSM", LCD_COSMOSSTATION_BUILDER);
 
 	private static final List<CosmosJsProvider> PROVIDERS = List.of(COSMOS_PROVIDER, AKASH_PROVIDER, IRISNET_PROVIDER,
-			JUNO_PROVIDER, COMDEX_PROVIDER, CHIHUAHA_PROVIDER, STARGAZE_PROVIDER, REGEN_PROVIDER, EMONEY_PROVIDER,
-			LUM_PROVIDER, DESMOS_PROVIDER);
+			COMDEX_PROVIDER, CHIHUAHA_PROVIDER, STARGAZE_PROVIDER, REGEN_PROVIDER, EMONEY_PROVIDER, LUM_PROVIDER,
+			DESMOS_PROVIDER);
 
 	public static final List<CosmosJsProvider> providers() {
 		return PROVIDERS;
