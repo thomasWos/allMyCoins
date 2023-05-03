@@ -1,26 +1,26 @@
-package com.allmycoins.balance.osmosis;
+package com.allmycoins.balance.multiversx;
 
 import java.util.Collections;
 import java.util.Map;
 
 import com.allmycoins.request.GetRequest;
 
-final class OsmosisLockedCoinsRequest implements GetRequest<OsmosisLockedCoinsJson> {
+public final class MultiversXAddressBalanceRequest implements GetRequest<MultiversXBalanceRequestJson> {
 
 	private final String address;
 
-	OsmosisLockedCoinsRequest(String pAddress) {
+	public MultiversXAddressBalanceRequest(String pAddress) {
 		address = pAddress;
 	}
 
 	@Override
 	public String baseUrl() {
-		return "https://lcd.osmosis.zone";
+		return "https://api.multiversx.com";
 	}
 
 	@Override
 	public String endPoint() {
-		return "/osmosis/lockup/v1beta1/account_locked_coins/" + address;
+		return "/address/" + address + "/balance";
 	}
 
 	@Override
@@ -29,8 +29,8 @@ final class OsmosisLockedCoinsRequest implements GetRequest<OsmosisLockedCoinsJs
 	}
 
 	@Override
-	public Class<OsmosisLockedCoinsJson> jsonResponseClass() {
-		return OsmosisLockedCoinsJson.class;
+	public Class<MultiversXBalanceRequestJson> jsonResponseClass() {
+		return MultiversXBalanceRequestJson.class;
 	}
 
 	@Override

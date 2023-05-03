@@ -14,10 +14,13 @@ import com.allmycoins.utils.RequestUtils;
 
 public final class CosmosJsProvider implements PublicAddressSingleBalanceProvider {
 
+	public static final String COSMOS_DIRECTORY_BASE_URL = "https://rest.cosmos.directory/";
+
 	public final Predicate<CosmosJsBalanceJson> BALANCE_TOKEN_PREDICATE = b -> b.getDenom().equals(denom());
 
 	private final String privateConfigKey;
 	private final String network;
+	private final String baseUrl;
 	private final String denom;
 	private final String token;
 
@@ -29,10 +32,15 @@ public final class CosmosJsProvider implements PublicAddressSingleBalanceProvide
 		denom = pDenom;
 		token = pToken;
 		cosmosJsBalances = null;
+		baseUrl = COSMOS_DIRECTORY_BASE_URL + pNetwork.toLowerCase();
 	}
 
 	private String denom() {
 		return denom;
+	}
+
+	String network() {
+		return network;
 	}
 
 	@Override
@@ -46,7 +54,7 @@ public final class CosmosJsProvider implements PublicAddressSingleBalanceProvide
 		float delegationQty = requestDelegation(publicAddress);
 		float rewardQty = requestReward(publicAddress);
 
-		return new BalanceJson(token, qty + delegationQty + rewardQty, token + " wallet");
+		return new BalanceJson(token, qty + delegationQty + rewardQty, network + " wallet");
 	}
 
 	public final CosmosJsBalanceJson[] getCosmosJsBalances() {
@@ -54,7 +62,7 @@ public final class CosmosJsProvider implements PublicAddressSingleBalanceProvide
 	}
 
 	private float requestBalance(String publicAddress) {
-		var bankJson = RequestUtils.sendRequest(new CosmosJsBankRequest(network, publicAddress));
+		var bankJson = RequestUtils.sendRequest(new CosmosJsBankRequest(baseUrl, publicAddress));
 		cosmosJsBalances = bankJson.getBalances();
 		BigDecimal amount = Arrays.stream(cosmosJsBalances).filter(BALANCE_TOKEN_PREDICATE)
 				.map(CosmosJsBalanceJson::getAmount).reduce(ZERO, BIG_DECIMAL_SUM);
@@ -62,14 +70,14 @@ public final class CosmosJsProvider implements PublicAddressSingleBalanceProvide
 	}
 
 	private float requestDelegation(String publicAddress) {
-		var delegationsJson = RequestUtils.sendRequest(new CosmosJsDelegationsRequest(network, publicAddress));
+		var delegationsJson = RequestUtils.sendRequest(new CosmosJsDelegationsRequest(baseUrl, publicAddress));
 		BigDecimal delegationBalance = Arrays.stream(delegationsJson.getDelegation_responses())
 				.map(r -> r.getBalance().getAmount()).reduce(ZERO, BIG_DECIMAL_SUM);
 		return toQty(delegationBalance);
 	}
 
 	private float requestReward(String publicAddress) {
-		var rewardJson = RequestUtils.sendRequest(new CosmosJsRewardRequest(network, publicAddress));
+		var rewardJson = RequestUtils.sendRequest(new CosmosJsRewardRequest(baseUrl, publicAddress));
 		BigDecimal reward = Arrays.stream(rewardJson.getTotal()).filter(BALANCE_TOKEN_PREDICATE)
 				.map(CosmosJsBalanceJson::getAmount).reduce(ZERO, BIG_DECIMAL_SUM);
 		return toQty(reward);

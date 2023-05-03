@@ -1,11 +1,11 @@
-package com.allmycoins.balance.elrond;
+package com.allmycoins.balance.multiversx;
 
 import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public final class ElrondDelegationJson {
+public final class MultiversXDelegationJson {
 
 	private BigDecimal userActiveStake;
 	private BigDecimal claimableRewards;

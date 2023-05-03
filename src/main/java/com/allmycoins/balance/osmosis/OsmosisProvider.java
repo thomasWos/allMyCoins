@@ -73,7 +73,7 @@ public final class OsmosisProvider implements PublicAddressBalanceProvider {
 		 * The CosmosJs provider retrieves OSMO balance on the account, as well as the
 		 * delegation and rewards.
 		 */
-		CosmosJsProvider osmosisBalanceProvider = new CosmosJsProvider(PRIVATE_CONFIG_KEY, "osmosis", "uosmo", TOKEN);
+		CosmosJsProvider osmosisBalanceProvider = new CosmosJsProvider(PRIVATE_CONFIG_KEY, "Osmosis", "uosmo", TOKEN);
 		List<BalanceJson> balances = osmosisBalanceProvider.balances();
 
 		/*

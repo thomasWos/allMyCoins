@@ -1,6 +1,5 @@
 package com.allmycoins.balance.cardano;
 
-import java.util.Collections;
 import java.util.Map;
 
 import com.allmycoins.request.GetRequest;
@@ -15,17 +14,17 @@ public class CardanoAccountRequest implements GetRequest<CardanoBalanceJson> {
 
 	@Override
 	public String baseUrl() {
-		return "https://adastat.net";
+		return "https://cardano-mainnet.blockfrost.io";
 	}
 
 	@Override
 	public String endPoint() {
-		return "/rest/v0/account/" + stakeKey + ".json";
+		return "/api/v0/accounts/" + stakeKey;
 	}
 
 	@Override
 	public Map<String, String> headers() {
-		return Collections.emptyMap();
+		return Map.of("project_id", "mainnetO5Scj0VnBmzmARDmNbbFWT9LKljABDM3");
 	}
 
 	@Override

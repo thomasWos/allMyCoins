@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.allmycoins.request.GetRequest;
 
-public final class AlgorandAccountRequest implements GetRequest<AlgorandBalanceJson> {
+final class AlgorandAccountRequest implements GetRequest<AlgorandBalanceJson> {
 
 	private final String algorandAddress;
 
@@ -15,12 +15,12 @@ public final class AlgorandAccountRequest implements GetRequest<AlgorandBalanceJ
 
 	@Override
 	public String baseUrl() {
-		return "https://api.algoexplorer.io";
+		return "https://node.algoexplorerapi.io";
 	}
 
 	@Override
 	public String endPoint() {
-		return "/v1/account/" + algorandAddress;
+		return "/v2/accounts/" + algorandAddress;
 	}
 
 	@Override

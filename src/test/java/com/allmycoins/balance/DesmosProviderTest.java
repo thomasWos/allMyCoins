@@ -10,12 +10,12 @@ import org.junit.jupiter.api.Test;
 
 import com.allmycoins.PrivateConfig;
 import com.allmycoins.balance.cosmosjs.CosmosJsProvider;
+import com.allmycoins.balance.cosmosjs.CosmosJsProviders;
 import com.allmycoins.json.BalanceJson;
 
 final class DesmosProviderTest {
 
-	private static final Supplier<CosmosJsProvider> GET_PROVIDER = () -> new CosmosJsProvider("DESMOS_ADDRESS",
-			"desmos", "udsm", "DSM");
+	private static final Supplier<CosmosJsProvider> GET_PROVIDER = () -> CosmosJsProviders.DESMOS_PROVIDER;
 
 	@Test
 	void testBalances() {
@@ -28,7 +28,7 @@ final class DesmosProviderTest {
 		BalanceJson balance = balances.get(0);
 
 		assertEquals("DSM", balance.getAsset());
-		assertEquals("desmos wallet", balance.getSrc());
+		assertEquals("Desmos wallet", balance.getSrc());
 		assertTrue(balance.getQty() >= 0.0f);
 	}
 

@@ -7,17 +7,17 @@ import com.allmycoins.request.GetRequest;
 
 final class CosmosJsBankRequest implements GetRequest<CosmosJsBankJson> {
 
-	private final String network;
+	private final String baseUrl;
 	private final String address;
 
-	CosmosJsBankRequest(String pNetwork, String pAddress) {
-		network = pNetwork;
+	CosmosJsBankRequest(String pBaseUrl, String pAddress) {
+		baseUrl = pBaseUrl;
 		address = pAddress;
 	}
 
 	@Override
 	public String baseUrl() {
-		return "https://lcd-" + network + ".cosmostation.io";
+		return baseUrl;
 	}
 
 	@Override

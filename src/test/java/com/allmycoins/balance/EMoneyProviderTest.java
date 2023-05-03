@@ -10,12 +10,12 @@ import org.junit.jupiter.api.Test;
 
 import com.allmycoins.PrivateConfig;
 import com.allmycoins.balance.cosmosjs.CosmosJsProvider;
+import com.allmycoins.balance.cosmosjs.CosmosJsProviders;
 import com.allmycoins.json.BalanceJson;
 
 final class EMoneyProviderTest {
 
-	private static final Supplier<CosmosJsProvider> GET_PROVIDER = () -> new CosmosJsProvider("EMONEY_ADDRESS",
-			"emoney", "ungm", "NGM");
+	private static final Supplier<CosmosJsProvider> GET_PROVIDER = () -> CosmosJsProviders.EMONEY_PROVIDER;
 
 	@Test
 	void testBalances() {
@@ -28,7 +28,7 @@ final class EMoneyProviderTest {
 		BalanceJson balance = balances.get(0);
 
 		assertEquals("NGM", balance.getAsset());
-		assertEquals("emoney wallet", balance.getSrc());
+		assertEquals("EMoney wallet", balance.getSrc());
 		assertTrue(balance.getQty() >= 0.0f);
 	}
 
