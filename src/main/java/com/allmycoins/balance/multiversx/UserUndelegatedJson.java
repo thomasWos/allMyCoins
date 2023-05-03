@@ -1,4 +1,4 @@
-package com.allmycoins.balance.elrond;
+package com.allmycoins.balance.multiversx;
 
 import java.math.BigDecimal;
 
