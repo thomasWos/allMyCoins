@@ -28,7 +28,7 @@ final class CosmosProviderTest {
 		BalanceJson balance = balances.get(0);
 
 		assertEquals("ATOM", balance.getAsset());
-		assertEquals("Cosmos wallet", balance.getSrc());
+		assertEquals("CosmosHub wallet", balance.getSrc());
 		assertTrue(balance.getQty() >= 0.0f);
 	}
 

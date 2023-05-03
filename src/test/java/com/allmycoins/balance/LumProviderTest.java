@@ -28,7 +28,7 @@ final class LumProviderTest {
 		BalanceJson balance = balances.get(0);
 
 		assertEquals("LUM", balance.getAsset());
-		assertEquals("Lum wallet", balance.getSrc());
+		assertEquals("LumNetwork wallet", balance.getSrc());
 		assertTrue(balance.getQty() >= 0.0f);
 	}
 

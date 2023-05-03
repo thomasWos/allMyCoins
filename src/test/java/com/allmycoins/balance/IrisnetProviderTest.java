@@ -28,7 +28,7 @@ final class IrisnetProviderTest {
 		BalanceJson balance = balances.get(0);
 
 		assertEquals("IRIS", balance.getAsset());
-		assertEquals("Iris wallet", balance.getSrc());
+		assertEquals("IrisNet wallet", balance.getSrc());
 		assertTrue(balance.getQty() >= 0.0f);
 	}
 

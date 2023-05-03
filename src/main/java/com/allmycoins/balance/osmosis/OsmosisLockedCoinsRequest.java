@@ -15,7 +15,7 @@ final class OsmosisLockedCoinsRequest implements GetRequest<OsmosisLockedCoinsJs
 
 	@Override
 	public String baseUrl() {
-		return "https://lcd-osmosis.cosmostation.io";
+		return "https://lcd.osmosis.zone";
 	}
 
 	@Override

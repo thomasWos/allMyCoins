@@ -5,7 +5,6 @@ import static java.math.BigDecimal.ZERO;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
-import java.util.function.Function;
 import java.util.function.Predicate;
 
 import com.allmycoins.balance.PublicAddressSingleBalanceProvider;
@@ -14,6 +13,8 @@ import com.allmycoins.utils.BigDecimalUtils;
 import com.allmycoins.utils.RequestUtils;
 
 public final class CosmosJsProvider implements PublicAddressSingleBalanceProvider {
+
+	public static final String COSMOS_DIRECTORY_BASE_URL = "https://rest.cosmos.directory/";
 
 	public final Predicate<CosmosJsBalanceJson> BALANCE_TOKEN_PREDICATE = b -> b.getDenom().equals(denom());
 
@@ -25,14 +26,13 @@ public final class CosmosJsProvider implements PublicAddressSingleBalanceProvide
 
 	private CosmosJsBalanceJson[] cosmosJsBalances;
 
-	public CosmosJsProvider(String pPrivateConfigKey, String pNetwork, String pDenom, String pToken,
-			Function<CosmosJsProvider, String> pBaseUrlBuilder) {
+	public CosmosJsProvider(String pPrivateConfigKey, String pNetwork, String pDenom, String pToken) {
 		privateConfigKey = pPrivateConfigKey;
 		network = pNetwork;
 		denom = pDenom;
 		token = pToken;
 		cosmosJsBalances = null;
-		baseUrl = pBaseUrlBuilder.apply(this);
+		baseUrl = COSMOS_DIRECTORY_BASE_URL + pNetwork.toLowerCase();
 	}
 
 	private String denom() {
