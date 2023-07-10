@@ -1,9 +1,10 @@
 package com.allmycoins.balance.ethereum2;
 
+import static com.allmycoins.utils.RequestUtils.DEFAULT_JSON_HEADER;
+
 import java.util.Map;
 
 import com.allmycoins.request.GetRequest;
-import com.allmycoins.utils.RequestUtils;
 
 final class Eth2BalanceRequest implements GetRequest<Eth2BalanceJson> {
 
@@ -25,7 +26,7 @@ final class Eth2BalanceRequest implements GetRequest<Eth2BalanceJson> {
 
 	@Override
 	public Map<String, String> headers() {
-		return RequestUtils.DEFAULT_JSON_HEADER;
+		return DEFAULT_JSON_HEADER;
 	}
 
 	@Override

@@ -1,10 +1,11 @@
 package com.allmycoins.balance.solana;
 
+import static com.allmycoins.utils.RequestUtils.DEFAULT_JSON_HEADER;
+
 import java.util.Map;
 
 import com.allmycoins.request.PostRequest;
 import com.allmycoins.utils.JacksonUtils;
-import com.allmycoins.utils.RequestUtils;
 
 public final class SolanaBalanceRequest implements PostRequest<SolanaBalanceJson> {
 
@@ -32,7 +33,7 @@ public final class SolanaBalanceRequest implements PostRequest<SolanaBalanceJson
 
 	@Override
 	public Map<String, String> headers() {
-		return RequestUtils.DEFAULT_JSON_HEADER;
+		return DEFAULT_JSON_HEADER;
 	}
 
 	@Override
