@@ -1,4 +1,4 @@
-package com.allmycoins.balance.ethereum;
+package com.allmycoins.balance.covalent;
 
 import java.math.BigDecimal;
 

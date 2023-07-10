@@ -1,4 +1,4 @@
-package com.allmycoins.balance.ethereum;
+package com.allmycoins.balance.covalent;
 
 import java.util.Map;
 
@@ -6,10 +6,12 @@ import com.allmycoins.request.GetRequest;
 
 public final class CovalentBalancesRequest implements GetRequest<CovalentBalancesJson> {
 
-	private final String ethAddress;
+	private final String network;
+	private final String publicAddress;
 
-	public CovalentBalancesRequest(String pEthAddress) {
-		ethAddress = pEthAddress;
+	public CovalentBalancesRequest(final String pNetwork, final String pPublicAddress) {
+		network = pNetwork;
+		publicAddress = pPublicAddress;
 	}
 
 	@Override
@@ -19,7 +21,7 @@ public final class CovalentBalancesRequest implements GetRequest<CovalentBalance
 
 	@Override
 	public String endPoint() {
-		return "/v1/eth-mainnet/address/" + ethAddress + "/balances_v2/";
+		return "/v1/" + network + "/address/" + publicAddress + "/balances_v2/";
 	}
 
 	@Override
