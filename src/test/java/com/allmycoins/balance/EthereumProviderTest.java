@@ -8,7 +8,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import com.allmycoins.PrivateConfig;
-import com.allmycoins.balance.ethereum.EthProvider2;
+import com.allmycoins.balance.ethereum.EthProvider;
 import com.allmycoins.json.BalanceJson;
 
 class EthereumProviderTest {
@@ -17,7 +17,7 @@ class EthereumProviderTest {
 	void testBalances() {
 		PrivateConfig.loadConfigurationFromClassLoader();
 
-		EthProvider2 ethereumProvider = new EthProvider2();
+		EthProvider ethereumProvider = new EthProvider();
 		List<BalanceJson> balance = ethereumProvider.balances();
 		assertTrue(balance.size() >= 1);
 		BalanceJson ethereumBalanceJson = balance.get(0);
@@ -31,7 +31,7 @@ class EthereumProviderTest {
 	void testNoBalances() {
 		PrivateConfig.clearConfiguration();
 
-		EthProvider2 ethereumProvider = new EthProvider2();
+		EthProvider ethereumProvider = new EthProvider();
 		List<BalanceJson> balance = ethereumProvider.balances();
 		assertTrue(balance.isEmpty());
 	}
