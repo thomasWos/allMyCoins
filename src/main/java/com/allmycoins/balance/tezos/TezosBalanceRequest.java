@@ -8,13 +8,16 @@ import com.allmycoins.request.GetRequest;
 public class TezosBalanceRequest implements GetRequest<TezosBalanceJson> {
 	private final String address;
 
+	/* API key created with a personal account on tzpro.com. */
+	private static final String MY_API_KEY = "FW05FXESQ3P1TLJOSIJM6T58CWYADX5";
+
 	public TezosBalanceRequest(String pTezosAddress) {
 		address = pTezosAddress;
 	}
 
 	@Override
 	public String baseUrl() {
-		return "https://api.tzstats.com";
+		return "https://api.tzpro.io";
 	}
 
 	@Override
@@ -34,7 +37,7 @@ public class TezosBalanceRequest implements GetRequest<TezosBalanceJson> {
 
 	@Override
 	public String parameters() {
-		return "";
+		return "api_key=" + MY_API_KEY;
 	}
 
 }
