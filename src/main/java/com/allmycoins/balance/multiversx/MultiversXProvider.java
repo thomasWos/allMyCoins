@@ -5,43 +5,65 @@ import static java.math.BigDecimal.ZERO;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
-import java.util.concurrent.Future;
+import java.util.List;
+import java.util.stream.Collectors;
 
-import com.allmycoins.balance.PublicAddressSingleBalanceProvider;
+import com.allmycoins.balance.PublicAddressBalanceProvider;
 import com.allmycoins.json.BalanceJson;
 import com.allmycoins.utils.BigDecimalUtils;
-import com.allmycoins.utils.FutureUtils;
 import com.allmycoins.utils.RequestUtils;
 
-public final class MultiversXProvider implements PublicAddressSingleBalanceProvider {
+public final class MultiversXProvider implements PublicAddressBalanceProvider {
 
 	@Override
 	public String privateConfigKey() {
 		return "MULTIVERSX_ADDRESS";
 	}
 
-	@Override
-	public BalanceJson singleBalance(String publicAddress) {
-		Future<MultiversXBalanceRequestJson> multiversXBalanceRequestJsonF = RequestUtils
-				.sendRequestFuture(new MultiversXAddressBalanceRequest(publicAddress));
+	private BalanceJson getEgldBalance(String publicAddress) {
+		BigDecimal egldWalletBalance = getEgldWalletBalance(publicAddress);
+		BigDecimal delegationBalance = getEgldDelegationBalance(publicAddress);
 
-		Future<MultiversXDelegationJson[]> multiversXDelegationsJsonF = RequestUtils
-				.sendRequestFuture(new MultiversXDelegationsRequest(publicAddress));
-
-		var multiversXBalanceRequestJson = FutureUtils.futureResult(multiversXBalanceRequestJsonF);
-		MultiversXDelegationJson[] multiversXDelegationsJson = FutureUtils.futureResult(multiversXDelegationsJsonF);
-
-		BigDecimal delegation = Arrays.stream(multiversXDelegationsJson).map(this::sumBalances).reduce(ZERO,
-				BIG_DECIMAL_SUM);
-
-		BigDecimal allEGLDs = multiversXBalanceRequestJson.getData().getBalance().add(delegation);
+		BigDecimal allEGLDs = egldWalletBalance.add(delegationBalance);
 		float qty = BigDecimalUtils.decimal18(allEGLDs);
-		return new BalanceJson("EGLD", qty, "MultiversX wallet");
+
+		return new BalanceJson("EGLD", qty, "MVX W");
+	}
+
+	private List<BalanceJson> getEgldWalletEsdtBalances(String publicAddress) {
+		MultiversXEsdtBalanceJson[] esdtBalanceJsons = RequestUtils
+				.sendRequest(new MultiversXEsdtBalancesRequest(publicAddress));
+
+		return List.of(esdtBalanceJsons).stream().map(this::toBalanceJson).collect(Collectors.toList());
+	}
+
+	private BalanceJson toBalanceJson(MultiversXEsdtBalanceJson balance) {
+		ESDT esdt = ESDTs.getEsdt(balance.getTicker());
+		return new BalanceJson(esdt.getReferenceSymbol(),
+				BigDecimalUtils.decimal(balance.getBalance(), balance.getDecimals().intValue()), esdt.getSource());
+	}
+
+	private BigDecimal getEgldWalletBalance(String publicAddress) {
+		return RequestUtils.sendRequest(new MultiversXAddressBalanceRequest(publicAddress)).getData().getBalance();
+	}
+
+	private BigDecimal getEgldDelegationBalance(String publicAddress) {
+		MultiversXDelegationJson[] multiversXDelegationsJson = RequestUtils
+				.sendRequest(new MultiversXDelegationsRequest(publicAddress));
+		return Arrays.stream(multiversXDelegationsJson).map(this::sumBalances).reduce(ZERO, BIG_DECIMAL_SUM);
+
 	}
 
 	private BigDecimal sumBalances(MultiversXDelegationJson delegation) {
 		BigDecimal undelegated = Arrays.stream(delegation.getUserUndelegatedList()).map(UserUndelegatedJson::getAmount)
 				.reduce(ZERO, BIG_DECIMAL_SUM);
 		return delegation.getUserActiveStake().add(delegation.getClaimableRewards()).add(undelegated);
+	}
+
+	@Override
+	public List<BalanceJson> balance(String publicAddress) {
+		List<BalanceJson> balances = getEgldWalletEsdtBalances(publicAddress);
+		balances.add(0, getEgldBalance(publicAddress));
+		return balances;
 	}
 }

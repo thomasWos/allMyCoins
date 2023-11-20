@@ -49,6 +49,26 @@ AllMyCoins is a simple crypto portfolio manager.
 - <img src="https://assets.coingecko.com/coins/images/22009/small/lum.png?1640590072" alt="Lum" width="15"/> Lum
 - <img src="https://assets.coingecko.com/coins/images/22610/small/dsm.png?1643192656" alt="Desmos" width="15"/> Desmos
 
+##### MultiversX ecosystem
+* <img src="https://assets.coingecko.com/coins/images/12335/thumb_2x/Elrond.png" alt="Elrond" width="15"/> MultiversX
+From the public address, retrieves:
+* EGLD: wallet balance, staking delegation, WEGLD, SEGLD, HSEGLD (not deposited in collateral)
+* EDSTs:
+    - WBTC
+    - WETH
+    - USDC
+    - BUSD
+    - USDT
+    - MEX, XMEX
+    - UTK (+ staked on XExchange)
+    - HTM (+ staked on XExchange)
+    - ASH
+    - RIDE (+ staked on XExchange)
+    - ITHEUM (+ staked on XExchange)
+    - CRT (+ staked on XExchange)
+    - BHAT (+ staked on XExchange)
+    - ZPAY (+ staked on XExchange)
+
 ## Display
 
 <img src="doc/img/allMyCoinsWindow.png" alt="AllMyCoins Window" width="300"/>

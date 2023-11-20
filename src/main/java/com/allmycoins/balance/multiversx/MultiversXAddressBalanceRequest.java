@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.allmycoins.request.GetRequest;
 
-public final class MultiversXAddressBalanceRequest implements GetRequest<MultiversXBalanceRequestJson> {
+final class MultiversXAddressBalanceRequest implements GetRequest<MultiversXBalanceRequestJson> {
 
 	private final String address;
 
@@ -37,5 +37,4 @@ public final class MultiversXAddressBalanceRequest implements GetRequest<Multive
 	public String parameters() {
 		return "";
 	}
-
 }

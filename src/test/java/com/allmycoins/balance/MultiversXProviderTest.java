@@ -19,11 +19,11 @@ final class MultiversXProviderTest {
 
 		MultiversXProvider provider = new MultiversXProvider();
 		List<BalanceJson> balance = provider.balances();
-		assertEquals(1, balance.size());
+		assertTrue(balance.size() >= 1);
 		BalanceJson balanceJson = balance.get(0);
 
 		assertEquals("EGLD", balanceJson.getAsset());
-		assertEquals("MultiversX wallet", balanceJson.getSrc());
+		assertEquals("MVX W", balanceJson.getSrc());
 		assertTrue(balanceJson.getQty() >= 0.0f);
 	}
 

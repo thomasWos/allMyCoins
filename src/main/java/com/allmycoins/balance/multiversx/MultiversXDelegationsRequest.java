@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.allmycoins.request.GetRequest;
 
-public final class MultiversXDelegationsRequest implements GetRequest<MultiversXDelegationJson[]> {
+final class MultiversXDelegationsRequest implements GetRequest<MultiversXDelegationJson[]> {
 
 	private final String address;
 

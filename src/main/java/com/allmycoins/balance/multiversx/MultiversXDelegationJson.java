@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public final class MultiversXDelegationJson {
+final class MultiversXDelegationJson {
 
 	private BigDecimal userActiveStake;
 	private BigDecimal claimableRewards;
