@@ -6,13 +6,13 @@ enum ESDT {
 	/* BHAT. */
 	BHAT("BHAT", "BHAT-c1fde3"),
 	/* BTC. */
-	BTC("WBTC", "WBTC-5349b3"),
+	BTC("BTC", "WBTC", "WBTC-5349b3"),
 	/* BUSD. */
 	BUSD("BUSD", "BUSD-40b57e"),
 	/* CRT. */
 	CRT("CRT", "CRT-52decf"),
 	/* ETH. */
-	ETH("WETH", "WETH-b4ca29"),
+	ETH("ETH", "WETH", "WETH-b4ca29"),
 	/* HSEGLD - Deposited Hatom Staked EGLD. */
 	HSEGLD("EGLD", "HSEGLD", "HSEGLD-c13a4e", "HSEGLD"),
 	/* HTM. */
