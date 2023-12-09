@@ -23,16 +23,23 @@ public final class CosmosJsProvider implements PublicAddressSingleBalanceProvide
 	private final String baseUrl;
 	private final String denom;
 	private final String token;
+	private final boolean requestDelegation;
 
 	private CosmosJsBalanceJson[] cosmosJsBalances;
 
 	public CosmosJsProvider(String pPrivateConfigKey, String pNetwork, String pDenom, String pToken) {
+		this(pPrivateConfigKey, pNetwork, pDenom, pToken, true);
+	}
+
+	CosmosJsProvider(String pPrivateConfigKey, String pNetwork, String pDenom, String pToken,
+			boolean aRequestDelegation) {
 		privateConfigKey = pPrivateConfigKey;
 		network = pNetwork;
 		denom = pDenom;
 		token = pToken;
 		cosmosJsBalances = null;
 		baseUrl = COSMOS_DIRECTORY_BASE_URL + pNetwork.toLowerCase();
+		requestDelegation = aRequestDelegation;
 	}
 
 	private String denom() {
@@ -51,8 +58,8 @@ public final class CosmosJsProvider implements PublicAddressSingleBalanceProvide
 	@Override
 	public BalanceJson singleBalance(String publicAddress) {
 		float qty = requestBalance(publicAddress);
-		float delegationQty = requestDelegation(publicAddress);
-		float rewardQty = requestReward(publicAddress);
+		float delegationQty = requestDelegation ? requestDelegation(publicAddress) : 0;
+		float rewardQty = requestDelegation ? requestReward(publicAddress) : 0;
 
 		return new BalanceJson(token, qty + delegationQty + rewardQty, network + " wallet");
 	}

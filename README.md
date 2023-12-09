@@ -48,6 +48,8 @@ AllMyCoins is a simple crypto portfolio manager.
 - <img src="https://assets.coingecko.com/coins/images/13722/small/logo-200x200.jpg?1626095888" alt="E-Money" width="15"/> E-Money
 - <img src="https://assets.coingecko.com/coins/images/22009/small/lum.png?1640590072" alt="Lum" width="15"/> Lum
 - <img src="https://assets.coingecko.com/coins/images/22610/small/dsm.png?1643192656" alt="Desmos" width="15"/> Desmos
+- <img src="https://assets.coingecko.com/coins/images/30813/standard/ntrn.png?1696529669" alt="Neutron" width="15"/> Neutron
+- <img src="https://assets.coingecko.com/coins/images/31967/standard/tia.jpg?1696530772" alt="Celestia" width="15"/> Celestia
 
 ##### MultiversX ecosystem
 * <img src="https://assets.coingecko.com/coins/images/12335/thumb_2x/Elrond.png" alt="Elrond" width="15"/> MultiversX

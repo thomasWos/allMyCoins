@@ -35,9 +35,15 @@ public final class CosmosJsProviders {
 	public static final CosmosJsProvider DESMOS_PROVIDER = new CosmosJsProvider("DESMOS_ADDRESS", "Desmos", "udsm",
 			"DSM");
 
+	public static final CosmosJsProvider NEUTRON_PROVIDER = new CosmosJsProvider("NEUTRON_ADDRESS", "Neutron", "untrn",
+			"NTRN", false);
+
+	public static final CosmosJsProvider CELESTIA_PROVIDER = new CosmosJsProvider("CELESTIA_ADDRESS", "Celestia",
+			"utia", "TIA");
+
 	private static final List<CosmosJsProvider> PROVIDERS = List.of(COSMOS_PROVIDER, AKASH_PROVIDER, IRISNET_PROVIDER,
 			JUNO_PROVIDER, COMDEX_PROVIDER, CHIHUAHA_PROVIDER, STARGAZE_PROVIDER, REGEN_PROVIDER, EMONEY_PROVIDER,
-			LUM_PROVIDER, DESMOS_PROVIDER);
+			LUM_PROVIDER, DESMOS_PROVIDER, NEUTRON_PROVIDER, CELESTIA_PROVIDER);
 
 	public static final List<CosmosJsProvider> providers() {
 		return PROVIDERS;
