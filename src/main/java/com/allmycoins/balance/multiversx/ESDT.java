@@ -35,10 +35,14 @@ enum ESDT {
 	SITHEUM("ITHEUM", "SITHEUM", "SITHEUM-e05083"),
 	/* SRIDE. */
 	SRIDE("RIDE", "SRIDE", "SRIDE-4ab1d4", "Staked RIDE"),
+	/* STADA. */
+	STADA("TADA", "STADA", "STADA-833615", "Staked TADA"),
 	/* SUTK. */
 	SUTK("UTK", "SUTK", "SUTK-ba35f3", "Staked UTK"),
 	/* SZPAY. */
 	SZPAY("ZPAY", "SZPAY", "SZPAY-9f1b39", "Staked ZPAY"),
+	/* TADA. */
+	TADA("TADA", "TADA-5c032c"),
 	/* USDT. */
 	USDC("USDC", "USDC-c76f1f"),
 	/* USDT. */
@@ -49,7 +53,7 @@ enum ESDT {
 	WEGLD("EGLD", "WEGLD", "WEGLD-bd4d79"),
 	/* XMEX. */
 	XMEX("MEX", "XMEX", "XMEX-fda355"),
-	/* SZPAY. */
+	/* ZPAY. */
 	ZPAY("ZPAY", "ZPAY-247875");
 
 	/*

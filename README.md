@@ -70,6 +70,7 @@ From the public address, retrieves:
     - CRT (+ staked on XExchange)
     - BHAT (+ staked on XExchange)
     - ZPAY (+ staked on XExchange)
+    - TADA (+ staked on XExchange)
 
 ## Display
 
