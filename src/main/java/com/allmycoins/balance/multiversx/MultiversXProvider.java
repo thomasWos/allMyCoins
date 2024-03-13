@@ -62,8 +62,9 @@ public final class MultiversXProvider implements PublicAddressBalanceProvider {
 
 	@Override
 	public List<BalanceJson> balance(String publicAddress) {
-		List<BalanceJson> balances = getEgldWalletEsdtBalances(publicAddress);
-		balances.add(0, getEgldBalance(publicAddress));
-		return balances;
+		List<BalanceJson> esdtBalances = getEgldWalletEsdtBalances(publicAddress);
+		BalanceJson egldBalance = getEgldBalance(publicAddress);
+		esdtBalances.add(0, egldBalance);
+		return esdtBalances;
 	}
 }

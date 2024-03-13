@@ -36,7 +36,7 @@ enum ESDT {
 	/* SRIDE. */
 	SRIDE("RIDE", "SRIDE", "SRIDE-4ab1d4", "Staked RIDE"),
 	/* STADA. */
-	STADA("TADA", "STADA", "STADA-833615", "Staked TADA"),
+	STADA("TADA", "STADA-833615-168b", "STADA-833615", "Staked TADA"),
 	/* SUTK. */
 	SUTK("UTK", "SUTK", "SUTK-ba35f3", "Staked UTK"),
 	/* SZPAY. */
