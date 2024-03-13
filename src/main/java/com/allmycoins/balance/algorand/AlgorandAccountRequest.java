@@ -15,7 +15,7 @@ final class AlgorandAccountRequest implements GetRequest<AlgorandBalanceJson> {
 
 	@Override
 	public String baseUrl() {
-		return "https://node.algoexplorerapi.io";
+		return "https://mainnet-idx.algonode.cloud";
 	}
 
 	@Override
